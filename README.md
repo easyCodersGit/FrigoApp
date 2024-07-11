@@ -1,43 +1,56 @@
-# FrigoApp
+# <span style="color: #3CD9F5;">**FrigoApp**</span>
 
-## Descripción
+## <span style="color: #FA72BA;">**Description**</span>
 
-FrigoApp es una aplicación de gestión de inventario para tu nevera. Te ayuda a mantener un seguimiento de los alimentos que tienes, su fecha de caducidad, generar listas de compra automáticas y sugerencias de recetas basadas en los ingredientes disponibles.
+FrigoApp is an inventory management application for your refrigerator. It helps you keep track of the food you have, its expiration date, generate automatic shopping lists, and recipe suggestions based on available ingredients.
 
 ![](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExZjY1NmN5NnhsbGFxYms4YmlrZ2s3N2VkMzA1NG0wMnphN2JqaThkZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/f3p6ywrpDBbMPpcAH1/giphy.gif)
 
-## Funcional Description
+## <span style="color: #FA72BA;">**Functional Description**</span>
 
-### Use Cases
+### <span style="color: #FBCD8E;">**Use Cases**</span>
 
-#### Invitado
+#### <span style="color: #FBCD8E;">Guest</span>
 
-- Acceder a nevera de Invitados (limitación 20 productos)
-- Crear nevera (1) que se eliminará al salir de la app
-- Eliminar la nevera creada
-- Añadir/eliminar productos a la nevera de manera manual (versión 1)
-- Notificar productos próximos a caducar (alarma)
-- Acceder a la lista de los productos ordenados por fecha de caducidad
-- Acceder a producto por ubicación (cajón)
-- Mostrar lista de productos por cajón
-- Lista de compra generada automáticamente por alertas (cuando falte x producto )
-- Editar lista de la compra
-- Recetas sugeridas (versión 2 - Belén)
+- Access Guest fridge (limited to 20 products)
+- Create a fridge (1) that will be deleted upon exiting the app
+- Delete the created fridge
+- Manually add/remove products to/from the fridge (version 1)
+- Notify about products nearing expiration (alarm)
+- Access the list of products sorted by expiration date
+- Access product by location (drawer)
+- Display list of products by drawer
+- Automatically generated shopping list based on alerts (when a product is running low)
+- Edit shopping list
+- Suggested recipes (version 2 - Belén)
 
-## Tecnical Description
+#### <span style="color: #FBCD8E;">User</span>
 
-### Data Model
+- Access their refrigerators
+- Create/delete their refrigerators
+- Add/remove products to/from the refrigerator manually (version 1)
+- Notify about products nearing expiration (alarm)
+- Access the list of products sorted by expiration date
+- Access product by location (drawer)
+- Display list of products by drawer
+- Automatically generated shopping list based on alerts (when a product is running low)
+- Edit shopping list
+- Edit user profile
+- Shared refrigerators (version 2)
+- Suggested recipes (version 2 - Belén)
 
-Usuario
+## <span style="color: #FA72BA;">**Technical Description**</span>
+
+### <span style="color: #FBCD8E;">Data Model</span>
+
+#### <span style="color: #FBCD8E;">User</span>
 
 - id (String)
 - name (String)
 - email (String)
 - password (String)
 
-Invitado
-
-Producto
+#### <span style="color: #FBCD8E;">Product</span>
 
 - id (String)
 - name (String)
@@ -49,14 +62,14 @@ Producto
 - addedDate (Date)
 - purchased (boolean)
 
-Nevera
+#### <span style="color: #FBCD8E;">Fridge</span>
 
 - id (String)
 - userId (ObjectId)
 - cajones (array of cajon.id)
 - createdDate (Date)
 
-Cajón
+#### <span style="color: #FBCD8E;">Drawer</span>
 
 - id (String)
 - fridgeId (ObjectId)
@@ -64,7 +77,7 @@ Cajón
 - products (array of product.id)
 - createdDate (Date)
 
-Lista de compra
+#### <span style="color: #FBCD8E;">Shopping List</span>
 
 - id (ObjectId)
 - userId (ObjectId)
@@ -72,26 +85,18 @@ Lista de compra
 - items (array of product.id)
 - createdDate (Date)
 
-Recetas (version 2)
+#### <span style="color: #FBCD8E;">Recipes (version 2)</span>
 
-- {
-  "\_id": ObjectId,
-  "name": String,
-  "ingredients": [
-  {
-  "name": String,
-  "quantity": Number,
-  "unit": String
-  }
-  ],
-  "instructions": String,
-  "prepTime": Number, // in minutes
-  "cookTime": Number, // in minutes
-  "dietaryRestrictions": [String],
-  "userId": ObjectId
-  }
+- id (ObjectId)
+- userId (ObjectId)
+- name (String)
+- ingredients (array of product.id)
+- instructions (String)
+- prepTime (number)
+- cookTime (number)
+- dietaryRestrictions (String)
 
-Alarma
+#### <span style="color: #FBCD8E;">Alarm</span>
 
 - id (ObjectId)
 - userId (ObjectId)
