@@ -2,7 +2,7 @@
 
 ## <span style="color: #FA72BA;">**Description**</span>
 
-FrigoApp is an inventory management application for your refrigerator. It helps you keep track of the food you have, its expiration date, generate automatic shopping lists, and recipe suggestions based on available ingredients.
+FrigoApp is an inventory management application for your refrigerator. It helps you keep track of the food you have, its expiration date, generate automatic shopping lists, and recipe suggestions based on available ingredients!
 
 ![](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExZjY1NmN5NnhsbGFxYms4YmlrZ2s3N2VkMzA1NG0wMnphN2JqaThkZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/f3p6ywrpDBbMPpcAH1/giphy.gif)
 
