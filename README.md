@@ -104,3 +104,10 @@ FrigoApp is an inventory management application for your refrigerator. It helps 
 - alertType (enum) ['expiration', 'lowStock']
 - message (String)
 - alertDate (Date)
+
+### <span style="color: #FBCD8E;">Technologies</span>
+
+- Database: MongoDB
+- Backend: Node.js | Express
+- Frontend: HTML | React | Tailwind
+- Testing: Mocha y Chai
