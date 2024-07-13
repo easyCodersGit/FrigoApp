@@ -66,7 +66,7 @@ FrigoApp is an inventory management application for your refrigerator. It helps 
 
 - id (String)
 - userId (ObjectId)
-- cajones (array of cajon.id)
+- Drawers (array of drawer.id)
 - createdDate (Date)
 
 #### <span style="color: #FBCD8E;">Drawer</span>
