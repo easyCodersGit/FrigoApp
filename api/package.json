@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node .",
+    "watch": "node --watch .",
     "test": "jest",
     "inspect": "node --inspect-brk ."
   },
