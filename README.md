@@ -49,6 +49,7 @@ FrigoApp is an inventory management application for your refrigerator. It helps 
 - name (String)
 - email (String)
 - password (String)
+- fridges (array of fridge.id)
 
 #### <span style="color: #FBCD8E;">Product</span>
 
@@ -109,5 +110,5 @@ FrigoApp is an inventory management application for your refrigerator. It helps 
 
 - Database: MongoDB
 - Backend: Node.js | Express
-- Frontend: HTML | React | Tailwind
-- Testing: Mocha y Chai
+- Frontend: TypeScript | HTML | React Native | Tailwind
+- Testing: Jest
