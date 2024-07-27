@@ -1,10 +1,12 @@
-import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+dotenv.config();
+import mongoose from 'mongoose';
+
 import createUser from './createUser.js';
 import { User } from '../data/models.js';
 
 // Cargar las variables de entorno desde el archivo .env
-dotenv.config({ path: '../.env' });
+
 
 // Verificar que la URL de MongoDB esté disponible
 if (!process.env.MONGODB_URL) {
@@ -18,8 +20,8 @@ if (!process.env.MONGODB_URL) {
 
         // Datos de prueba
         const userData = {
-            name: 'Jane Doe',
-            email: 'jane.doe@example.com',
+            name: 'Tarzan Jungle',
+            email: 'tarzan.doe@example.com',
             password: 'password123',
         };
 
