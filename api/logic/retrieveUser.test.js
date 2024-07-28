@@ -1,35 +1,65 @@
-import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+dotenv.config();
+import mongoose from 'mongoose';
 import retrieveUser from './retrieveUser.js';
-
-// Cargar las variables de entorno desde el archivo .env en el directorio `api`
-dotenv.config({ path: '../.env' });
-
-console.log('MONGODB_URL:', process.env.MONGODB_URL);
-if (!process.env.MONGODB_URL) {
-    throw new Error('MONGODB_URL no está definida en el archivo .env');
-}
 
 (async () => {
     try {
-        console.log('Conectando a MongoDB...');
+        console.log('Connecting to MongoDB...');
         await mongoose.connect(process.env.MONGODB_URL);
-        console.log('Conexión a MongoDB Atlas exitosa');
+        console.log('Successfully connected to MongoDB Atlas');
 
         try {
-            console.log('Intentando recuperar usuario...');
-            const user = await retrieveUser('669806b8456c2f58be333986');
-            console.log('Usuario recuperado:', user);
+            console.log('Attempting to retrieve user...');
+            const user = await retrieveUser('66a4cbc4fb311e46c4a4ef5d'); // Asegúrate de usar el mismo ID que se generó
+            console.log('Retrieved user:', user);
         } catch (error) {
-            console.error('Error al recuperar el usuario:', error);
+            console.error('Error retrieving user:', error.message);
         }
     } catch (error) {
-        console.error('Error al conectar a MongoDB:', error);
+        console.error('Error connecting to MongoDB:', error.message);
     } finally {
-        console.log('Desconectando de MongoDB...');
+        console.log('Disconnecting from MongoDB...');
         await mongoose.disconnect();
     }
 })();
+
+
+
+
+
+// import mongoose from 'mongoose';
+// import dotenv from 'dotenv';
+// import retrieveUser from './retrieveUser.js';
+
+// // Cargar las variables de entorno desde el archivo .env en el directorio `api`
+// dotenv.config({ path: '../.env' });
+
+// console.log('MONGODB_URL:', process.env.MONGODB_URL);
+// if (!process.env.MONGODB_URL) {
+//     throw new Error('MONGODB_URL no está definida en el archivo .env');
+// }
+
+// (async () => {
+//     try {
+//         console.log('Conectando a MongoDB...');
+//         await mongoose.connect(process.env.MONGODB_URL);
+//         console.log('Conexión a MongoDB Atlas exitosa');
+
+//         try {
+//             console.log('Intentando recuperar usuario...');
+//             const user = await retrieveUser('669806b8456c2f58be333986');
+//             console.log('Usuario recuperado:', user);
+//         } catch (error) {
+//             console.error('Error al recuperar el usuario:', error);
+//         }
+//     } catch (error) {
+//         console.error('Error al conectar a MongoDB:', error);
+//     } finally {
+//         console.log('Desconectando de MongoDB...');
+//         await mongoose.disconnect();
+//     }
+// })();
 
 
 //////////////////// VERSION JEST //////////////////////

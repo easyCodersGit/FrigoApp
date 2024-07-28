@@ -1,16 +1,38 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import React, { useState } from 'react'
+import { View, Text, TextInput, Button, StyleSheet, Image } from 'react-native';
+import logic from '../logic'
 
 export function Main() {
+
+    const [userId, setUserId] = useState('')
+    const [message, setMessage] = useState('')
+
+    const handleCheckUser = async () => {
+        const userName = await logic.checkUser(userId)
+        if (userName) {
+            setMessage(`Welcome ${userName}`)
+        } else {
+            setMessage('Welcome stranger, please register')
+        }
+    }
+
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Esto es Main</Text>
+            <Text style={styles.text}>Welcome to FrigoApp</Text>
             <Image
                 source={require('../img/frigoAppCartoon.webp')}
                 style={styles.image}
             />
+            <TextInput
+                style={styles.input}
+                placeholder="Enter User ID"
+                value={userId}
+                onChangeText={setUserId}
+            />
+            <Button title="Check User" onPress={handleCheckUser} />
+            {message ? <Text style={styles.message}>{message}</Text> : null}
         </View>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
@@ -30,4 +52,4 @@ const styles = StyleSheet.create({
         height: 200,
         resizeMode: 'contain',
     },
-});
+})
