@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
+import { Link } from 'expo-router'
 import { View, Text, TextInput, Pressable, StyleSheet, Image } from 'react-native';
 import logic from '../logic'
+import { CircleInfoIcon } from './icons';
+
 
 export function Main() {
     const [userId, setUserId] = useState('')
@@ -48,6 +51,11 @@ export function Main() {
                 </Pressable>
                 {message ? <Text style={styles.message}>{message}</Text> : null}
             </View>
+            <Link asChild href="/about">
+                <Pressable>
+                    <CircleInfoIcon></CircleInfoIcon>
+                </Pressable>
+            </Link>
         </View>
     )
 }
