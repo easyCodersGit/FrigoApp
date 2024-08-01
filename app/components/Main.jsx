@@ -1,57 +1,84 @@
-import React, { useState } from 'react'
-import { View, Text, TextInput, Pressable, StyleSheet, Image } from 'react-native';
-import logic from '../logic'
+// Importaciones necesarias
+import React, { useState } from 'react';
+import { Link } from 'expo-router';
+import { View, Text, TextInput, Pressable, StyleSheet, ImageBackground } from 'react-native';
+import logic from '../logic';
+import { CircleInfoIcon } from './icons';
 
+// Componente principal
 export function Main() {
-    const [userId, setUserId] = useState('')
-    const [message, setMessage] = useState('')
-    const [isPressed, setIsPressed] = useState(false)
+    const [userId, setUserId] = useState('');
+    const [password, setPassword] = useState('');
+    const [message, setMessage] = useState('');
+    const [isPressed, setIsPressed] = useState(false);
 
     const handleCheckUser = async () => {
-        const userName = await logic.checkUser(userId)
+
+        const userName = await logic.checkUser(userId);
         if (userName) {
-            setMessage(`Welcome ${userName}`)
+            setMessage(`Welcome ${userName}`);
         } else {
-            setMessage('Welcome stranger, please register')
+            setMessage('Welcome stranger, please register');
         }
-    }
+    };
 
     return (
         <View style={styles.container}>
-            <Image
+            <ImageBackground
                 source={require('../img/fondoApp1.png')}
                 style={styles.backgroundImage}
                 resizeMode='cover'
             />
-            <Image
-                source={require('../img/frigolarga.png')}
-                style={styles.fridgeImage}
-                resizeMode='contain'
-            />
-            <View style={styles.overlay}>
-                {/* <Text style={styles.text}>Welcome to FrigoApp</Text> */}
-                <TextInput
-                    style={styles.input}
-                    placeholder="Enter User ID"
-                    value={userId}
-                    onChangeText={setUserId}
+            <View style={styles.imageContainer}>
+                <ImageBackground
+                    source={require('../img/frigolarga.png')}
+                    style={styles.fridgeImage}
+                    resizeMode='contain'
                 />
-                <Pressable
-                    onPress={handleCheckUser}
-                    onPressIn={() => setIsPressed(true)}
-                    onPressOut={() => setIsPressed(false)}
-                >
-                    <Image
-                        source={isPressed ? require('../img/checkUserButtonPressed.png') : require('../img/checkUserButton.png')}
-                        style={styles.buttonImage}
-                    />
-                </Pressable>
-                {message ? <Text style={styles.message}>{message}</Text> : null}
             </View>
+            <View style={styles.overlay}>
+                <ImageBackground
+                    source={require('../img/iman-polaroid-tibi.png')}
+                    style={styles.loginContainer}
+                    resizeMode='contain'
+                >
+                    {/* Formulario de inicio de sesión */}
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Enter Email"
+                        value={userId}
+                        onChangeText={setUserId}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Enter Password"
+                        value={password}
+                        onChangeText={setPassword}
+                        secureTextEntry={true}
+                    />
+                    <Pressable
+                        onPress={handleCheckUser}
+                        onPressIn={() => setIsPressed(true)}
+                        onPressOut={() => setIsPressed(false)}
+                    >
+                        <ImageBackground
+                            source={require('../img/botonLogin.png')}
+                            style={styles.buttonImage}
+                        />
+                    </Pressable>
+                    {message ? <Text style={styles.message}>{message}</Text> : null}
+                </ImageBackground>
+            </View>
+            <Link asChild href="/about">
+                <Pressable>
+                    <CircleInfoIcon />
+                </Pressable>
+            </Link>
         </View>
-    )
+    );
 }
 
+// Estilos
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -62,43 +89,55 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
     },
-    fridgeImage: {
-        position: 'absolute',
-        width: '100%', // increased size
-        height: '100%', // increased size
-        top: '50%',
-        left: '50%',
-        transform: [{ translateX: -200 }, { translateY: -450 }], // adjust to center the image
-    },
-    overlay: {
+    imageContainer: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(255, 255, 255, 0.45)',
     },
-    text: {
-        fontSize: 24,
-        color: '#000',
-        marginBottom: 20,
+    fridgeImage: {
+        width: '100%',
+        height: '100%',
+    },
+    overlay: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    loginContainer: {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: [{ translateX: -45 }, { translateY: -60 }],
+        width: 190,
+        height: 160,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     input: {
-        height: 40,
+        color: 'white',
+        fontSize: 12,
+        height: 30,
         borderColor: 'gray',
         borderWidth: 1,
-        marginTop: 100,
+        marginBottom: 5,
 
-        marginBottom: 20,
         paddingHorizontal: 10,
-        width: 130,
+        width: 110,
+        backgroundColor: 'rgba(65, 70, 70, 0.7)',
     },
     buttonImage: {
-        width: 150, // adjust the size as needed
-        height: 130, // adjust the size as needed
-        marginTop: 20,
+        width: 50,
+        height: 20,
+        // marginTop: 10,
+        top: '110%',
     },
     message: {
-        marginTop: 20,
+        marginTop: 10,
         fontSize: 18,
         color: '#000',
     },
-})
+});
