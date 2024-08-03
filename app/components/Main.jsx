@@ -13,7 +13,6 @@ export function Main() {
     const [isPressed, setIsPressed] = useState(false);
 
     const handleCheckUser = async () => {
-
         const userName = await logic.checkUser(userId);
         if (userName) {
             setMessage(`Welcome ${userName}`);
@@ -34,39 +33,57 @@ export function Main() {
                     source={require('../img/frigolarga.png')}
                     style={styles.fridgeImage}
                     resizeMode='contain'
-                />
-            </View>
-            <View style={styles.overlay}>
-                <ImageBackground
-                    source={require('../img/iman-polaroid-tibi.png')}
-                    style={styles.loginContainer}
-                    resizeMode='contain'
                 >
-                    {/* Formulario de inicio de sesión */}
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Enter Email"
-                        value={userId}
-                        onChangeText={setUserId}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Enter Password"
-                        value={password}
-                        onChangeText={setPassword}
-                        secureTextEntry={true}
-                    />
-                    <Pressable
-                        onPress={handleCheckUser}
-                        onPressIn={() => setIsPressed(true)}
-                        onPressOut={() => setIsPressed(false)}
-                    >
+                    {/* Contenido que forma parte de la nevera */}
+                    <View style={styles.overlay}>
                         <ImageBackground
-                            source={require('../img/botonLogin.png')}
-                            style={styles.buttonImage}
-                        />
-                    </Pressable>
-                    {message ? <Text style={styles.message}>{message}</Text> : null}
+                            source={require('../img/iman-polaroid-tibi.png')}
+                            style={styles.loginContainer}
+                            resizeMode='contain'
+                        >
+                            {/* Formulario de inicio de sesión */}
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Enter Email"
+                                value={userId}
+                                onChangeText={setUserId}
+                            />
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Enter Password"
+                                value={password}
+                                onChangeText={setPassword}
+                                secureTextEntry={true}
+                            />
+                            <Pressable
+                                onPress={handleCheckUser}
+                                onPressIn={() => setIsPressed(true)}
+                                onPressOut={() => setIsPressed(false)}
+                            >
+                                <ImageBackground
+                                    source={require('../img/botonLogin.png')}
+                                    style={styles.buttonImage}
+                                />
+                            </Pressable>
+                            {message ? <Text style={styles.message}>{message}</Text> : null}
+                        </ImageBackground>
+
+                        {/* Botones debajo del formulario */}
+                        <View style={styles.buttonRow}>
+                            <Pressable style={styles.buttonContainer}>
+                                <ImageBackground
+                                    source={require('../img/registerWoodButton.png')}
+                                    style={styles.registerButton}
+                                />
+                            </Pressable>
+                            <Pressable style={styles.buttonContainer}>
+                                <ImageBackground
+                                    source={require('../img/guestAsUser.png')}
+                                    style={styles.guestButton}
+                                />
+                            </Pressable>
+                        </View>
+                    </View>
                 </ImageBackground>
             </View>
             <Link asChild href="/about">
@@ -97,21 +114,16 @@ const styles = StyleSheet.create({
     fridgeImage: {
         width: '100%',
         height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     overlay: {
         position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
+        top: '40%',
         justifyContent: 'center',
         alignItems: 'center',
     },
     loginContainer: {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: [{ translateX: -45 }, { translateY: -60 }],
         width: 190,
         height: 160,
         justifyContent: 'center',
@@ -124,7 +136,6 @@ const styles = StyleSheet.create({
         borderColor: 'gray',
         borderWidth: 1,
         marginBottom: 5,
-
         paddingHorizontal: 10,
         width: 110,
         backgroundColor: 'rgba(65, 70, 70, 0.7)',
@@ -132,8 +143,23 @@ const styles = StyleSheet.create({
     buttonImage: {
         width: 50,
         height: 20,
-        // marginTop: 10,
         top: '110%',
+    },
+    buttonRow: {
+        flexDirection: 'row', // Coloca los botones en una fila
+        justifyContent: 'space-around', // Espacio entre los botones
+        marginTop: 20, // Espacio entre el formulario y los botones
+    },
+    buttonContainer: {
+        marginHorizontal: 10, // Espacio lateral entre botones
+    },
+    registerButton: {
+        width: 125, // Ajusta el tamaño del botón de registro según sea necesario
+        height: 25, // Ajusta el tamaño del botón de registro según sea necesario
+    },
+    guestButton: {
+        width: 100, // Ajusta el tamaño del botón de invitado según sea necesario
+        height: 100, // Ajusta el tamaño del botón de invitado según sea necesario
     },
     message: {
         marginTop: 10,
