@@ -1,7 +1,9 @@
 import retrieveUser from "./retrieveUser.js";
+import authenticateUser from "./authenticateUser.js";
 
 const logic = {
-    retrieveUser
+    retrieveUser,
+    authenticateUser
 }
 
 export default logic
