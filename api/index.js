@@ -10,7 +10,8 @@ import logic from './logic/index.js'
 
 import {
 
-    retrieveUserHandler
+    retrieveUserHandler,
+    authenticateUserHandler
 
 } from './handlers/index.js'
 
@@ -30,6 +31,10 @@ mongoose.connect(process.env.MONGODB_URL)
 
         // Retrieve User
         server.get('/users/:userId', retrieveUserHandler)
+
+        // Authenticate User
+        server.post('/users/auth', jsonBodyParser, authenticateUserHandler)
+
 
 
 

@@ -1,47 +1,48 @@
-// Importaciones necesarias
+// app/pages/Main.jsx
 import React, { useState } from 'react';
-import { Link } from 'expo-router';
+import { useRouter, Link } from 'expo-router';
 import { View, Text, TextInput, Pressable, StyleSheet, ImageBackground } from 'react-native';
-import logic from '../logic';
-import { CircleInfoIcon } from './icons';
+import loginUser from '../logic/loginUser';
+import { CircleInfoIcon } from '../components/icons';
 
-// Componente principal
+
 export function Main() {
-    const [userId, setUserId] = useState('');
-    const [password, setPassword] = useState('');
+    const [userId, setUserId] = useState('')
+    const [password, setPassword] = useState('')
     const [message, setMessage] = useState('');
-    const [isPressed, setIsPressed] = useState(false);
+    const [isPressed, setIsPressed] = useState(false)
 
-    const handleCheckUser = async () => {
-        const userName = await logic.checkUser(userId);
-        if (userName) {
-            setMessage(`Welcome ${userName}`);
-        } else {
-            setMessage('Welcome stranger, please register');
+    const router = useRouter()
+
+    const handleLogin = async () => {
+        try {
+            await loginUser(userId, password)
+            setMessage('Login successful!')
+            router.push('/Home')
+        } catch (error) {
+            console.error(error)
         }
-    };
+    }
 
     return (
         <View style={styles.container}>
             <ImageBackground
                 source={require('../img/fondoApp1.png')}
                 style={styles.backgroundImage}
-                resizeMode='cover'
+                resizeMode="cover"
             />
             <View style={styles.imageContainer}>
                 <ImageBackground
                     source={require('../img/frigolarga.png')}
                     style={styles.fridgeImage}
-                    resizeMode='contain'
+                    resizeMode="contain"
                 >
-                    {/* Contenido que forma parte de la nevera */}
                     <View style={styles.overlay}>
                         <ImageBackground
                             source={require('../img/iman-polaroid-tibi.png')}
                             style={styles.loginContainer}
-                            resizeMode='contain'
+                            resizeMode="contain"
                         >
-                            {/* Formulario de inicio de sesión */}
                             <TextInput
                                 style={styles.input}
                                 placeholder="Enter Email"
@@ -56,7 +57,7 @@ export function Main() {
                                 secureTextEntry={true}
                             />
                             <Pressable
-                                onPress={handleCheckUser}
+                                onPress={handleLogin}
                                 onPressIn={() => setIsPressed(true)}
                                 onPressOut={() => setIsPressed(false)}
                             >
@@ -68,7 +69,6 @@ export function Main() {
                             {message ? <Text style={styles.message}>{message}</Text> : null}
                         </ImageBackground>
 
-                        {/* Botones debajo del formulario */}
                         <View style={styles.buttonRow}>
                             <Pressable style={styles.buttonContainer}>
                                 <ImageBackground
@@ -95,7 +95,6 @@ export function Main() {
     );
 }
 
-// Estilos
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -146,20 +145,20 @@ const styles = StyleSheet.create({
         top: '110%',
     },
     buttonRow: {
-        flexDirection: 'row', // Coloca los botones en una fila
-        justifyContent: 'space-around', // Espacio entre los botones
-        marginTop: 20, // Espacio entre el formulario y los botones
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        marginTop: 20,
     },
     buttonContainer: {
-        marginHorizontal: 10, // Espacio lateral entre botones
+        marginHorizontal: 10,
     },
     registerButton: {
-        width: 125, // Ajusta el tamaño del botón de registro según sea necesario
-        height: 25, // Ajusta el tamaño del botón de registro según sea necesario
+        width: 125,
+        height: 25,
     },
     guestButton: {
-        width: 100, // Ajusta el tamaño del botón de invitado según sea necesario
-        height: 100, // Ajusta el tamaño del botón de invitado según sea necesario
+        width: 100,
+        height: 25,
     },
     message: {
         marginTop: 10,
