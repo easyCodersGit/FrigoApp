@@ -7,8 +7,8 @@ export default function Layout() {
         {/* <Text>Hola</Text> */}
         <Stack
             screenOptions={{
-                gestureEnabled: true, // Habilita los gestos
-                gestureDirection: 'horizontal', // Dirección del gesto
+                gestureEnabled: true,
+                gestureDirection: 'horizontal',
             }}
         />
     </View>

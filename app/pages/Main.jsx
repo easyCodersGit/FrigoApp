@@ -7,22 +7,22 @@ import { CircleInfoIcon } from '../components/icons';
 
 
 export function Main() {
-    const [userId, setUserId] = useState('');
-    const [password, setPassword] = useState('');
+    const [userId, setUserId] = useState('')
+    const [password, setPassword] = useState('')
     const [message, setMessage] = useState('');
-    const [isPressed, setIsPressed] = useState(false);
+    const [isPressed, setIsPressed] = useState(false)
 
-    const router = useRouter();
+    const router = useRouter()
 
     const handleLogin = async () => {
         try {
-            await loginUser(userId, password);
-            setMessage('Login successful!');
-            router.push('/Home');
+            await loginUser(userId, password)
+            setMessage('Login successful!')
+            router.push('/Home')
         } catch (error) {
-            setMessage(error.message);
+            console.error(error)
         }
-    };
+    }
 
     return (
         <View style={styles.container}>
