@@ -1,14 +1,18 @@
 // Importaciones necesarias
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Alert } from 'react-native';
 import session from '../logic/session';
 import checkUser from '../logic/checkUser';
 import { ButtonBlue } from '../components/buttons';
+import { LateralScroll } from '../components/LateralScroll'
+import { Input } from '../components/input'
+import { BackgroundImage } from '../components/background'
 
 export default function Home() {
 
     const [userName, setUserName] = useState('')
-    // const [message, setMessage] = useState('')
+
+
 
     const handlePress = () => {
         alert("Estas en Home")
@@ -30,13 +34,17 @@ export default function Home() {
 
     return (
         <View style={styles.container}>
+            <BackgroundImage></BackgroundImage>
             {userName ? (
                 <Text style={styles.welcomeText}>Welcome Home, {userName}</Text>
             ) : (
                 <Text style={styles.welcomeText}>Loading...</Text>
             )}
-            {/* {message && <Text style={styles.errorText}>{message}</Text>} */}
+
             <ButtonBlue label="Presiona Aquí" onPress={handlePress} />
+
+
+
         </View>
     )
 }

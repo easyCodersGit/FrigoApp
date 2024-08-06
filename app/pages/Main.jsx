@@ -1,22 +1,34 @@
 // app/pages/Main.jsx
-import React, { useState } from 'react';
-import { useRouter, Link } from 'expo-router';
-import { View, Text, TextInput, Pressable, StyleSheet, ImageBackground } from 'react-native';
-import loginUser from '../logic/loginUser';
-import { CircleInfoIcon } from '../components/icons';
-
+import React, { useState } from 'react'
+import { useRouter, Link } from 'expo-router'
+import { View, Text, TextInput, Pressable, StyleSheet, ImageBackground } from 'react-native'
+import loginUser from '../logic/loginUser'
+import { CircleInfoIcon } from '../components/icons'
+import { ButtonBlue, ButtonSecondary } from '../components/buttons'
+import { Input } from '../components/input'
+import { BackgroundImage } from '../components/background'
 
 export function Main() {
     const [userId, setUserId] = useState('')
+    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [message, setMessage] = useState('');
     const [isPressed, setIsPressed] = useState(false)
+
+    const handleRegister = () => {
+        alert("Este link te llevará al Register")
+        router.push('/Register')
+    }
+
+    const handleGuest = () => {
+        alert("Este link te llevará a la página de Invitado")
+    }
 
     const router = useRouter()
 
     const handleLogin = async () => {
         try {
-            await loginUser(userId, password)
+            await loginUser(email, password)
             setMessage('Login successful!')
             router.push('/Home')
         } catch (error) {
@@ -26,62 +38,40 @@ export function Main() {
 
     return (
         <View style={styles.container}>
-            <ImageBackground
-                source={require('../img/fondoApp1.png')}
-                style={styles.backgroundImage}
-                resizeMode="cover"
-            />
+
+            <BackgroundImage></BackgroundImage>
+
             <View style={styles.imageContainer}>
                 <ImageBackground
-                    source={require('../img/frigolarga.png')}
+                    source={require('../img/fondoConNombre.png')}
                     style={styles.fridgeImage}
                     resizeMode="contain"
                 >
                     <View style={styles.overlay}>
-                        <ImageBackground
-                            source={require('../img/iman-polaroid-tibi.png')}
-                            style={styles.loginContainer}
-                            resizeMode="contain"
-                        >
-                            <TextInput
-                                style={styles.input}
+                        <View style={styles.loginContainer}>
+                            <Input
                                 placeholder="Enter Email"
-                                value={userId}
-                                onChangeText={setUserId}
+                                value={email}
+                                onChangeText={setEmail}
+                                keyboardType="email-address"
                             />
-                            <TextInput
-                                style={styles.input}
+
+                            <Input
                                 placeholder="Enter Password"
                                 value={password}
                                 onChangeText={setPassword}
+                                keyboardType="email-password"
                                 secureTextEntry={true}
                             />
-                            <Pressable
-                                onPress={handleLogin}
-                                onPressIn={() => setIsPressed(true)}
-                                onPressOut={() => setIsPressed(false)}
-                            >
-                                <ImageBackground
-                                    source={require('../img/botonLogin.png')}
-                                    style={styles.buttonImage}
-                                />
-                            </Pressable>
-                            {message ? <Text style={styles.message}>{message}</Text> : null}
-                        </ImageBackground>
+
+
+                            <ButtonSecondary label="LOGIN" onPress={handleLogin} onPressIn={() => setIsPressed(true)}
+                                onPressOut={() => setIsPressed(false)} />
+                        </View>
 
                         <View style={styles.buttonRow}>
-                            <Pressable style={styles.buttonContainer}>
-                                <ImageBackground
-                                    source={require('../img/registerWoodButton.png')}
-                                    style={styles.registerButton}
-                                />
-                            </Pressable>
-                            <Pressable style={styles.buttonContainer}>
-                                <ImageBackground
-                                    source={require('../img/guestAsUser.png')}
-                                    style={styles.guestButton}
-                                />
-                            </Pressable>
+                            <ButtonBlue label="Register" onPress={handleRegister} />
+                            <ButtonBlue label="Enter as guest" onPress={handleGuest} />
                         </View>
                     </View>
                 </ImageBackground>
@@ -92,7 +82,7 @@ export function Main() {
                 </Pressable>
             </Link>
         </View>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
@@ -123,46 +113,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     loginContainer: {
-        width: 190,
-        height: 160,
+        width: 200,
+        height: 190,
         justifyContent: 'center',
         alignItems: 'center',
-    },
-    input: {
-        color: 'white',
-        fontSize: 12,
-        height: 30,
-        borderColor: 'gray',
-        borderWidth: 1,
-        marginBottom: 5,
-        paddingHorizontal: 10,
-        width: 110,
-        backgroundColor: 'rgba(65, 70, 70, 0.7)',
-    },
-    buttonImage: {
-        width: 50,
-        height: 20,
-        top: '110%',
     },
     buttonRow: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        marginTop: 20,
+        marginTop: 120,
     },
-    buttonContainer: {
-        marginHorizontal: 10,
-    },
-    registerButton: {
-        width: 125,
-        height: 25,
-    },
-    guestButton: {
-        width: 100,
-        height: 25,
-    },
-    message: {
-        marginTop: 10,
-        fontSize: 18,
-        color: '#000',
-    },
-});
+})

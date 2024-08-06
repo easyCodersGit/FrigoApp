@@ -1,9 +1,7 @@
-import React from 'react';
-import { StyleSheet, View, Pressable, Text } from "react-native";
+import React from 'react'
+import { StyleSheet, View, Pressable, Text } from "react-native"
 
 export function ButtonBlue({ label, onPress }) {
-
-
 
     return (
         <View style={styles.buttonContainer}>
@@ -12,7 +10,7 @@ export function ButtonBlue({ label, onPress }) {
                     styles.button,
                     pressed ? styles.buttonPressed : null,
                 ]}
-                onPress={onPress} // Usa la prop onPress para manejar el evento
+                onPress={onPress} //la segunda prop que le pasamos, cuando se presione, qué queremos que haga
             >
                 <Text style={styles.buttonLabel}>{label}</Text>
             </Pressable>
@@ -20,10 +18,26 @@ export function ButtonBlue({ label, onPress }) {
     );
 }
 
+export function ButtonSecondary({ label, onPress }) {
+    return (
+        <View style={styles.buttonSecondaryContainer}>
+            <Pressable
+                style={({ pressed }) => [
+                    styles.buttonSecondary,
+                    pressed ? styles.buttonSecondaryPressed : null,
+                ]}
+                onPress={onPress}
+            >
+                <Text style={styles.buttonSecondaryLabel}>{label}</Text>
+            </Pressable>
+        </View>
+    );
+}
+
 const styles = StyleSheet.create({
     buttonContainer: {
-        width: 150,
-        height: 48,
+        width: 130,
+        height: 35,
         marginHorizontal: 10,
         alignItems: 'center',
         justifyContent: 'center',
@@ -31,30 +45,62 @@ const styles = StyleSheet.create({
     },
     button: {
         borderRadius: 10,
-        borderWidth: 3,
-        borderColor: '#58c0de',
+        borderWidth: 2,
+        borderColor: '#9fced2',
         width: '100%',
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
-        backgroundColor: '#ffffff',
-        cursor: 'pointer', // Esto solo funcionará en React Native Web
+
+        cursor: 'pointer',
     },
 
     buttonIcon: {
         paddingRight: 8,
     },
     buttonLabel: {
-        color: '#58c0de',
-        fontSize: 18,
+        color: '#9fced2',
+        fontSize: 15,
     },
     buttonLabelPressed: {
-        color: '#ffffff', // Texto blanco cuando se presiona
+        color: '#ffffff',
     },
 
     buttonPressed: {
-        backgroundColor: '#58c0de',
-        // Azul cuando se presiona
+        backgroundColor: '#9fced2',
+
     },
-});
+
+    buttonSecondaryContainer: {
+        paddingTop: 40,
+        width: 130,
+        height: 70,
+        marginHorizontal: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 3,
+    },
+    buttonSecondary: {
+
+        borderRadius: 10,
+        borderWidth: 2,
+        backgroundColor: '#ff6347',
+        borderColor: '#ff6347',
+        width: '100%',
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        cursor: 'pointer',
+    },
+    buttonSecondaryLabel: {
+        color: 'white',
+        fontSize: 15,
+    },
+    buttonSecondaryPressed: {
+        backgroundColor: '#ff6347',
+    },
+})
+
+

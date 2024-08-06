@@ -1,7 +1,9 @@
-import checkUser from "./checkUser";
+import checkUser from "./checkUser"
+import loginUser from "./loginUser"
 
 const logic = {
-    checkUser
+    checkUser,
+    loginUser
 }
 
 export default logic
