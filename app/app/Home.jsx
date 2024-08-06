@@ -1,55 +1,62 @@
 // Importaciones necesarias
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Alert } from 'react-native';
+import { useRouter, Link } from 'expo-router'
+import { View, Text, StyleSheet } from 'react-native';
 import session from '../logic/session';
 import checkUser from '../logic/checkUser';
-import { ButtonBlue } from '../components/buttons';
-import { LateralScroll } from '../components/LateralScroll'
-import { Input } from '../components/input'
-import { BackgroundImage } from '../components/background'
+import { ButtonBlue, ButtonSecondary } from '../components/buttons';
+import { BackgroundImage } from '../components/background';
 
 export default function Home() {
-
-    const [userName, setUserName] = useState('')
-
-
-
-    const handlePress = () => {
-        alert("Estas en Home")
-    }
-
+    const [userName, setUserName] = useState(''); // Estado para almacenar el nombre de usuario
 
     useEffect(() => {
         const fetchUserName = async () => {
             try {
-                const name = await checkUser(session.sessionUserId);
-                setUserName(name);
+                const userId = await session.getSessionUserId(); // Asegúrate de obtener el userId correctamente
+                console.log('Retrieved userId from session:', userId); // Log para verificar el userId
+
+                if (userId) {
+                    const name = await checkUser(userId);
+                    setUserName(name);
+                } else {
+                    console.error('No userId found in session');
+                }
             } catch (error) {
-                console.error(error)
+                console.error('Error fetching user name:', error);
             }
         };
 
-        fetchUserName()
-    }, [])
+        fetchUserName();
+    }, []);// Este efecto se ejecuta solo una vez al montar el componente
+
+    const handlePress = () => {
+        alert('Te lleva a Login');
+        router.push('/Main')
+    };
+
+
+    const router = useRouter()
 
     return (
         <View style={styles.container}>
-            <BackgroundImage></BackgroundImage>
+            <BackgroundImage />
             {userName ? (
                 <Text style={styles.welcomeText}>Welcome Home, {userName}</Text>
             ) : (
                 <Text style={styles.welcomeText}>Loading...</Text>
             )}
 
-            <ButtonBlue label="Presiona Aquí" onPress={handlePress} />
+            <Link asChild href="/">
 
+                <ButtonSecondary label="LOGIN"></ButtonSecondary>
 
-
+            </Link>
         </View>
-    )
+    );
 }
 
-// Estilos
+// Estilos del componente
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -68,4 +75,5 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
 });
+
 
