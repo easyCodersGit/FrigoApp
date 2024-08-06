@@ -32,7 +32,7 @@ export default function Home() {
 
     const handlePress = () => {
         alert('Te lleva a Login');
-        router.push('/Login')
+        router.push('/Main')
     };
 
 
@@ -47,7 +47,11 @@ export default function Home() {
                 <Text style={styles.welcomeText}>Loading...</Text>
             )}
 
-            <ButtonSecondary label="Presiona Aquí" onPress={handlePress} />
+            <Link asChild href="/">
+
+                <ButtonSecondary label="LOGIN"></ButtonSecondary>
+
+            </Link>
         </View>
     );
 }

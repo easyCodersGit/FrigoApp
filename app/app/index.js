@@ -1,6 +1,6 @@
 
 
-import { Main } from "../pages/Main"
+import { Main } from "./Main"
 
 export default function Index() {
 
