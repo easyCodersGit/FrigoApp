@@ -1,6 +1,6 @@
 // app/components/CustomInput.jsx
-import React from 'react';
-import { TextInput, StyleSheet } from 'react-native';
+import React from 'react'
+import { TextInput, StyleSheet } from 'react-native'
 
 export function Input({ value, onChangeText, placeholder, secureTextEntry = false, keyboardType = 'default', style }) {
     return (
@@ -9,7 +9,7 @@ export function Input({ value, onChangeText, placeholder, secureTextEntry = fals
             value={value}
             onChangeText={onChangeText}
             placeholder={placeholder}
-            placeholderTextColor="#9fced2" // Color de texto del placeholder
+            placeholderTextColor="#9fced2"
             secureTextEntry={secureTextEntry}
             keyboardType={keyboardType}
             autoCapitalize="none"

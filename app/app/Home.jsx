@@ -6,13 +6,13 @@ import checkUser from '../logic/checkUser';
 import { ButtonBlue } from '../components/buttons';
 import { LateralScroll } from '../components/LateralScroll'
 import { Input } from '../components/input'
-import { BackgroundImage } from '../components/background';
+import { BackgroundImage } from '../components/background'
 
 export default function Home() {
 
     const [userName, setUserName] = useState('')
-    const [userId, setUserId] = useState('');
-    // const [message, setMessage] = useState('')
+
+
 
     const handlePress = () => {
         alert("Estas en Home")
@@ -40,7 +40,7 @@ export default function Home() {
             ) : (
                 <Text style={styles.welcomeText}>Loading...</Text>
             )}
-            {/* {message && <Text style={styles.errorText}>{message}</Text>} */}
+
             <ButtonBlue label="Presiona Aquí" onPress={handlePress} />
 
 

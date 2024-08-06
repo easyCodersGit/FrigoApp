@@ -3,8 +3,6 @@ import { StyleSheet, View, Pressable, Text } from "react-native"
 
 export function ButtonBlue({ label, onPress }) {
 
-
-
     return (
         <View style={styles.buttonContainer}>
             <Pressable
@@ -12,7 +10,7 @@ export function ButtonBlue({ label, onPress }) {
                     styles.button,
                     pressed ? styles.buttonPressed : null,
                 ]}
-                onPress={onPress} // Usa la prop onPress para manejar el evento
+                onPress={onPress} //la segunda prop que le pasamos, cuando se presione, qué queremos que haga
             >
                 <Text style={styles.buttonLabel}>{label}</Text>
             </Pressable>
@@ -55,7 +53,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flexDirection: 'row',
 
-        cursor: 'pointer', // Esto solo funcionará en React Native Web
+        cursor: 'pointer',
     },
 
     buttonIcon: {
@@ -66,12 +64,12 @@ const styles = StyleSheet.create({
         fontSize: 15,
     },
     buttonLabelPressed: {
-        color: '#ffffff', // Texto blanco cuando se presiona
+        color: '#ffffff',
     },
 
     buttonPressed: {
         backgroundColor: '#9fced2',
-        // Azul cuando se presiona
+
     },
 
     buttonSecondaryContainer: {
@@ -88,7 +86,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderWidth: 2,
         backgroundColor: '#ff6347',
-        borderColor: '#ff6347', // Un color rojo para el borde
+        borderColor: '#ff6347',
         width: '100%',
         height: '100%',
         alignItems: 'center',
@@ -97,11 +95,11 @@ const styles = StyleSheet.create({
         cursor: 'pointer',
     },
     buttonSecondaryLabel: {
-        color: 'white', // Rojo
+        color: 'white',
         fontSize: 15,
     },
     buttonSecondaryPressed: {
-        backgroundColor: '#ff6347', // Un color rojo cuando se presiona
+        backgroundColor: '#ff6347',
     },
 })
 

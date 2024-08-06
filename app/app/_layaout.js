@@ -4,7 +4,7 @@ import { CircleInfoIcon } from "../components/icons";
 
 export default function Layout() {
     <View style={{ flex: 1 }}>
-        {/* <Text>Hola</Text> */}
+
         <Stack
             screenOptions={{
                 gestureEnabled: true,

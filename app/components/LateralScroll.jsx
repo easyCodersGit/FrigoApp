@@ -1,12 +1,12 @@
-import React from 'react';
-import { View, Text, Dimensions, ScrollView, TouchableOpacity, Alert, Pressable } from 'react-native';
-const { width } = Dimensions.get('window');
+import React from 'react'
+import { View, Text, Dimensions, ScrollView, TouchableOpacity, Alert, Pressable } from 'react-native'
+const { width } = Dimensions.get('window')
 export function LateralScroll() {
-    const screenPadding = 20;
-    const stepFormWidth = width - screenPadding * 2;
+    const screenPadding = 20
+    const stepFormWidth = width - screenPadding * 2
     const showAlert = (message) => {
         alert(message);
-    };
+    }
     return (
         <View
             style={{
@@ -89,5 +89,5 @@ export function LateralScroll() {
                 </Pressable>
             </ScrollView>
         </View>
-    );
+    )
 }

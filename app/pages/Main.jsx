@@ -1,12 +1,12 @@
 // app/pages/Main.jsx
-import React, { useState } from 'react';
-import { useRouter, Link } from 'expo-router';
-import { View, Text, TextInput, Pressable, StyleSheet, ImageBackground } from 'react-native';
-import loginUser from '../logic/loginUser';
-import { CircleInfoIcon } from '../components/icons';
-import { ButtonBlue, ButtonSecondary } from '../components/buttons';
+import React, { useState } from 'react'
+import { useRouter, Link } from 'expo-router'
+import { View, Text, TextInput, Pressable, StyleSheet, ImageBackground } from 'react-native'
+import loginUser from '../logic/loginUser'
+import { CircleInfoIcon } from '../components/icons'
+import { ButtonBlue, ButtonSecondary } from '../components/buttons'
 import { Input } from '../components/input'
-import { BackgroundImage } from '../components/background';
+import { BackgroundImage } from '../components/background'
 
 export function Main() {
     const [userId, setUserId] = useState('')
