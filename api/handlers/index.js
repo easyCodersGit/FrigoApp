@@ -1,9 +1,11 @@
-import retrieveUserHandler from "./retrieveUserHandler.js";
-import authenticateUserHandler from "./authenticateUserHandler.js";
+import retrieveUserHandler from "./retrieveUserHandler.js"
+import authenticateUserHandler from "./authenticateUserHandler.js"
+import addFridgeHandler from "./addFridgeHandler.js"
 
 
 export {
     retrieveUserHandler,
-    authenticateUserHandler
+    authenticateUserHandler,
+    addFridgeHandler
 
 }
