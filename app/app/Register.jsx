@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, Alert } from 'react-native'
+import { View, Text, StyleSheet, Alert, Pressable } from 'react-native'
 import { useRouter, Link } from 'expo-router'
 import { BackgroundImage } from '../components/background'
 import { CircleInfoIcon } from '../components/icons'
@@ -14,11 +14,13 @@ export default function Register() {
 
             <Text>Register</Text>
 
-            <Link asChild href="/Main">
+            <Link asChild href="/">
                 <Pressable>
                     <CircleInfoIcon />
                 </Pressable>
             </Link>
+
+
 
 
         </View>

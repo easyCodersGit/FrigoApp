@@ -1,45 +1,43 @@
-// app/pages/Main.jsx
-import React, { useState } from 'react'
-import { useRouter, Link } from 'expo-router'
-import { View, Text, TextInput, Pressable, StyleSheet, ImageBackground } from 'react-native'
-import loginUser from '../logic/loginUser'
-import { CircleInfoIcon } from '../components/icons'
-import { ButtonBlue, ButtonSecondary } from '../components/buttons'
-import { Input } from '../components/input'
-import { BackgroundImage } from '../components/background'
+import React, { useState } from 'react';
+import { useRouter, Link } from 'expo-router';
+import { View, TextInput, Pressable, StyleSheet, ImageBackground } from 'react-native';
+import loginUser from '../logic/loginUser';
+import { CircleInfoIcon } from '../components/icons';
+import { ButtonBlue, ButtonSecondary } from '../components/buttons';
+import { Input } from '../components/input';
+import { BackgroundImage } from '../components/background';
 
 export function Main() {
-    const [userId, setUserId] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [userId, setUserId] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
-    const [isPressed, setIsPressed] = useState(false)
+    const [isPressed, setIsPressed] = useState(false);
+
+    const router = useRouter();
 
     const handleRegister = () => {
-        alert("Este link te llevará al Register")
-        router.push('/Register')
-    }
+        alert("Este link te llevará al Register");
+        router.push('/Register');
+    };
 
     const handleGuest = () => {
-        alert("Este link te llevará a la página de Invitado")
-    }
-
-    const router = useRouter()
+        alert("Este link te llevará a la página de Invitado");
+    };
 
     const handleLogin = async () => {
         try {
-            await loginUser(email, password)
-            setMessage('Login successful!')
-            router.push('/Home')
+            await loginUser(email, password);
+            setMessage('Login successful!');
+            router.push('/Home');
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
-    }
+    };
 
     return (
         <View style={styles.container}>
-
-            <BackgroundImage></BackgroundImage>
+            <BackgroundImage />
 
             <View style={styles.imageContainer}>
                 <ImageBackground
@@ -60,13 +58,16 @@ export function Main() {
                                 placeholder="Enter Password"
                                 value={password}
                                 onChangeText={setPassword}
-                                keyboardType="email-password"
+                                keyboardType="default"
                                 secureTextEntry={true}
                             />
 
-
-                            <ButtonSecondary label="LOGIN" onPress={handleLogin} onPressIn={() => setIsPressed(true)}
-                                onPressOut={() => setIsPressed(false)} />
+                            <ButtonSecondary
+                                label="LOGIN"
+                                onPress={handleLogin}
+                                onPressIn={() => setIsPressed(true)}
+                                onPressOut={() => setIsPressed(false)}
+                            />
                         </View>
 
                         <View style={styles.buttonRow}>
@@ -76,13 +77,14 @@ export function Main() {
                     </View>
                 </ImageBackground>
             </View>
+
             <Link asChild href="/about">
                 <Pressable>
                     <CircleInfoIcon />
                 </Pressable>
             </Link>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -121,6 +123,6 @@ const styles = StyleSheet.create({
     buttonRow: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        marginTop: 120,
+        marginTop: 90,
     },
-})
+});
