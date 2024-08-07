@@ -11,7 +11,8 @@ import logic from './logic/index.js'
 import {
 
     retrieveUserHandler,
-    authenticateUserHandler
+    authenticateUserHandler,
+    addFridgeHandler
 
 } from './handlers/index.js'
 
@@ -34,6 +35,9 @@ mongoose.connect(process.env.MONGODB_URL)
 
         // Authenticate User
         server.post('/users/auth', jsonBodyParser, authenticateUserHandler)
+
+        // Add Fridge
+        server.post('/fridges', jsonBodyParser, addFridgeHandler)
 
 
 
