@@ -1,17 +1,16 @@
-// retrieveUserHandler.js
 import logic from "../logic/index.js"
+
 import { errors } from "com"
 
 const { NotFoundError, SystemError } = errors
+
 
 export default async (req, res) => {
     try {
         const { userId } = req.params
 
-        logic.retrieveUser(userId)
-            .then(user => {
-                res.json({ name: user.name })
-            })
+        logic.retrieveUserFridges(userId)
+            .then(userFridges => res.json(userFridges))
             .catch(error => {
                 let status = 500
 
@@ -23,4 +22,4 @@ export default async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: error.constructor.name, message: error.message })
     }
-};
+}
