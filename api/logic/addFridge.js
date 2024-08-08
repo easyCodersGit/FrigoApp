@@ -29,6 +29,7 @@ async function addFridge(name, userId) {
         await User.findByIdAndUpdate(userId, { $push: { fridges: fridge._id } })
 
         return fridge
+
     } catch (error) {
         throw new SystemError(error.message)
     }
