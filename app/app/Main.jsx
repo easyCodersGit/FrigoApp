@@ -1,39 +1,39 @@
-import React, { useState } from 'react';
-import { useRouter, Link } from 'expo-router';
-import { View, TextInput, Pressable, StyleSheet, ImageBackground } from 'react-native';
-import loginUser from '../logic/loginUser';
-import { CircleInfoIcon } from '../components/icons';
-import { ButtonBlue, ButtonSecondary } from '../components/buttons';
-import { Input } from '../components/input';
-import { BackgroundImage } from '../components/background';
+import React, { useState } from 'react'
+import { useRouter, Link } from 'expo-router'
+import { View, TextInput, Pressable, StyleSheet, ImageBackground } from 'react-native'
+import loginUser from '../logic/loginUser'
+import { CircleInfoIcon } from '../components/icons'
+import { ButtonBlue, ButtonSecondary } from '../components/buttons'
+import { Input } from '../components/input'
+import { BackgroundImage } from '../components/background'
 
 export function Main() {
-    const [userId, setUserId] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [message, setMessage] = useState('');
-    const [isPressed, setIsPressed] = useState(false);
+    const [userId, setUserId] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [message, setMessage] = useState('')
+    const [isPressed, setIsPressed] = useState(false)
 
-    const router = useRouter();
+    const router = useRouter()
 
     const handleRegister = () => {
-        alert("Este link te llevará al Register");
-        router.push('/Register');
+        alert("Este link te llevará al Register")
+        router.push('/Register')
     };
 
     const handleGuest = () => {
-        alert("Este link te llevará a la página de Invitado");
+        alert("Este link te llevará a la página de Invitado")
     };
 
     const handleLogin = async () => {
         try {
-            await loginUser(email, password);
-            setMessage('Login successful!');
-            router.push('/Home');
+            await loginUser(email, password)
+            setMessage('Login successful!')
+            router.push('/Home')
         } catch (error) {
-            console.error(error);
+            console.error(error)
         }
-    };
+    }
 
     return (
         <View style={styles.container}>
@@ -41,7 +41,7 @@ export function Main() {
 
             <View style={styles.imageContainer}>
                 <ImageBackground
-                    source={require('../img/fondoConNombre.png')}
+                    source={require('../img/fondoConNombre1.png')}
                     style={styles.fridgeImage}
                     resizeMode="contain"
                 >
@@ -84,7 +84,7 @@ export function Main() {
                 </Pressable>
             </Link>
         </View>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
@@ -125,4 +125,4 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         marginTop: 90,
     },
-});
+})
