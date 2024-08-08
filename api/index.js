@@ -12,7 +12,8 @@ import {
 
     retrieveUserHandler,
     authenticateUserHandler,
-    addFridgeHandler
+    addFridgeHandler,
+    retrieveUserFridgesHandler
 
 } from './handlers/index.js'
 
@@ -38,6 +39,9 @@ mongoose.connect(process.env.MONGODB_URL)
 
         // Add Fridge
         server.post('/fridges', jsonBodyParser, addFridgeHandler)
+
+        // Retrieve User Fridges
+        server.get('/users/:userId/fridges', retrieveUserFridgesHandler)
 
 
 
