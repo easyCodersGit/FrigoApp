@@ -19,11 +19,11 @@ export function Main() {
     const handleRegister = () => {
         alert("Este link te llevará al Register")
         router.push('/Register')
-    };
+    }
 
     const handleGuest = () => {
         alert("Este link te llevará a la página de Invitado")
-    };
+    }
 
     const handleLogin = async () => {
         try {
