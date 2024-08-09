@@ -3,6 +3,7 @@ import authenticateUserHandler from "./authenticateUserHandler.js"
 import addFridgeHandler from "./addFridgeHandler.js"
 import retrieveUserFridgesHandler from "./retrieveUserFridgesHandler.js"
 import retrieveFridgeHandler from "./retrieveFridgeHandler.js"
+import addDrawerHandler from "./addDrawerHandler.js"
 
 
 export {
@@ -10,6 +11,7 @@ export {
     authenticateUserHandler,
     addFridgeHandler,
     retrieveUserFridgesHandler,
-    retrieveFridgeHandler
+    retrieveFridgeHandler,
+    addDrawerHandler
 
 }
