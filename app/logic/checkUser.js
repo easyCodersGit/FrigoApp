@@ -1,5 +1,5 @@
 //import { validate, errors } from '../../com/index.js'
-import { API_URL } from '@env';
+import { API_URL } from '@env'
 //const { SystemError } = errors
 
 
@@ -14,8 +14,8 @@ async function checkUser(userId) {
     };
 
     try {
-        const url = `${API_URL}/users/${userId}`;
-        console.log('API_URL:', url);
+        const url = `${API_URL}/users/${userId}`
+        console.log('API_URL:', url)
         const response = await fetch(`${API_URL}/users/${userId}`, req)
         if (!response.ok) {
             const body = await response.json()

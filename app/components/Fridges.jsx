@@ -1,25 +1,28 @@
+
 import React, { useEffect, useState } from 'react'
 import { View, FlatList, Text, StyleSheet } from 'react-native'
 import Fridge from './Fridge'
 import retrieveUserFridges from '../logic/retrieveUserFridges'
 
-function Fridges({ userId }) {
+function Fridges({ userId, refresh }) {
     const [fridges, setFridges] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
 
     useEffect(() => {
-
-        retrieveUserFridges(userId)
-            .then(fetchedFridges => {
+        const fetchFridges = async () => {
+            try {
+                const fetchedFridges = await retrieveUserFridges(userId)
                 setFridges(fetchedFridges)
                 setLoading(false)
-            })
-            .catch(err => {
+            } catch (err) {
                 setError(err.message)
                 setLoading(false)
-            })
-    }, [userId])
+            }
+        }
+
+        fetchFridges()
+    }, [userId, refresh])
 
     if (loading) {
         return <Text style={styles.loadingText}>Loading...</Text>
@@ -34,7 +37,7 @@ function Fridges({ userId }) {
             <FlatList
                 data={fridges}
                 renderItem={({ item }) => <Fridge fridge={item} />}
-                keyExtractor={item => item.id}
+                keyExtractor={(item) => item.id}
                 ListEmptyComponent={<Text style={styles.emptyText}>No fridges found.</Text>}
             />
         </View>
@@ -45,7 +48,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 10,
-
     },
     loadingText: {
         textAlign: 'center',

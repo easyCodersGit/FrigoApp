@@ -39,7 +39,7 @@ mongoose.connect(process.env.MONGODB_URL)
         server.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 
         // Add Fridge
-        server.post('/fridges', jsonBodyParser, addFridgeHandler)
+        server.post('/users/:userId/fridges', jsonBodyParser, addFridgeHandler)
 
         // Retrieve User Fridges
         server.get('/users/:userId/fridges', retrieveUserFridgesHandler)
