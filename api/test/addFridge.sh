@@ -4,8 +4,8 @@ TEST "add-fridge"
 
 CASE "success on new fridge"
 
-curl 'http://localhost:9000/fridges' \
+curl 'http://localhost:9000/users/669b6db4416f5499171eeb7f/fridges' \
 -H 'Content-Type: application/json' \
--d '{ "name": "Nevera parking", "userId": "66a4cbc4fb311e46c4a4ef5d" }' \
+-d '{ "name": "Nevera Campo"}' \
 -v
 

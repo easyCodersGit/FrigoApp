@@ -1,5 +1,5 @@
-import { API_URL } from '@env';
-import session from './session';
+import { API_URL } from '@env'
+import session from './session'
 
 async function loginUser(email, password) {
     const req = {
@@ -8,35 +8,35 @@ async function loginUser(email, password) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ email, password })
-    };
+    }
 
-    console.log('API_URL:', API_URL);
-    console.log('Request:', req);
+    console.log('API_URL:', API_URL)
+    console.log('Request:', req)
 
     try {
-        const res = await fetch(`${API_URL}/users/auth`, req);
+        const res = await fetch(`${API_URL}/users/auth`, req)
 
         if (!res.ok) {
-            const body = await res.json();
-            throw new Error(body.message);
+            const body = await res.json()
+            throw new Error(body.message)
         }
 
-        const { userId } = await res.json();  // Ahora debe coincidir con la respuesta del servidor
-        console.log('User ID received:', userId);
+        const { userId } = await res.json() // Ahora debe coincidir con la respuesta del servidor
+        console.log('User ID received:', userId)
 
         if (userId) {
-            await session.setSessionUserId(userId);
+            await session.setSessionUserId(userId)
         } else {
-            console.error('No userId in response');
+            console.error('No userId in response')
         }
-        return userId;
+        return userId
     } catch (error) {
-        console.error('Fetch error:', error);
-        throw new Error(`Network request failed: ${error.message}`);
+        console.error('Fetch error:', error)
+        throw new Error(`Network request failed: ${error.message}`)
     }
 }
 
-export default loginUser;
+export default loginUser
 
 
 

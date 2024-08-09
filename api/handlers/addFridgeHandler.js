@@ -6,7 +6,9 @@ const { NotFoundError, SystemError, ContentError } = errors
 export default async (req, res) => {
     try {
 
-        const { name, userId } = req.body
+        const { userId } = req.params
+
+        const { name } = req.body
 
 
         if (!name || !userId) {

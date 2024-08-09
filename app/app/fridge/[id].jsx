@@ -65,7 +65,7 @@ function FridgeMain() {
         <View style={styles.container}>
             <BackgroundImage />
             {/* <Text style={styles.title}>Fridge ID: {id}</Text> */}
-            <Text style={styles.title}>Nombre: {fridgeData.name}</Text>
+            <Text style={styles.title}> {fridgeData.name}</Text>
             <Text style={styles.fridgeInfo}>Número de cajones: {fridgeData.drawers.length}</Text>
 
             <ButtonBlue label="View Details" onPress={handleViewDetails} />
