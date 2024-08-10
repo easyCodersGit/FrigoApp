@@ -10,6 +10,8 @@ async function retrieveFridge(fridgeId) {
 
     let fridge
 
+    let drawer
+
     try {
 
         fridge = await Fridge.findById(fridgeId).lean()
@@ -17,6 +19,14 @@ async function retrieveFridge(fridgeId) {
         if (!fridge) {
             throw new NotFoundError('Fridge not found')
         }
+
+        drawer = await Drawer.find({ _id: { $in: fridge.drawers } }).populate('owner', 'name').lean()
+
+        if (!drawer) {
+            throw new NotFoundError('Drawer not found')
+        }
+
+
 
     } catch (error) {
 
