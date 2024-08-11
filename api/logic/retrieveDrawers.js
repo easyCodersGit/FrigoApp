@@ -11,18 +11,19 @@ async function retrieveDrawers(fridgeId) {
 
     try {
 
-        const fridge = await Fridge.findById(fridgeId).lean()
+        const fridge = await Fridge.findById(fridgeId).populate({
+            path: 'drawers',
+            populate: { path: 'products' }
+        })
 
 
         if (!fridge) {
             throw new NotFoundError("Fridge not found")
         }
 
+        return fridge.drawers;
 
-        const drawers = await Drawer.find({ location: fridgeId }).lean()
 
-
-        return drawers
 
     } catch (error) {
 

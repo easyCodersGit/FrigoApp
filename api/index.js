@@ -15,7 +15,8 @@ import {
     addFridgeHandler,
     retrieveUserFridgesHandler,
     retrieveFridgeHandler,
-    addDrawerHandler
+    addDrawerHandler,
+    retrieveDrawersHandler
 
 } from './handlers/index.js'
 
@@ -50,6 +51,9 @@ mongoose.connect(process.env.MONGODB_URL)
 
         // Add Drawer
         server.post('/users/:userId/fridges/:fridgeId', jsonBodyParser, addDrawerHandler)
+
+        // Retrieve Drawers
+        server.get('/fridges/:fridgeId/drawers', retrieveDrawersHandler)
 
 
 
