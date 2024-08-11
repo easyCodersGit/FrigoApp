@@ -4,11 +4,14 @@ import { useRouter, useSearchParams, useLocalSearchParams } from 'expo-router'
 import retrieveFridge from '../../logic/retrieveFridge'
 import { ButtonSecondary, ButtonBlue } from '../../components/buttons'
 import { BackgroundImage } from '../../components/background'
+import Drawers from '../../components/Drawers'
 
 function FridgeMain() {
 
     const { id } = useLocalSearchParams()
     const router = useRouter()
+
+    console.log(id)
 
 
     const [fridgeData, setFridgeData] = useState(null)
@@ -17,6 +20,8 @@ function FridgeMain() {
 
 
     useEffect(() => {
+
+
         const loadFridgeData = async () => {
             try {
                 const data = await retrieveFridge(id)
@@ -72,6 +77,7 @@ function FridgeMain() {
             <ButtonBlue label="Manage Drawers" onPress={handleViewDrawers} />
 
             <ButtonSecondary label="Go to Fridges" onPress={handlerGoFridges} />
+            <Drawers fridgeId={id} />
 
         </View>
     )

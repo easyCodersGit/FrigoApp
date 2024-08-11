@@ -1,21 +1,21 @@
-//import { API_URL } from '@env'
 import { API_URL } from '@env'
 import session from './session'
 
-async function retrieveUserFridges(userId) {
+async function retrieveDrawers(fridgeId) {
+
     const req = {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
         },
         //body: JSON.stringify({ userId })
-    };
+    }
 
     console.log('API_URL:', API_URL)
     console.log('Request:', req)
 
     try {
-        const res = await fetch(`${API_URL}/users/${userId}/fridges`, req)
+        const res = await fetch(`${API_URL}/fridges/${fridgeId}/drawers`, req)
 
         if (!res.ok) {
             const body = await res.json()
@@ -28,6 +28,8 @@ async function retrieveUserFridges(userId) {
         console.error('Fetch error:', error)
         throw new Error(`Network request failed: ${error.message}`)
     }
+
+
 }
 
-export default retrieveUserFridges
+export default retrieveDrawers

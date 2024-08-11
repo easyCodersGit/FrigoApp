@@ -4,6 +4,7 @@ import addFridgeHandler from "./addFridgeHandler.js"
 import retrieveUserFridgesHandler from "./retrieveUserFridgesHandler.js"
 import retrieveFridgeHandler from "./retrieveFridgeHandler.js"
 import addDrawerHandler from "./addDrawerHandler.js"
+import retrieveDrawersHandler from "./retrieveDrawersHandler.js"
 
 
 export {
@@ -12,6 +13,7 @@ export {
     addFridgeHandler,
     retrieveUserFridgesHandler,
     retrieveFridgeHandler,
-    addDrawerHandler
+    addDrawerHandler,
+    retrieveDrawersHandler
 
 }
