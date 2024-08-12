@@ -1,13 +1,36 @@
-import React, { useState } from 'react'
-import { View, Text, StyleSheet, Dimensions, Platform, Pressable, Modal } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { View, Text, StyleSheet, Dimensions, Platform, Pressable, Modal, ActivityIndicator } from 'react-native'
 
+import retrieveProducts from '../logic/retrieveProducts'
+import Product from './Product'
 const { width } = Dimensions.get('window')
 
 function Drawer(props) {
-    const { drawer } = props;
+    const { drawer } = props
     console.log('Drawer Data:', drawer)
 
     const [modalVisible, setModalVisible] = useState(false)
+    const [products, setProducts] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(null)
+
+    useEffect(() => {
+        if (modalVisible) {
+            const fetchProducts = async () => {
+                try {
+                    setLoading(true)
+                    const fetchedProducts = await retrieveProducts(drawer._id)
+                    setProducts(fetchedProducts)
+                } catch (err) {
+                    setError(err.message)
+                } finally {
+                    setLoading(false)
+                }
+            }
+
+            fetchProducts()
+        }
+    }, [modalVisible, drawer._id])
 
     const handlePress = () => {
         setModalVisible(true)
@@ -34,7 +57,15 @@ function Drawer(props) {
                     <View style={styles.modalContent}>
                         <Text style={styles.modalTitle}>{drawer.name} Details</Text>
                         <Text style={styles.modalText}>Number of Products: {drawer.products.length}</Text>
-                        {/* Aquí puedes añadir más detalles sobre el cajón */}
+
+                        {loading ? (
+                            <ActivityIndicator size="large" color="#0000ff" />
+                        ) : error ? (
+                            <Text style={styles.errorText}>Error: {error}</Text>
+                        ) : (
+                            products.map(product => <Product key={product._id} product={product} />)
+                        )}
+
                         <Pressable onPress={handleClose} style={styles.button}>
                             <Text style={styles.buttonText}>Close</Text>
                         </Pressable>
@@ -102,7 +133,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
     },
+    errorText: {
+        color: 'red',
+        fontSize: 16,
+        marginBottom: 10,
+    },
 })
 
 export default Drawer
-
