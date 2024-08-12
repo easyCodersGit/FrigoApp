@@ -41,7 +41,7 @@ function Drawers({ fridgeId }) {
             <FlatList
                 data={drawers}
                 renderItem={({ item }) => <Drawer drawer={item} />}
-                keyExtractor={(item) => item._id.toString()} // se usa _id de Mongoose como key
+                keyExtractor={(item) => item._id.toString()}
                 ListEmptyComponent={<Text style={styles.emptyText}>No drawers found.</Text>}
             />
         </View>
