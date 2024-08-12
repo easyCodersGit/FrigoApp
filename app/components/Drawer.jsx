@@ -44,6 +44,7 @@ function Drawer(props) {
         <View style={styles.drawerContainer}>
             <Pressable onPress={handlePress} style={styles.drawerContent}>
                 <Text style={styles.drawerName}>{drawer.name}</Text>
+
                 <Text style={styles.productCount}>Products: {drawer.products.length}</Text>
             </Pressable>
 
@@ -81,10 +82,10 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        width: Platform.OS === 'web' ? width * 0.18 : width * 0.6,
+        width: Platform.OS === 'web' ? width * 0.3 : width * 0.6,
         margin: 10,
         padding: 10,
-        backgroundColor: '#444',
+        backgroundColor: 'rgba(9, 34, 70, 0.56)',
         borderRadius: 10,
     },
     drawerContent: {

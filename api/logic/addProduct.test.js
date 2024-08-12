@@ -11,12 +11,12 @@ import addProduct from './addProduct.js'
     try {
 
 
-        const name = 'Manzana'
+        const name = 'Plátano'
         const category = 'fruits'
-        const quantity = 1
+        const quantity = 6
         const expirationDate = '2024-09-01'
         const drawerId = '66b23af1a20302a84806b3b5'
-        const icon = '🍊'
+        const icon = '🍌'
 
         console.log(`Añadiendo producto: ${name}, categoría: ${category}, cantidad: ${quantity}, fecha de expiración: ${expirationDate}, id del cajón: ${drawerId}, icono: ${icon}`)
 

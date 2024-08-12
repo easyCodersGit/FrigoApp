@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
+        textAlign: 'center',
 
         cursor: 'pointer',
     },

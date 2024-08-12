@@ -26,6 +26,7 @@ function Fridge(props) {
                 source={require('../img/neveraRetrieve1.png')}
                 style={styles.fridgeImage}
             >
+
                 <View style={styles.nameOverlay}>
                     <Text style={styles.fridgeName}>{fridge.name}</Text>
                 </View>
