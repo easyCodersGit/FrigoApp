@@ -4,12 +4,16 @@ import { errors, validate } from "com"
 
 const { NotFoundError, SystemError } = errors;
 
-async function addProduct(name, category, quantity, expirationDate, drawerId) {
+async function addProduct(name, category, quantity, expirationDate, drawerId, icon = '') {
     validate.id(drawerId, 'drawer id')
     validate.text(name, 'product name')
     validate.text(category, 'category')
     validate.number(quantity, 'quantity')
-    //validate.date(expirationDate, 'expiration date');
+
+    if (icon) {
+        validate.text(icon, 'icon');
+    }
+
 
     try {
 
@@ -26,7 +30,8 @@ async function addProduct(name, category, quantity, expirationDate, drawerId) {
             expirationDate,
             addedDate: new Date(),
             location: drawerId,
-            purchased: false
+            purchased: false,
+            icon: icon || ''
         })
 
         await Drawer.findByIdAndUpdate(drawerId, { $push: { products: product._id } })

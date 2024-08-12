@@ -98,6 +98,11 @@ const product = new mongoose.Schema({
 
     purchased: {
         type: Boolean
+    },
+
+    icon: {
+        type: String,
+        default: '',
     }
 
 })
