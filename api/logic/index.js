@@ -5,6 +5,7 @@ import retrieveUserFridges from "./retrieveUserFridges.js"
 import retrieveFridge from "./retrieveFridge.js"
 import addDrawer from "./addDrawer.js"
 import retrieveDrawers from "./retrieveDrawers.js"
+import retrieveProducts from "./retrieveProduct.js"
 
 const logic = {
     retrieveUser,
@@ -13,7 +14,8 @@ const logic = {
     retrieveUserFridges,
     retrieveFridge,
     addDrawer,
-    retrieveDrawers
+    retrieveDrawers,
+    retrieveProducts
 }
 
 export default logic
