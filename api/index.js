@@ -51,7 +51,7 @@ mongoose.connect(process.env.MONGODB_URL)
         server.get('/fridges/:fridgeId', retrieveFridgeHandler)
 
         // Add Drawer
-        server.post('/users/:userId/fridges/:fridgeId', jsonBodyParser, addDrawerHandler)
+        server.post('/fridges/:fridgeId/drawers', jsonBodyParser, addDrawerHandler)
 
         // Retrieve Drawers
         server.get('/fridges/:fridgeId/drawers', retrieveDrawersHandler)
