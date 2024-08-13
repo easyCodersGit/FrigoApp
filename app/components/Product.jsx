@@ -1,6 +1,6 @@
 // Product.jsx
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React from 'react'
+import { View, Text, StyleSheet } from 'react-native'
 
 function Product({ product }) {
     return (
@@ -9,8 +9,9 @@ function Product({ product }) {
             <Text style={styles.productDetails}>Category: {product.category}</Text>
             <Text style={styles.productDetails}>Quantity: {product.quantity}</Text>
             <Text style={styles.productDetails}>Expiration: {new Date(product.expirationDate).toLocaleDateString()}</Text>
+            <Text style={styles.productDetails}>Icon: {product.icon}</Text>
         </View>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
@@ -27,6 +28,6 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: '#666',
     },
-});
+})
 
-export default Product;
+export default Product
