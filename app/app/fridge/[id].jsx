@@ -97,7 +97,7 @@ function FridgeMain() {
                         animationType="slide"
                         onRequestClose={() => setShowAddDrawer(false)}
                     >
-                        <NewDrawer fridgeId={id} onAddDrawer={handleAddDrawerSuccess} />
+                        <NewDrawer fridgeId={id} onAddDrawer={handleAddDrawerSuccess} style={styles.fridgeButton} />
                     </Modal>
 
                     <ButtonSecondary label="Go to Fridges" onPress={handlerGoFridges} style={styles.fridgeButton} />
@@ -125,8 +125,8 @@ const styles = StyleSheet.create({
 
     },
     fridgeImage: {
-        width: Platform.OS === 'web' ? '85%' : '95%',
-        height: '80%',
+        width: Platform.OS === 'web' ? '85%' : '100%',
+        height: '100%',
         justifyContent: 'flex-start',
         alignItems: 'center',
         marginLeft: 15,
@@ -138,15 +138,16 @@ const styles = StyleSheet.create({
 
 
     innerContainer: {
-        marginTop: 5,
-        marginRight: 50,
-        alignItems: 'flex-end',
-        justifyContent: 'flex-end'
+        marginTop: 30,
+
+        alignItems: 'center',
+        justifyContent: 'center'
     },
 
     fridgeButton: {
 
-        // paddingTop: Platform.OS === 'web' ? 10 : 40,
+        justifyContent: 'flex-start',
+        alignItems: 'flex-starts',
         paddingTop: 5,
 
 

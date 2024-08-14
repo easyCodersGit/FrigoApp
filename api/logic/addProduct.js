@@ -2,7 +2,7 @@
 import { Product, Drawer } from "../data/models.js"
 import { errors, validate } from "com"
 
-const { NotFoundError, SystemError } = errors;
+const { NotFoundError, SystemError } = errors
 
 async function addProduct(name, category, quantity, expirationDate, drawerId, icon = '') {
     validate.id(drawerId, 'drawer id')
@@ -11,7 +11,7 @@ async function addProduct(name, category, quantity, expirationDate, drawerId, ic
     validate.number(quantity, 'quantity')
 
     if (icon) {
-        validate.text(icon, 'icon');
+        validate.text(icon, 'icon')
     }
 
 
