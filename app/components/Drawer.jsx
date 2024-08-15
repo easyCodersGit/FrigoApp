@@ -3,16 +3,31 @@ import { View, Text, StyleSheet, Dimensions, Platform, Pressable, Modal, Activit
 
 import retrieveProducts from '../logic/retrieveProducts'
 import Product from './Product'
+import NewProduct from './NewProduct'
+
 const { width } = Dimensions.get('window')
 
 function Drawer(props) {
-    const { drawer } = props
+    const { drawer, onProductAdded } = props
     console.log('Drawer Data:', drawer)
 
     const [modalVisible, setModalVisible] = useState(false)
-    const [products, setProducts] = useState([])
+    const [products, setProducts] = useState(drawer.products || [])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
+    const [showAddProduct, setShowAddProduct] = useState(false)
+
+    const fetchProducts = async () => {
+        try {
+            setLoading(true)
+            const fetchedProducts = await retrieveProducts(drawer._id)
+            setProducts(fetchedProducts)
+        } catch (err) {
+            setError(err.message)
+        } finally {
+            setLoading(false)
+        }
+    }
 
     useEffect(() => {
         if (modalVisible) {
@@ -40,6 +55,15 @@ function Drawer(props) {
         setModalVisible(false)
     }
 
+    const handleAddProductSuccess = () => {
+        setShowAddProduct(false)
+        setModalVisible(false)
+        fetchProducts()
+        if (onProductAdded) {
+            onProductAdded()
+        }
+    }
+
     return (
         <View style={styles.drawerContainer}>
             <Pressable onPress={handlePress} style={styles.drawerContent}>
@@ -56,7 +80,7 @@ function Drawer(props) {
             >
                 <View style={styles.modalOverlay}>
                     <View style={styles.modalContent}>
-                        <Text style={styles.modalTitle}>{drawer.name} Details</Text>
+                        <Text style={styles.modalTitle}>{drawer.name} Detalles</Text>
                         <Text style={styles.modalText}>Number of Products: {drawer.products.length}</Text>
 
                         {loading ? (
@@ -67,9 +91,30 @@ function Drawer(props) {
                             products.map(product => <Product key={product._id} product={product} />)
                         )}
 
+                        <Pressable onPress={() => setShowAddProduct(true)} style={styles.button}>
+                            <Text style={styles.buttonText}>Add Product</Text>
+                        </Pressable>
+
                         <Pressable onPress={handleClose} style={styles.button}>
                             <Text style={styles.buttonText}>Close</Text>
                         </Pressable>
+
+                        <Modal
+                            animationType="slide"
+                            transparent={true}
+                            visible={showAddProduct}
+                            onRequestClose={() => setShowAddProduct(false)}
+                        >
+                            <View style={styles.modalOverlay}>
+                                <View style={styles.modalContent}>
+                                    <NewProduct drawerId={drawer._id} onAddProduct={handleAddProductSuccess} />
+                                </View>
+                            </View>
+
+
+                        </Modal>
+
+
                     </View>
                 </View>
             </Modal>

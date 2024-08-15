@@ -53,6 +53,10 @@ function FridgeMain() {
         setDrawerRefreshFlag(!drawerRefreshFlag) // Toggle para actualizar el componente Fridges
         setShowAddDrawer(false) // Cierra el modal
     }
+    const handleAddProductSuccess = () => {
+        console.log('Product added successfully')
+        setDrawerRefreshFlag(!drawerRefreshFlag)
+    }
 
 
 
@@ -85,7 +89,7 @@ function FridgeMain() {
                 <View style={styles.innerContainer}>
                     {/* <ButtonBlue label="View Details" onPress={handleViewDetails} /> */}
                     {/* <ButtonBlue label="Manage Drawers" onPress={handleViewDrawers} /> */}
-                    <Drawers fridgeId={id} />
+                    <Drawers fridgeId={id} refreshFlag={drawerRefreshFlag} onProductAdded={handleAddProductSuccess} />
 
                     <ButtonSecondary
                         label="Add Drawer"
@@ -155,5 +159,10 @@ const styles = StyleSheet.create({
 })
 
 export default FridgeMain
+
+
+
+
+
 
 

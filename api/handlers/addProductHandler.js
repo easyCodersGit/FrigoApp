@@ -17,7 +17,7 @@ export default async (req, res) => {
 
         await logic.addProduct(name, category, quantity, expirationDate, drawerId, icon)
 
-        res.status(201).send()
+        res.status(201).json({ message: 'Product added successfully' })
 
     } catch (error) {
 
