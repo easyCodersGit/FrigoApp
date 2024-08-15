@@ -3,7 +3,7 @@ import { View, FlatList, Text, StyleSheet } from 'react-native'
 import Drawer from './Drawer'
 import retrieveDrawers from '../logic/retrieveDrawers'
 
-function Drawers({ fridgeId }) {
+function Drawers({ fridgeId, refreshFlag }) {
     const [drawers, setDrawers] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
@@ -26,7 +26,7 @@ function Drawers({ fridgeId }) {
         if (fridgeId) {
             fetchDrawers()
         }
-    }, [fridgeId])
+    }, [fridgeId, refreshFlag])
 
     if (loading) {
         return <Text style={styles.loadingText}>Loading...</Text>

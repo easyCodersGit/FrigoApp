@@ -5,14 +5,8 @@ import { errors, validate } from "com"
 const { NotFoundError, SystemError } = errors
 
 async function addProduct(name, category, quantity, expirationDate, drawerId, icon = '') {
-    validate.id(drawerId, 'drawer id')
-    validate.text(name, 'product name')
-    validate.text(category, 'category')
-    validate.number(quantity, 'quantity')
 
-    if (icon) {
-        validate.text(icon, 'icon')
-    }
+
 
 
     try {
