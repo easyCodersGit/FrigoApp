@@ -1,22 +1,18 @@
+
 import React, { useState, useEffect } from 'react'
 import { View, Text, ScrollView, StyleSheet, ActivityIndicator, Alert, Platform, ImageBackground, Dimensions, Modal } from 'react-native'
 import { useRouter, useLocalSearchParams } from 'expo-router'
 import retrieveFridge from '../../logic/retrieveFridge'
-import { ButtonSecondary, ButtonBlue } from '../../components/buttons'
+import { ButtonSecondary } from '../../components/buttons'
 import { BackgroundImage } from '../../components/background'
-
 import Drawers from '../../components/Drawers'
 import NewDrawer from '../../components/NewDrawer'
-
-
 
 const { width } = Dimensions.get('window')
 
 function FridgeMain() {
     const { id } = useLocalSearchParams()
     const router = useRouter()
-
-    console.log(id)
 
     const [fridgeData, setFridgeData] = useState(null)
     const [loading, setLoading] = useState(true)
@@ -35,30 +31,19 @@ function FridgeMain() {
             } finally {
                 setLoading(false)
             }
-        }
+        };
 
         loadFridgeData()
     }, [id, drawerRefreshFlag])
 
-    const handleViewDetails = () => {
-        alert('Botón presionado', 'Has pulsado el botón para ver detalles')
-    }
-
-    const handleViewDrawers = () => {
-        alert('Botón presionado', 'Has pulsado el botón para gestionar cajones')
-    }
-
     const handleAddDrawerSuccess = () => {
-        console.log('handleAddDrawerSuccess called')
-        setDrawerRefreshFlag(!drawerRefreshFlag) // Toggle para actualizar el componente Fridges
-        setShowAddDrawer(false) // Cierra el modal
+        setDrawerRefreshFlag(!drawerRefreshFlag)
+        setShowAddDrawer(false)
     }
+
     const handleAddProductSuccess = () => {
-        console.log('Product added successfully')
         setDrawerRefreshFlag(!drawerRefreshFlag)
     }
-
-
 
     const handlerGoFridges = () => {
         router.push('/Home')
@@ -80,31 +65,34 @@ function FridgeMain() {
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
             <BackgroundImage />
-            <Text style={styles.title}>{fridgeData.name}</Text>
+
 
             <ImageBackground
-                source={require('../../img/bordeNevera2.png')}
+                source={require('../../img/bordeNevera3.png')}
                 style={styles.fridgeImage}
             >
                 <View style={styles.innerContainer}>
-                    {/* <ButtonBlue label="View Details" onPress={handleViewDetails} /> */}
-                    {/* <ButtonBlue label="Manage Drawers" onPress={handleViewDrawers} /> */}
+                    <Text style={styles.title}>{fridgeData.name}</Text>
                     <Drawers fridgeId={id} refreshFlag={drawerRefreshFlag} onProductAdded={handleAddProductSuccess} />
 
-                    <ButtonSecondary
-                        label="Add Drawer"
-                        onPress={() => setShowAddDrawer(true)} // Muestra el modal para añadir nevera
-                    />
+                    <View style={styles.buttonsContainer}>
+                        <ButtonSecondary
+                            label="Go to Fridges"
+                            onPress={handlerGoFridges}
+                        />
+                        <ButtonSecondary
+                            label="Add Drawer"
+                            onPress={() => setShowAddDrawer(true)}
+                        />
+                    </View>
 
                     <Modal
                         visible={showAddDrawer}
                         animationType="slide"
                         onRequestClose={() => setShowAddDrawer(false)}
                     >
-                        <NewDrawer fridgeId={id} onAddDrawer={handleAddDrawerSuccess} style={styles.fridgeButton} />
+                        <NewDrawer fridgeId={id} onAddDrawer={handleAddDrawerSuccess} />
                     </Modal>
-
-                    <ButtonSecondary label="Go to Fridges" onPress={handlerGoFridges} style={styles.fridgeButton} />
                 </View>
             </ImageBackground>
         </ScrollView>
@@ -116,49 +104,47 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         justifyContent: 'center',
         alignItems: 'center',
-
-
     },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 20,
     },
-    fridgeInfo: {
-        fontSize: 18,
-
-    },
     fridgeImage: {
-        width: Platform.OS === 'web' ? '85%' : '100%',
+        width: Platform.OS === 'web' ? '100%' : '100%',
         height: '100%',
-        justifyContent: 'flex-start',
+        justifyContent: 'center',
         alignItems: 'center',
-        marginLeft: 15,
-        paddingTop: 10
+        paddingTop: 10,
 
 
     },
-
-
-
     innerContainer: {
-        marginTop: 30,
+        flex: 1,
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingTop: 30
+
+    },
+    buttonsContainer: {
 
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+
+    },
+
+    imageStyle: {
+        resizeMode: 'contain',  // Ajusta la imagen para que esté contenida y centrada
     },
 
     fridgeButton: {
-
-        justifyContent: 'flex-start',
-        alignItems: 'flex-starts',
-        paddingTop: 5,
-
-
+        marginBottom: 50,
     },
 })
 
 export default FridgeMain
+
 
 
 

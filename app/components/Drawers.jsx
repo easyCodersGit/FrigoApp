@@ -36,13 +36,17 @@ function Drawers({ fridgeId, refreshFlag }) {
         return <Text style={styles.errorText}>Error: {error}</Text>
     }
 
+
+
     return (
         <View style={styles.container}>
             <FlatList
+                style={styles.FlatList}
                 data={drawers}
                 renderItem={({ item }) => <Drawer drawer={item} />}
                 keyExtractor={(item) => item._id.toString()}
                 ListEmptyComponent={<Text style={styles.emptyText}>No drawers found.</Text>}
+
             />
         </View>
     )
@@ -52,6 +56,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 10,
+        maxHeight: 300,
+    },
+    flatList: {
+        height: 200,
     },
     loadingText: {
         textAlign: 'center',

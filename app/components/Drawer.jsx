@@ -69,7 +69,7 @@ function Drawer(props) {
             <Pressable onPress={handlePress} style={styles.drawerContent}>
                 <Text style={styles.drawerName}>{drawer.name}</Text>
 
-                <Text style={styles.productCount}>Products: {drawer.products.length}</Text>
+                <Text style={styles.productCount}>Products: {products.length}</Text>
             </Pressable>
 
             <Modal
@@ -81,7 +81,7 @@ function Drawer(props) {
                 <View style={styles.modalOverlay}>
                     <View style={styles.modalContent}>
                         <Text style={styles.modalTitle}>{drawer.name} Detalles</Text>
-                        <Text style={styles.modalText}>Number of Products: {drawer.products.length}</Text>
+                        <Text style={styles.modalText}>Number of Products: {products.length}</Text>
 
                         {loading ? (
                             <ActivityIndicator size="large" color="#0000ff" />
