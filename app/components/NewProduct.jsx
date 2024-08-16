@@ -1,7 +1,7 @@
 
 
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, Dimensions, Platform, Button } from 'react-native'
+import { View, Text, StyleSheet, Dimensions, Platform, Pressable, FlatList } from 'react-native'
 import { useRouter } from 'expo-router'
 import { Picker } from '@react-native-picker/picker'
 import DateTimePicker from '@react-native-community/datetimepicker'
@@ -47,13 +47,22 @@ export default function NewProduct({ drawerId, onAddProduct }) {
             <BackgroundImage />
             <View style={styles.productContainer}>
                 <Input
-                    placeholder="Nombre"
+                    placeholder="Name"
                     value={nameProduct}
                     onChangeText={setNameProduct}
                     keyboardType="default"
                 />
 
-                <Text style={styles.label}>Category</Text>
+                <Input
+                    placeholder="Quantity"
+                    value={quantity}
+                    onChangeText={setQuantity}
+                    keyboardType="default"
+                />
+
+                {/* <Text style={styles.label}>Category</Text> */}
+
+
                 <Picker
                     selectedValue={category}
                     style={styles.picker}
@@ -68,15 +77,36 @@ export default function NewProduct({ drawerId, onAddProduct }) {
                     {/* Añade más categorías aquí */}
                 </Picker>
 
-                <Input
-                    placeholder="Enter Product Quantity"
-                    value={quantity}
-                    onChangeText={setQuantity}
-                    keyboardType="default"
-                />
 
-                <Text style={styles.label}>Expiration Date</Text>
-                <Button title="Select Expiration Date" onPress={() => setShowDatePicker(true)} />
+
+
+
+                {/* <Text style={styles.label}>Expiration Date</Text> */}
+
+
+                {/* <Text style={styles.label}>Choose an Emoji</Text> */}
+                <IconMojis onSelect={setSelectedEmoji} />
+
+                {selectedEmoji && (
+                    <Text style={styles.selectedEmoji}>
+                        Selected Emoji: {selectedEmoji}
+                    </Text>
+                )}
+
+                <Pressable
+                    style={({ pressed }) => [
+                        {
+                            padding: 10,
+                            marginEnd: 20,
+                            backgroundColor: pressed ? '#ddd' : '#2196F3', // Cambia el color cuando está presionado
+                            borderRadius: 5,
+                            marginTop: 10,
+                        },
+                    ]}
+                    onPress={() => setShowDatePicker(true)}
+                >
+                    <Text style={{ color: '#fff', textAlign: 'center' }}>Select Expiration Date</Text>
+                </Pressable>
                 {showDatePicker && (
                     <DateTimePicker
                         value={expirationDate}
@@ -85,18 +115,9 @@ export default function NewProduct({ drawerId, onAddProduct }) {
                         onChange={handleDateChange}
                     />
                 )}
-                <Text style={styles.selectedDate}>
+                {/* <Text style={styles.selectedDate}>
                     {expirationDate.toDateString()}
-                </Text>
-
-                <Text style={styles.label}>Choose an Emoji</Text>
-                <IconMojis onSelect={setSelectedEmoji} />
-
-                {selectedEmoji && (
-                    <Text style={styles.selectedEmoji}>
-                        Selected Emoji: {selectedEmoji}
-                    </Text>
-                )}
+                </Text> */}
 
                 <ButtonSecondary
                     label="ADD PRODUCT"
@@ -107,35 +128,66 @@ export default function NewProduct({ drawerId, onAddProduct }) {
     );
 }
 
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: '#ed1bde',
     },
     productContainer: {
+        justifyContent: 'flex-end',
+        alignItems: 'center',
         width: width * 0.9,
-        padding: 20,
-        backgroundColor: 'black',
-        borderRadius: 10,
+        height: 700,
+        padding: Platform.OS === 'web' ? 20 : 5, // Reduce el padding en dispositivos móviles
+        borderRadius: 15,
+        //shadowColor: '#000',
+        //shadowOffset: { width: 0, height: 2 },
+        sshadowOpacity: 0.8,
+        //shadowRadius: 5,
+        //elevation: 5,
+        //backgroundColor: 'white',
     },
     label: {
-        marginTop: 20,
-        fontSize: 18,
+        marginTop: Platform.OS === 'web' ? 20 : 5, // Reduce el espacio superior en dispositivos móviles
+        fontSize: 10,
         fontWeight: 'bold',
+        color: '#333333',
+        textTransform: 'uppercase',
     },
     picker: {
-        height: 50,
+        height: Platform.OS === 'web' ? 60 : 50, // Reduce la altura en dispositivos móviles
         width: '100%',
+        color: '#333333',
+        borderRadius: 10,
+        marginBottom: Platform.OS === 'web' ? 20 : 120, // Reduce el espacio inferior en dispositivos móviles
     },
     selectedDate: {
-        marginTop: 10,
+        marginTop: 15,
         fontSize: 16,
-        color: '#555',
+        color: '#ed1bde',
+        fontStyle: 'italic',
+        marginBottom: Platform.OS === 'web' ? 20 : 10, // Reduce el espacio inferior en dispositivos móviles
     },
     selectedEmoji: {
-        marginTop: 10,
-        fontSize: 18,
-        fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif',
+        marginTop: 50,
+        fontSize: 30,
+        color: '#ffcc00',
+        textAlign: 'center',
+        marginBottom: Platform.OS === 'web' ? 20 : 10, // Reduce el espacio inferior en dispositivos móviles
     },
-})
+    input: {
+        marginBottom: Platform.OS === 'web' ? 20 : 10,
+        width: '100%', // Reduce el espacio inferior en dispositivos móviles
+    },
+    buttonContainer: {
+        marginTop: Platform.OS === 'web' ? 20 : 10,
+        marginBottom: 10, // Añade un poco de margen inferior para separar el botón del borde del contenedor
+        width: '100%',
+        alignItems: 'center', // Reduce el espacio superior en dispositivos móviles
+    },
+});
+
+
