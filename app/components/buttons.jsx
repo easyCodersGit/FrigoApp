@@ -74,9 +74,9 @@ const styles = StyleSheet.create({
     },
 
     buttonSecondaryContainer: {
-        paddingTop: 40,
-        width: 130,
-        height: 70,
+
+        width: 120,
+        height: 40,
         marginHorizontal: 10,
         alignItems: 'center',
         justifyContent: 'center',
