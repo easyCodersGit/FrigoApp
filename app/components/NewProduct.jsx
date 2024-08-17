@@ -15,7 +15,7 @@ import { Input } from './input'
 
 const { width } = Dimensions.get('window')
 
-export default function NewProduct({ drawerId, onAddProduct }) {
+export default function NewProduct({ drawerId, onAddProduct, onCancelProduct }) {
     const [nameProduct, setNameProduct] = useState('')
     const [category, setCategory] = useState('')
     const [selectedEmoji, setSelectedEmoji] = useState('')
@@ -123,6 +123,20 @@ export default function NewProduct({ drawerId, onAddProduct }) {
                     label="ADD PRODUCT"
                     onPress={handleAddProduct}
                 />
+
+                <Pressable
+                    style={({ pressed }) => [
+                        {
+                            padding: 10,
+                            marginTop: 20,
+                            backgroundColor: pressed ? '#ddd' : '#FF6347',
+                            borderRadius: 5,
+                        },
+                    ]}
+                    onPress={() => onCancelProduct()}
+                >
+                    <Text style={{ color: '#fff', textAlign: 'center' }}>CANCEL</Text>
+                </Pressable>
             </View>
         </View>
     );
