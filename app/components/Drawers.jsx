@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, FlatList, Text, StyleSheet } from 'react-native'
+import { View, FlatList, Text, StyleSheet, Platform } from 'react-native'
 import Drawer from './Drawer'
 import retrieveDrawers from '../logic/retrieveDrawers'
 
@@ -56,10 +56,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 10,
-        maxHeight: 300,
+        maxHeight: Platform.OS === 'web' ? 500 : 400,
     },
     flatList: {
-        height: 200,
+        height: 300,
     },
     loadingText: {
         textAlign: 'center',

@@ -80,7 +80,7 @@ function Drawer(props) {
             >
                 <View style={styles.modalOverlay}>
                     <View style={styles.modalContent}>
-                        <Text style={styles.modalTitle}>{drawer.name} Detalles</Text>
+                        <Text style={styles.modalTitle}>{drawer.name} </Text>
                         <Text style={styles.modalText}>Number of Products: {products.length}</Text>
 
                         {loading ? (
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
         width: Platform.OS === 'web' ? width * 0.3 : width * 0.6,
         margin: 10,
         padding: 10,
-        backgroundColor: 'rgba(9, 34, 70, 0.56)',
+        backgroundColor: 'rgba(9, 34, 70, 0.4)',
         borderRadius: 10,
     },
     drawerContent: {
@@ -150,11 +150,12 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        backgroundColor: 'rgba(9, 34, 70, 0.4)',
     },
     modalContent: {
         width: '80%',
-        backgroundColor: '#fff',
+        height: '60%',
+        backgroundColor: '#ff6347',
         padding: 20,
         borderRadius: 10,
         alignItems: 'center',
@@ -169,7 +170,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     button: {
-        backgroundColor: '#2196F3',
+        backgroundColor: 'rgba(9, 34, 70, 0.4)',
         padding: 10,
         borderRadius: 5,
         marginTop: 10,

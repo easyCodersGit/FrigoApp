@@ -119,12 +119,21 @@ export default function NewProduct({ drawerId, onAddProduct, onCancelProduct }) 
                     {expirationDate.toDateString()}
                 </Text> */}
 
+
+
                 <ButtonSecondary
                     label="ADD PRODUCT"
                     onPress={handleAddProduct}
                 />
 
-                <Pressable
+                <ButtonSecondary
+                    label="CANCEL"
+                    onPress={onCancelProduct}
+                />
+
+
+
+                {/* <Pressable
                     style={({ pressed }) => [
                         {
                             padding: 10,
@@ -136,7 +145,7 @@ export default function NewProduct({ drawerId, onAddProduct, onCancelProduct }) 
                     onPress={() => onCancelProduct()}
                 >
                     <Text style={{ color: '#fff', textAlign: 'center' }}>CANCEL</Text>
-                </Pressable>
+                </Pressable> */}
             </View>
         </View>
     );

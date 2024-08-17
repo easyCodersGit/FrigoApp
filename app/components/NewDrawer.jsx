@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, Dimensions, Platform } from 'react-native'
+import { View, StyleSheet, Dimensions, Platform, Pressable, Text } from 'react-native'
 import { useRouter } from 'expo-router'
 
 import logic from '../logic'
@@ -13,7 +13,7 @@ import { BackgroundImage } from './background'
 import { ButtonSecondary } from './buttons'
 import { Input } from './input'
 
-export default function NewDrawer({ fridgeId, onAddDrawer }) {
+export default function NewDrawer({ fridgeId, onAddDrawer, onCancelDrawer }) {
 
     const [nameDrawer, setNameDrawer] = useState('')
     //const router = userRouter()
@@ -47,6 +47,11 @@ export default function NewDrawer({ fridgeId, onAddDrawer }) {
                     label="ADD DRAWER"
                     onPress={handleAddDrawer}
                 />
+
+                <ButtonSecondary
+                    label="CANCEL"
+                    onPress={onCancelDrawer}
+                />
             </View>
         </View>
     )
@@ -58,11 +63,13 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+
     },
     drawerContainer: {
         width: '80%',
         padding: 20,
-        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+        backgroundColor: 'rgba(9, 34, 70, 0.4)',
+        //backgroundColor: 'tomato',
         borderRadius: 10,
     },
 })
