@@ -107,7 +107,7 @@ function Drawer(props) {
                         >
                             <View style={styles.modalOverlay}>
                                 <View style={styles.modalContent}>
-                                    <NewProduct drawerId={drawer._id} onAddProduct={handleAddProductSuccess} />
+                                    <NewProduct drawerId={drawer._id} onAddProduct={handleAddProductSuccess} onCancelProduct={() => setShowAddProduct(false)} />
                                 </View>
                             </View>
 
