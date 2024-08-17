@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     },
     productDetails: {
         fontSize: 14,
-        color: '#666',
+        color: 'black',
     },
 })
 

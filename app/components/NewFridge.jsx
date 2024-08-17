@@ -13,7 +13,7 @@ import { ButtonSecondary } from './buttons'
 import { Input } from './input'
 
 
-export default function NewFridge({ userId, onAddFridge }) { //recibo estas props de home
+export default function NewFridge({ userId, onAddFridge, onCancelAddFridge }) { //recibo estas props de home
     const [nameFridge, setNameFridge] = useState('')
     const router = useRouter()
 
@@ -44,6 +44,11 @@ export default function NewFridge({ userId, onAddFridge }) { //recibo estas prop
                 <ButtonSecondary
                     label="ADD FRIDGE"
                     onPress={handleAddFridge}
+                />
+
+                <ButtonSecondary
+                    label="CANCEL"
+                    onPress={onCancelAddFridge}
                 />
             </View>
         </View>

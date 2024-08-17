@@ -48,6 +48,10 @@ export default function Home() {
         setShowAddFridge(false) // Cierra el modal
     }
 
+    const handleCancelAddFridge = () => {
+        setShowAddFridge(false) // Cierra el modal
+    }
+
     return (
         <View style={styles.container}>
             <BackgroundImage />
@@ -78,7 +82,7 @@ export default function Home() {
                         animationType="slide"
                         onRequestClose={() => setShowAddFridge(false)}
                     >
-                        <NewFridge userId={userId} onAddFridge={handleAddFridgeSuccess} />
+                        <NewFridge userId={userId} onAddFridge={handleAddFridgeSuccess} onCancelAddFridge={handleCancelAddFridge} />
                     </Modal>
                 </>
             )}
@@ -103,3 +107,4 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
 })
+

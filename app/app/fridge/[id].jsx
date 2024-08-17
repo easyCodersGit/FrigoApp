@@ -45,6 +45,10 @@ function FridgeMain() {
         setDrawerRefreshFlag(!drawerRefreshFlag)
     }
 
+    const handleCancelDrawer = () => {
+        setShowAddDrawer(false)
+    }
+
     const handlerGoFridges = () => {
         router.push('/Home')
     }
@@ -73,7 +77,7 @@ function FridgeMain() {
             >
                 <View style={styles.innerContainer}>
                     <Text style={styles.title}>{fridgeData.name}</Text>
-                    <Drawers fridgeId={id} refreshFlag={drawerRefreshFlag} onProductAdded={handleAddProductSuccess} />
+                    <Drawers style={styles.drawers} fridgeId={id} refreshFlag={drawerRefreshFlag} onProductAdded={handleAddProductSuccess} />
 
                     <View style={styles.buttonsContainer}>
                         <ButtonSecondary
@@ -91,7 +95,7 @@ function FridgeMain() {
                         animationType="slide"
                         onRequestClose={() => setShowAddDrawer(false)}
                     >
-                        <NewDrawer fridgeId={id} onAddDrawer={handleAddDrawerSuccess} />
+                        <NewDrawer fridgeId={id} onAddDrawer={handleAddDrawerSuccess} onCancelDrawer={handleCancelDrawer} />
                     </Modal>
                 </View>
             </ImageBackground>
@@ -104,6 +108,7 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         justifyContent: 'center',
         alignItems: 'center',
+
     },
     title: {
         fontSize: 24,
@@ -123,8 +128,9 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         alignItems: 'center',
-        justifyContent: 'center',
-        paddingTop: 30
+        justifyContent: 'space-evenly',
+        marginTop: Platform.OS === 'web' ? 30 : 50,
+        height: 700,
 
     },
     buttonsContainer: {
@@ -132,7 +138,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
 
+        marginTop: Platform.OS === 'web' ? 20 : 10,
+        marginBottom: Platform.OS === 'web' ? 0 : 60,
+
     },
+
 
     imageStyle: {
         resizeMode: 'contain',  // Ajusta la imagen para que esté contenida y centrada
