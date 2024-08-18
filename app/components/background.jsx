@@ -11,8 +11,8 @@ export function BackgroundImage({ children }) {
         >
             {children}
         </ImageBackground>
-    );
-};
+    )
+}
 
 const styles = StyleSheet.create({
     backgroundImage: {
