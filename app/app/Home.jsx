@@ -49,7 +49,7 @@ export default function Home() {
     }
 
     const handleCancelAddFridge = () => {
-        setShowAddFridge(false) // Cierra el modal
+        setShowAddFridge(false)
     }
 
     return (
@@ -70,7 +70,7 @@ export default function Home() {
 
                     <ButtonSecondary
                         label="Add Fridge"
-                        onPress={() => setShowAddFridge(true)} // Muestra el modal para añadir nevera
+                        onPress={() => setShowAddFridge(true)}
                     />
 
                     <Link asChild href="/">

@@ -12,7 +12,7 @@ async function checkUser(userId) {
         headers: {
             'Content-Type': 'application/json',
         },
-    };
+    }
 
     try {
         const url = `${API_URL}/users/${userId}`

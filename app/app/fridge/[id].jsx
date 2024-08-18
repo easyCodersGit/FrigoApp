@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
 
 
     imageStyle: {
-        resizeMode: 'contain',  // Ajusta la imagen para que esté contenida y centrada
+        resizeMode: 'contain',
     },
 
     fridgeButton: {

@@ -60,7 +60,7 @@ export default function NewProduct({ drawerId, onAddProduct, onCancelProduct }) 
                     keyboardType="default"
                 />
 
-                {/* <Text style={styles.label}>Category</Text> */}
+
 
 
                 <Picker
@@ -74,17 +74,13 @@ export default function NewProduct({ drawerId, onAddProduct, onCancelProduct }) 
                     <Picker.Item label="Meat" value="meat" />
                     <Picker.Item label="Fish" value="fish" />
                     <Picker.Item label="Dairy" value="dairy" />
-                    {/* Añade más categorías aquí */}
+                    {/* TODO completar esto, faltan categorias  */}
                 </Picker>
 
 
 
 
 
-                {/* <Text style={styles.label}>Expiration Date</Text> */}
-
-
-                {/* <Text style={styles.label}>Choose an Emoji</Text> */}
                 <IconMojis onSelect={setSelectedEmoji} />
 
                 {selectedEmoji && (
@@ -115,9 +111,7 @@ export default function NewProduct({ drawerId, onAddProduct, onCancelProduct }) 
                         onChange={handleDateChange}
                     />
                 )}
-                {/* <Text style={styles.selectedDate}>
-                    {expirationDate.toDateString()}
-                </Text> */}
+
 
 
 
@@ -133,22 +127,9 @@ export default function NewProduct({ drawerId, onAddProduct, onCancelProduct }) 
 
 
 
-                {/* <Pressable
-                    style={({ pressed }) => [
-                        {
-                            padding: 10,
-                            marginTop: 20,
-                            backgroundColor: pressed ? '#ddd' : '#FF6347',
-                            borderRadius: 5,
-                        },
-                    ]}
-                    onPress={() => onCancelProduct()}
-                >
-                    <Text style={{ color: '#fff', textAlign: 'center' }}>CANCEL</Text>
-                </Pressable> */}
             </View>
         </View>
-    );
+    )
 }
 
 
@@ -164,53 +145,50 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: width * 0.9,
         height: 700,
-        padding: Platform.OS === 'web' ? 20 : 5, // Reduce el padding en dispositivos móviles
+        padding: Platform.OS === 'web' ? 20 : 5,
         borderRadius: 15,
-        //shadowColor: '#000',
-        //shadowOffset: { width: 0, height: 2 },
-        sshadowOpacity: 0.8,
-        //shadowRadius: 5,
-        //elevation: 5,
-        //backgroundColor: 'white',
+
+        shadowOpacity: 0.8,
+
     },
     label: {
-        marginTop: Platform.OS === 'web' ? 20 : 5, // Reduce el espacio superior en dispositivos móviles
+        marginTop: Platform.OS === 'web' ? 20 : 5,
         fontSize: 10,
         fontWeight: 'bold',
         color: '#333333',
         textTransform: 'uppercase',
     },
     picker: {
-        height: Platform.OS === 'web' ? 60 : 50, // Reduce la altura en dispositivos móviles
+        height: Platform.OS === 'web' ? 60 : 50,
         width: '100%',
         color: '#333333',
         borderRadius: 10,
-        marginBottom: Platform.OS === 'web' ? 20 : 120, // Reduce el espacio inferior en dispositivos móviles
+        marginBottom: Platform.OS === 'web' ? 20 : 120,
     },
     selectedDate: {
         marginTop: 15,
         fontSize: 16,
         color: '#ed1bde',
         fontStyle: 'italic',
-        marginBottom: Platform.OS === 'web' ? 20 : 10, // Reduce el espacio inferior en dispositivos móviles
+        marginBottom: Platform.OS === 'web' ? 20 : 10,
     },
     selectedEmoji: {
         marginTop: 50,
         fontSize: 30,
         color: '#ffcc00',
         textAlign: 'center',
-        marginBottom: Platform.OS === 'web' ? 20 : 10, // Reduce el espacio inferior en dispositivos móviles
+        marginBottom: Platform.OS === 'web' ? 20 : 10,
     },
     input: {
         marginBottom: Platform.OS === 'web' ? 20 : 10,
-        width: '100%', // Reduce el espacio inferior en dispositivos móviles
+        width: '100%',
     },
     buttonContainer: {
         marginTop: Platform.OS === 'web' ? 20 : 10,
-        marginBottom: 10, // Añade un poco de margen inferior para separar el botón del borde del contenedor
+        marginBottom: 10,
         width: '100%',
-        alignItems: 'center', // Reduce el espacio superior en dispositivos móviles
+        alignItems: 'center',
     },
-});
+})
 
 
