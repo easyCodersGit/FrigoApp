@@ -7,6 +7,8 @@ import retrieveDrawers from "./retrieveDrawers"
 import retrieveProducts from "./retrieveProducts"
 import addDrawer from "./addDrawers"
 import addProduct from "./addProduct"
+import deleteDrawer from "./deleteDrawer"
+
 
 const logic = {
     checkUser,
@@ -17,7 +19,8 @@ const logic = {
     retrieveDrawers,
     retrieveProducts,
     addDrawer,
-    addProduct
+    addProduct,
+    deleteDrawer
 }
 
 export default logic

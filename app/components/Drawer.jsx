@@ -1,3 +1,5 @@
+
+
 import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, Dimensions, Platform, Pressable, Modal, ActivityIndicator } from 'react-native'
 
@@ -5,10 +7,13 @@ import retrieveProducts from '../logic/retrieveProducts'
 import Product from './Product'
 import NewProduct from './NewProduct'
 
+import CustomAlert from '../library/CustomAlert'
+import deleteDrawer from '../logic/deleteDrawer'
+
 const { width } = Dimensions.get('window')
 
 function Drawer(props) {
-    const { drawer, onProductAdded } = props
+    const { drawer, fridge, onDrawerDeleted } = props
     console.log('Drawer Data:', drawer)
 
     const [modalVisible, setModalVisible] = useState(false)
@@ -16,6 +21,7 @@ function Drawer(props) {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
     const [showAddProduct, setShowAddProduct] = useState(false)
+    const [alertVisible, setAlertVisible] = useState(false)
 
     const fetchProducts = async () => {
         try {
@@ -31,18 +37,6 @@ function Drawer(props) {
 
     useEffect(() => {
         if (modalVisible) {
-            const fetchProducts = async () => {
-                try {
-                    setLoading(true)
-                    const fetchedProducts = await retrieveProducts(drawer._id)
-                    setProducts(fetchedProducts)
-                } catch (err) {
-                    setError(err.message)
-                } finally {
-                    setLoading(false)
-                }
-            }
-
             fetchProducts()
         }
     }, [modalVisible, drawer._id])
@@ -55,12 +49,14 @@ function Drawer(props) {
         setModalVisible(false)
     }
 
-    const handleAddProductSuccess = () => {
-        setShowAddProduct(false)
-        setModalVisible(false)
-        fetchProducts()
-        if (onProductAdded) {
-            onProductAdded()
+    const handleDeleteDrawer = async () => {
+        try {
+            const drawerName = await deleteDrawer(fridge, drawer._id)
+            setAlertVisible(false)
+            onDrawerDeleted() // Llamada para actualizar la lista de cajones
+            console.log(`Drawer '${drawerName}' deleted successfully`)
+        } catch (error) {
+            console.error('Error deleting drawer:', error)
         }
     }
 
@@ -68,8 +64,18 @@ function Drawer(props) {
         <View style={styles.drawerContainer}>
             <Pressable onPress={handlePress} style={styles.drawerContent}>
                 <Text style={styles.drawerName}>{drawer.name}</Text>
-
                 <Text style={styles.productCount}>Products: {products.length}</Text>
+                <Pressable onPress={() => setAlertVisible(true)} style={styles.button}>
+                    <Text style={styles.buttonText}>Delete</Text>
+                </Pressable>
+
+                <CustomAlert
+                    visible={alertVisible}
+                    title="Delete Drawer"
+                    message={`Are you sure you want to delete ${drawer.name}?`}
+                    onConfirm={handleDeleteDrawer}
+                    onCancel={() => setAlertVisible(false)}
+                />
             </Pressable>
 
             <Modal
@@ -80,7 +86,7 @@ function Drawer(props) {
             >
                 <View style={styles.modalOverlay}>
                     <View style={styles.modalContent}>
-                        <Text style={styles.modalTitle}>{drawer.name} </Text>
+                        <Text style={styles.modalTitle}>{drawer.name}</Text>
                         <Text style={styles.modalText}>Number of Products: {products.length}</Text>
 
                         {loading ? (
@@ -88,7 +94,14 @@ function Drawer(props) {
                         ) : error ? (
                             <Text style={styles.errorText}>Error: {error}</Text>
                         ) : (
-                            products.map(product => <Product key={product._id} product={product} drawerId={drawer._id} onProductDeleted={fetchProducts} />)
+                            products.map(product => (
+                                <Product
+                                    key={product._id}
+                                    product={product}
+                                    drawerId={drawer._id}
+                                    onProductDeleted={fetchProducts}
+                                />
+                            ))
                         )}
 
                         <Pressable onPress={() => setShowAddProduct(true)} style={styles.button}>
@@ -99,8 +112,6 @@ function Drawer(props) {
                             <Text style={styles.buttonText}>Close</Text>
                         </Pressable>
 
-
-
                         <Modal
                             animationType="slide"
                             transparent={true}
@@ -109,20 +120,27 @@ function Drawer(props) {
                         >
                             <View style={styles.modalOverlay}>
                                 <View style={styles.modalContent}>
-                                    <NewProduct drawerId={drawer._id} onAddProduct={handleAddProductSuccess} onCancelProduct={() => setShowAddProduct(false)} />
+                                    <NewProduct
+                                        drawerId={drawer._id}
+                                        onAddProduct={fetchProducts}
+
+                                        onCancelProduct={() => setShowAddProduct(false)}
+                                    />
                                 </View>
                             </View>
-
-
                         </Modal>
-
-
                     </View>
                 </View>
             </Modal>
         </View>
     )
 }
+
+
+
+
+
+
 
 const styles = StyleSheet.create({
     drawerContainer: {

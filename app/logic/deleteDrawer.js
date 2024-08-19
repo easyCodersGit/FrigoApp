@@ -34,3 +34,5 @@ async function deleteDrawer(fridgeId, drawerId) {
 
     }
 }
+
+export default deleteDrawer
