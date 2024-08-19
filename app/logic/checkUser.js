@@ -1,7 +1,7 @@
-//import { validate, errors } from '../../com/index.js'
-//import { API_URL } from '@env'
+
+
 import { API_URL } from '@env'
-//const { SystemError } = errors
+
 
 
 async function checkUser(userId) {
