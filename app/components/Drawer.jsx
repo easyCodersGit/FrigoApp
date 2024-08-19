@@ -88,7 +88,7 @@ function Drawer(props) {
                         ) : error ? (
                             <Text style={styles.errorText}>Error: {error}</Text>
                         ) : (
-                            products.map(product => <Product key={product._id} product={product} />)
+                            products.map(product => <Product key={product._id} product={product} drawerId={drawer._id} onProductDeleted={fetchProducts} />)
                         )}
 
                         <Pressable onPress={() => setShowAddProduct(true)} style={styles.button}>
@@ -98,6 +98,8 @@ function Drawer(props) {
                         <Pressable onPress={handleClose} style={styles.button}>
                             <Text style={styles.buttonText}>Close</Text>
                         </Pressable>
+
+
 
                         <Modal
                             animationType="slide"
