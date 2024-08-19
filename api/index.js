@@ -19,7 +19,8 @@ import {
     retrieveDrawersHandler,
     retrieveProductsHandler,
     addProductHandler,
-    deleteProductHandler
+    deleteProductHandler,
+    deleteDrawerHandler
 
 } from './handlers/index.js'
 
@@ -57,6 +58,9 @@ mongoose.connect(process.env.MONGODB_URL)
 
         // Retrieve Drawers
         server.get('/fridges/:fridgeId/drawers', retrieveDrawersHandler)
+
+        // Delete Drawer
+        server.delete('/fridges/:fridgeId/drawers/:drawerId', deleteDrawerHandler)
 
         // Retrieve Products
         server.get('/drawers/:drawerId/products', retrieveProductsHandler)
