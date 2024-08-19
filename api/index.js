@@ -18,7 +18,8 @@ import {
     addDrawerHandler,
     retrieveDrawersHandler,
     retrieveProductsHandler,
-    addProductHandler
+    addProductHandler,
+    deleteProductHandler
 
 } from './handlers/index.js'
 
@@ -63,6 +64,8 @@ mongoose.connect(process.env.MONGODB_URL)
         // Add Products
         server.post('/drawers/:drawerId/products', addProductHandler)
 
+        // Delete Product
+        server.delete('/drawers/:drawerId/products/:productId', deleteProductHandler)
 
 
 
