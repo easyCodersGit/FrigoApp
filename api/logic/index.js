@@ -9,6 +9,7 @@ import retrieveProducts from "./retrieveProduct.js"
 import addProduct from "./addProduct.js"
 import deleteProduct from "./deleteProduct.js"
 import deleteDrawer from "./deleteDrawer.js"
+import deleteFridge from "./deleteFridge.js"
 
 const logic = {
     retrieveUser,
@@ -21,7 +22,8 @@ const logic = {
     retrieveProducts,
     addProduct,
     deleteProduct,
-    deleteDrawer
+    deleteDrawer,
+    deleteFridge
 }
 
 export default logic
