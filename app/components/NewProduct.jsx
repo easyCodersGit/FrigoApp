@@ -29,6 +29,7 @@ export default function NewProduct({ drawerId, onAddProduct, onCancelProduct }) 
             await logic.addProduct(nameProduct, category, quantity, expirationDate, drawerId, selectedEmoji)
             console.log('Product added successfully')
             onAddProduct()
+            onCancelProduct() // un poco cutre pero asi cierra el modal
             alert('Success', 'Product added successfully!')
         } catch (error) {
             console.error('Error adding product:', error)

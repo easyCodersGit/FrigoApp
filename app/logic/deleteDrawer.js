@@ -1,3 +1,5 @@
+//import { API_URL } from '@env'
+
 import { API_URL } from '@env'
 
 async function deleteDrawer(fridgeId, drawerId) {
@@ -34,3 +36,5 @@ async function deleteDrawer(fridgeId, drawerId) {
 
     }
 }
+
+export default deleteDrawer
