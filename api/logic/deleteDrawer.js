@@ -1,4 +1,4 @@
-import { Drawer, Fridge } from "../data/models.js"
+import { Drawer, Fridge, Product } from "../data/models.js"
 
 import { errors, validate } from "com"
 
@@ -23,6 +23,10 @@ async function deleteDrawer(fridgeId, drawerId) {
         const drawerIndex = fridge.drawers.findIndex(p => p.toString() === drawerId.toString())
         if (drawerIndex === -1) {
             throw new CredentialsError('Drawer not found in the specified fridge')
+        }
+
+        if (drawer.products.length > 0) {
+            await Product.deleteMany({ _id: { $in: drawer.products } })
         }
 
         const drawerName = drawer.name
