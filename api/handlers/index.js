@@ -9,6 +9,7 @@ import retrieveProductsHandler from "./retrieveProductsHandler.js"
 import addProductHandler from "./addProductHandler.js"
 import deleteProductHandler from "./deleteProductHandler.js"
 import deleteDrawerHandler from "./deleteDrawerHandler.js"
+import deleteFridgeHandler from "./deleteFridgeHandler.js"
 
 
 export {
@@ -22,6 +23,7 @@ export {
     retrieveProductsHandler,
     addProductHandler,
     deleteProductHandler,
-    deleteDrawerHandler
+    deleteDrawerHandler,
+    deleteFridgeHandler
 
 }
