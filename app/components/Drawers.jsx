@@ -51,7 +51,7 @@ function Drawers({ fridgeId, refreshFlag }) {
                     />
                 )}
                 keyExtractor={(item) => item._id.toString()}
-                ListEmptyComponent={<Text style={styles.emptyText}>No drawers found.</Text>}
+                ListEmptyComponent={<Text style={styles.emptyText}>No drawers found. Add one!</Text>}
             />
         </View>
     )
@@ -82,7 +82,9 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginTop: 20,
         fontSize: 16,
-        color: '#888',
+        color: '#ff6347',
+        fontWeight: 'bold'
+        
     },
 })
 
