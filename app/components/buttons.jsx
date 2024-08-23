@@ -15,7 +15,7 @@ export function ButtonBlue({ label, onPress }) {
                 <Text style={styles.buttonLabel}>{label}</Text>
             </Pressable>
         </View>
-    );
+    )
 }
 
 export function ButtonSecondary({ label, onPress }) {
@@ -31,7 +31,7 @@ export function ButtonSecondary({ label, onPress }) {
                 <Text style={styles.buttonSecondaryLabel}>{label}</Text>
             </Pressable>
         </View>
-    );
+    )
 }
 
 const styles = StyleSheet.create({

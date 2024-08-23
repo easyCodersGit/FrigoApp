@@ -51,7 +51,7 @@ function Drawer(props) {
 
     const handleDeleteDrawer = async () => {
         try {
-            const drawerName = await deleteDrawer(fridge, drawer._id)
+            const drawerName = await deleteDrawer(fridge._id, drawer._id)
             setAlertVisible(false)
             onDrawerDeleted() // Llamada para actualizar la lista de cajones
             console.log(`Drawer '${drawerName}' deleted successfully`)
@@ -66,7 +66,7 @@ function Drawer(props) {
                 <Text style={styles.drawerName}>{drawer.name}</Text>
                 <Text style={styles.productCount}>Products: {products.length}</Text>
                 <Pressable onPress={() => setAlertVisible(true)} style={styles.button}>
-                    <Text style={styles.buttonText}>Delete</Text>
+                    <Text style={styles.buttonText}>Delete Drawer</Text>
                 </Pressable>
 
                 <CustomAlert

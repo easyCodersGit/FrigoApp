@@ -1,12 +1,9 @@
-//import { API_URL } from '@env'
-
 import { API_URL } from '@env'
 
-async function deleteDrawer(fridgeId, drawerId) {
-
-    if (!drawerId || !fridgeId) {
-        console.error('drawer ID and fridgeId are required')
-        throw new Error('drawer ID and fridge ID are required')
+async function deleteFridge(fridgeId, userId){
+    if (!userId || !fridgeId) {
+        console.error('user ID and fridgeId are required')
+        throw new Error('user ID and fridge ID are required')
     }
 
     const req = {
@@ -21,7 +18,7 @@ async function deleteDrawer(fridgeId, drawerId) {
 
     try {
 
-        const res = await fetch(`${API_URL}/fridges/${fridgeId}/drawers/${drawerId}`, req)
+        const res = await fetch(`${API_URL}/users/${userId}/fridges/${fridgeId}`, req)
 
         if (!res.ok) {
             const body = await res.json()
@@ -30,13 +27,13 @@ async function deleteDrawer(fridgeId, drawerId) {
 
         const responseBody = await res.json()
 
-        return responseBody.drawerName
-
+        return responseBody.fridgeName
+        
     } catch (error) {
 
         throw new Error(error.message)
-
+        
     }
 }
 
-export default deleteDrawer
+export default deleteFridge

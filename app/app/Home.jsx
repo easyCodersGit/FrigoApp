@@ -74,7 +74,7 @@ export default function Home() {
                     />
 
                     <Link asChild href="/">
-                        <ButtonSecondary label="LOGIN" />
+                        <ButtonSecondary label="LOGOUT" />
                     </Link>
 
                     <Modal

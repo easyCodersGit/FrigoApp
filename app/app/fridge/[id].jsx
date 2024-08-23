@@ -77,17 +77,19 @@ function FridgeMain() {
             >
                 <View style={styles.innerContainer}>
                     <Text style={styles.title}>{fridgeData.name}</Text>
+                    <Text style={styles.subtitle}>Haz click en el cajón para ver su contenido y modificarlo!</Text>
                     <Drawers style={styles.drawers} fridgeId={id} refreshFlag={drawerRefreshFlag} onProductAdded={handleAddProductSuccess} />
 
                     <View style={styles.buttonsContainer}>
+                    <ButtonSecondary
+                            label="Add Drawer"
+                            onPress={() => setShowAddDrawer(true)}
+                        />
                         <ButtonSecondary
                             label="Go to Fridges"
                             onPress={handlerGoFridges}
                         />
-                        <ButtonSecondary
-                            label="Add Drawer"
-                            onPress={() => setShowAddDrawer(true)}
-                        />
+                        
                     </View>
 
                     <Modal
@@ -114,6 +116,15 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 20,
+       
+    },
+    subtitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 20,
+        marginLeft: 60,
+        marginRight: 60
+
     },
     fridgeImage: {
         width: Platform.OS === 'web' ? '100%' : '100%',
