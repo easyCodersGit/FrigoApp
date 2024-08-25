@@ -1,9 +1,9 @@
-import { User, Fridge, Product, Drawer } from '../data/models.js';
+import { User, Fridge, Product, Drawer } from '../data/models.js'
 
 async function createUser({ name, email, password }) {
     // Validar los datos de entrada
     if (!name || !email || !password) {
-        throw new Error('All fields are required');
+        throw new Error('All fields are required')
     }
 
     // Crear el nuevo usuario
@@ -12,14 +12,14 @@ async function createUser({ name, email, password }) {
         email,
         password,
         fridges: []
-    });
+    })
 
     try {
-        await user.save();
-        return user;
+        await user.save()
+        return user
     } catch (error) {
-        throw new Error('Error creating user: ' + error.message);
+        throw new Error('Error creating user: ' + error.message)
     }
 }
 
-export default createUser;
+export default createUser
