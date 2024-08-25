@@ -22,7 +22,8 @@ async function addFridge(name, userId) {
             name,
             owner: userId,
             date: new Date(),
-            drawers: []
+            drawers: [],
+            color: 'orange'
         })
 
 

@@ -77,7 +77,7 @@ function FridgeMain() {
             >
                 <View style={styles.innerContainer}>
                     <Text style={styles.title}>{fridgeData.name}</Text>
-                    <Text style={styles.subtitle}>Haz click en el cajón para ver su contenido y modificarlo!</Text>
+                    {/* <Text style={styles.subtitle}>Haz click en el cajón para ver su contenido y modificarlo!</Text> */}
                     <Drawers style={styles.drawers} fridgeId={id} refreshFlag={drawerRefreshFlag} onProductAdded={handleAddProductSuccess} />
 
                     <View style={styles.buttonsContainer}>

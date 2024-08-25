@@ -64,7 +64,16 @@ function Drawer(props) {
         <View style={styles.drawerContainer}>
             <Pressable onPress={handlePress} style={styles.drawerContent}>
                 <Text style={styles.drawerName}>{drawer.name}</Text>
-                <Text style={styles.productCount}>Products: {products.length}</Text>
+                {/* <Text style={styles.productCount}>Products: {products.length}</Text> */}
+
+                <View style={styles.productIconsContainer}>
+                    {products.map((product) => (
+                        <Text key={product._id} style={styles.productIcon}>
+                            {product.icon || '❓'} {/* Muestra un emoji por defecto si no hay icono */}
+                        </Text>
+                    ))}
+                </View>
+                
                 <Pressable onPress={() => setAlertVisible(true)} style={styles.button}>
                     <Text style={styles.buttonText}>Delete Drawer</Text>
                 </Pressable>
@@ -204,6 +213,19 @@ const styles = StyleSheet.create({
         color: 'red',
         fontSize: 16,
         marginBottom: 10,
+    },
+
+    productIconsContainer: {
+        flexDirection: 'row',   
+        justifyContent: 'flex-start', 
+        alignItems: 'center',  
+        flexWrap: 'nowrap',   
+        overflow: 'hidden', 
+        marginBottom: 10,
+    },
+    productIcon: {
+        fontSize: 24,
+        marginHorizontal: 0,    
     },
 })
 
