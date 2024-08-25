@@ -21,7 +21,8 @@ import {
     addProductHandler,
     deleteProductHandler,
     deleteDrawerHandler,
-    deleteFridgeHandler
+    deleteFridgeHandler,
+    registerUserHandler
 
 } from './handlers/index.js'
 
@@ -37,7 +38,8 @@ mongoose.connect(process.env.MONGODB_URL)
         server.use(jsonBodyParser);
 
 
-
+        // Register User
+        server.post('/users', jsonBodyParser, registerUserHandler)
 
         // Retrieve User
         server.get('/users/:userId', retrieveUserHandler)
