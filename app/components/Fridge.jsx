@@ -41,7 +41,8 @@ function Fridge(props) {
         <>
             <Pressable onPress={handlePress} style={styles.fridgeContainer}>
                 <ImageBackground
-                    source={require('../img/neveraRetrieve1.png')}
+                    // source={require('../img/neveraRetrieve1.png')}
+                    source={require('../img/neveraOpacitat.png')}
                     style={styles.fridgeImage}
                 >
                     <View style={styles.nameOverlay}>
@@ -78,16 +79,18 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     fridgeImage: {
-        width: Platform.OS === 'web' ? '100%' : '80%',
-        height: 300,
+        // width: Platform.OS === 'web' ? '100%' : '80%',
+        width: Platform.OS === 'web' ? 400 : '90%',
+        height: Platform.OS === 'web' ? 500 : 400,
+  
+        
+        
+        alignItems: 'center'
     },
     nameOverlay: {
         position: 'absolute',
-        top: Platform.OS === 'web' ? '35%' : '36%',
-        left: 10,
-        right: 10,
-
-        padding: 5,
+        top: Platform.OS === 'web' ? '35%' : '15%',
+        right: 100,
         borderRadius: 5,
     },
     detailsOverlay: {
@@ -100,10 +103,12 @@ const styles = StyleSheet.create({
         borderRadius: 5,
     },
     fridgeName: {
+       
         fontSize: 15,
         fontWeight: 'bold',
         color: '#fff',
         marginBottom: 5,
+        textAlign: 'center'
     },
     fridgeOwner: {
         fontSize: 14,

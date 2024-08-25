@@ -17,12 +17,22 @@ export function Main() {
     const router = useRouter()
 
     const handleRegister = () => {
-        alert("Este link te llevará al Register")
+        
         router.push('/Register')
     }
 
-    const handleGuest = () => {
-        alert("Este link te llevará a la página de Invitado")
+    const handleGuest = async () => {
+        try {
+          
+            const guestEmail = 'guest@example.com'
+            const guestPassword = 'guestpassword123'
+
+            await loginUser(guestEmail, guestPassword)
+            setMessage('Guest login successful!')
+            router.push('/Home')
+        } catch (error) {
+            console.error('Error logging in as guest:', error)
+        }
     }
 
     const handleLogin = async () => {
@@ -62,7 +72,11 @@ export function Main() {
                                 secureTextEntry={true}
                             />
 
-                            <ButtonSecondary
+                          
+                        </View>
+
+                        <View style={styles.buttonLogin}>
+                        <ButtonSecondary
                                 label="LOGIN"
                                 onPress={handleLogin}
                                 onPressIn={() => setIsPressed(true)}
