@@ -11,9 +11,9 @@ async function addProduct(name, category, quantity, expirationDate, drawerId, ic
 
     try {
 
-        const drawer = await Drawer.findById(drawerId).lean();
+        const drawer = await Drawer.findById(drawerId).lean()
         if (!drawer) {
-            throw new NotFoundError('Drawer not found');
+            throw new NotFoundError('Drawer not found')
         }
 
 

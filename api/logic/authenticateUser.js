@@ -1,11 +1,12 @@
-import { User } from "../data/models.js";
+import bcrypt from 'bcryptjs'
+import { User } from "../data/models.js"
 import { validate, errors } from "com"
 const { SystemError, NotFoundError, CredentialsError } = errors
 
 function authenticateUser(email, password) {
 
-    //validate.email(email, 'email')
-    //validate.password(password, 'password')
+    validate.email(email, 'email')
+    validate.password(password, 'password')
 
     return (async () => {
         let user
@@ -26,7 +27,8 @@ function authenticateUser(email, password) {
         let match
 
         try {
-            match = password === user.password
+            // match = password === user.password
+            match = bcrypt.compare(password, user.password)
         } catch (error) {
             throw new Error(error.message)
         }
