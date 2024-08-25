@@ -5,6 +5,8 @@ import { User } from '../data/models.js'
 const { SystemError, DuplicityError } = errors
 
 async function registerUser({name, email, password}) {
+
+    console.log('Datos recibidos:', { name, email, password })
     validate.text(name, 'name')
     validate.email(email, 'email')
     validate.password(password, 'password')
