@@ -1,11 +1,31 @@
-// Product.jsx
+
+
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, Pressable, Alert } from 'react-native'
+import { View, Text, StyleSheet, Pressable, Modal, Dimensions, Platform } from 'react-native'
+import { Input } from './input'
+import { ButtonSecondary } from './buttons'
 import CustomAlert from '../library/CustomAlert'
 import deleteProduct from '../logic/deleteProduct'
+import editProduct from '../logic/editProduct'
+import { Picker } from '@react-native-picker/picker'
+import { BackgroundImage } from './background'
+import IconMojis from '../library/IconMojis.jsx'
+import DateTimePicker from '@react-native-community/datetimepicker'
 
-function Product({ product, drawerId, onProductDeleted }) {
+const { width } = Dimensions.get('window')
+
+function Product({ product, drawerId, onProductDeleted, onProductEdited }) {
     const [alertVisible, setAlertVisible] = useState(false)
+    const [showEditProduct, setShowEditProduct] = useState(false)
+
+ 
+    const [nameProduct, setNameProduct] = useState(product.name)
+    const [quantity, setQuantity] = useState(product.quantity.toString())
+    const [category, setCategory] = useState(product.category)
+    const [expirationDate, setExpirationDate] = useState(new Date(product.expirationDate))
+    const [selectedEmoji, setSelectedEmoji] = useState(product.icon || '')
+    
+    const [showDatePicker, setShowDatePicker] = useState(false)
 
     const handleDeleteProduct = async () => {
         try {
@@ -18,8 +38,35 @@ function Product({ product, drawerId, onProductDeleted }) {
         }
     }
 
+    const handleEditProduct = async () => {
+        const updates = {
+            name: nameProduct,
+            category,
+            quantity: parseInt(quantity, 10), 
+            expirationDate,
+            icon: selectedEmoji 
+        }
+
+        try {
+            await editProduct(product._id, drawerId, updates)
+            setShowEditProduct(false)
+            onProductEdited()
+            console.log('Product edited successfully')
+        } catch (error) {
+            console.error('Error editing product:', error)
+        }
+    }
+
+    const handleDateChange = (event, selectedDate) => {
+        setShowDatePicker(false)
+        if (selectedDate) {
+            setExpirationDate(selectedDate)
+        }
+    }
+
     return (
         <View style={styles.productContainer}>
+             
             <Text style={styles.productName}>{product.name}</Text>
             <Text style={styles.productDetails}>Category: {product.category}</Text>
             <Text style={styles.productDetails}>Quantity: {product.quantity}</Text>
@@ -30,6 +77,10 @@ function Product({ product, drawerId, onProductDeleted }) {
                 <Text style={styles.buttonText}>Delete</Text>
             </Pressable>
 
+            <Pressable onPress={() => setShowEditProduct(true)} style={styles.button}>
+                <Text style={styles.buttonText}>Edit</Text>
+            </Pressable>
+
             <CustomAlert
                 visible={alertVisible}
                 title="Delete Product"
@@ -37,11 +88,125 @@ function Product({ product, drawerId, onProductDeleted }) {
                 onConfirm={handleDeleteProduct}
                 onCancel={() => setAlertVisible(false)}
             />
+
+            <Modal
+                visible={showEditProduct}
+                animationType="slide"
+                onRequestClose={() => setShowEditProduct(false)}
+            >
+                <View style={styles.container}>
+                <BackgroundImage />
+                    <View style={styles.productContainerModal}>
+                        <Input
+                            placeholder="Name"
+                            value={nameProduct}
+                            onChangeText={setNameProduct}
+                            keyboardType="default"
+                        />
+
+                        <Input
+                            placeholder="Quantity"
+                            value={quantity}
+                            onChangeText={setQuantity}
+                            keyboardType="numeric"
+                        />
+
+                        <Picker
+                            selectedValue={category}
+                            style={styles.picker}
+                            onValueChange={(itemValue) => setCategory(itemValue)}
+                        >
+                            <Picker.Item label="Select a category..." value="" />
+                            <Picker.Item label="Vegetables" value="vegetables" />
+                            <Picker.Item label="Fruits" value="fruits" />
+                            <Picker.Item label="Meat" value="meat" />
+                            <Picker.Item label="Fish" value="fish" />
+                            <Picker.Item label="Seafood" value="seafood" />
+                            <Picker.Item label="Dairy" value="dairy" />
+                            <Picker.Item label="Grains" value="grains" />
+                            <Picker.Item label="Nuts and Seeds" value="nuts and seeds" />
+                            <Picker.Item label="Legumes" value="legumes" />
+                            <Picker.Item label="Sweets" value="sweets" />
+                            <Picker.Item label="Beverages" value="beverages" />
+                            <Picker.Item label="Spices and Herbs" value="spices and herbs" />
+                            <Picker.Item label="Baked Goods" value="baked goods" />
+                            <Picker.Item label="Condiment and Sauces" value="condiment and sauces" />
+                            <Picker.Item label="Snacks" value="snacks" />
+                            <Picker.Item label="Fats and Oils" value="fats and oils" />
+                            <Picker.Item label="Frozen Foods" value="frozen foods" />
+                            <Picker.Item label="Canned Goods" value="canned goods" />
+                        </Picker>
+
+                        <View style={styles.emojiScrollContainer}>
+                    <IconMojis onSelect={setSelectedEmoji} selectedEmoji={selectedEmoji} />
+                </View>  
+                <Pressable
+                    style={({ pressed }) => [
+                        {
+                            padding: 10,
+                            marginEnd: 20,
+                            backgroundColor: pressed ? '#ddd' : '#2196F3', 
+                            borderRadius: 5,
+                            marginTop: 5,
+                            marginBottom: 20
+                        },
+                    ]}
+                    onPress={() => setShowDatePicker(true)}
+                >
+                    <Text style={{ color: '#fff', textAlign: 'center' }}>Select Expiration Date</Text>
+                </Pressable> 
+
+                {showDatePicker && (
+                    <DateTimePicker
+                        value={expirationDate}
+                        mode="date"
+                        display="default"
+                        onChange={handleDateChange}
+                    />
+                )}
+
+                        <ButtonSecondary
+                            label="SAVE CHANGES"
+                            onPress={handleEditProduct}
+                        />
+
+                        <ButtonSecondary
+                            label="CANCEL"
+                            onPress={() => setShowEditProduct(false)}
+                        />
+                    </View>
+                </View>
+            </Modal>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#ed1bde',
+    },
+    productContainerModal: {
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        width: width * 0.9,
+        height: 750,
+        padding: Platform.OS === 'web' ? 20 : 5,
+        borderRadius: 15,
+        backgroundColor: 'rgba(9, 34, 70, 0.2)',
+
+        shadowColor: '#000', 
+        shadowOffset: {
+            width: 0, 
+            height: 2, 
+        },
+        shadowOpacity: 0.25, 
+        shadowRadius: 3.84,   
+        elevation: 5,
+
+    },
     productContainer: {
         padding: 10,
         borderBottomWidth: 1,
@@ -55,7 +220,6 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: 'black',
     },
-
     button: {
         backgroundColor: 'rgba(9, 34, 70, 0.4)',
         padding: 10,
@@ -66,6 +230,42 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontWeight: 'bold',
         textAlign: 'center',
+    },
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'white',
+    },
+    picker: {
+        height: Platform.OS === 'web' ? 60 : 50,
+        width: '100%',
+        color: 'white',
+        borderRadius: 10,
+        marginBottom: Platform.OS === 'web' ? 20 : 120,
+    },
+    selectedDate: {
+        marginTop: 15,
+        fontSize: 16,
+        color: '#ed1bde',
+        fontStyle: 'italic',
+        marginBottom: Platform.OS === 'web' ? 20 : 10,
+    },
+    emojiScrollContainer: {
+        maxHeight: 280, 
+        marginBottom: 15, 
+        overflow: 'hidden', 
+    },
+    selectedEmoji: {
+        marginTop: 50,
+        fontSize: 30,
+        color: '#ffcc00',
+        textAlign: 'center',
+        marginBottom: Platform.OS === 'web' ? 20 : 10,
+    },
+    input: {
+        marginBottom: Platform.OS === 'web' ? 20 : 10,
+        width: '100%',
     },
 })
 
