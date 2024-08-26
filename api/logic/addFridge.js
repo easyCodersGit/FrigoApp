@@ -5,7 +5,7 @@ import { errors, validate } from "com"
 
 const { SystemError, NotFoundError } = errors
 
-async function addFridge(name, userId) {
+async function addFridge(name, userId, colorFridge) {
     validate.id(userId, 'user id')
     validate.text(name, 'fridge name')
 
@@ -23,7 +23,7 @@ async function addFridge(name, userId) {
             owner: userId,
             date: new Date(),
             drawers: [],
-            color: 'orange'
+            color: colorFridge
         })
 
 

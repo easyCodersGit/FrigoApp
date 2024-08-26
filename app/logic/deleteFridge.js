@@ -1,6 +1,6 @@
-//import { API_URL } from '@env'
-
 import { API_URL } from '@env'
+
+//import { API_URL } from '@env'
 
 async function deleteFridge(fridgeId, userId){
     if (!userId || !fridgeId) {

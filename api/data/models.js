@@ -42,7 +42,8 @@ const fridge = new mongoose.Schema({
         required: true,
     },
     color: {
-        type: String
+        type: String,
+         enum: ['orange', 'red', 'blue']
       
     }
 

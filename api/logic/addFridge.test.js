@@ -9,7 +9,7 @@ import addFridge from './addFridge.js'
     await mongoose.connect(process.env.MONGODB_URL)
 
     try {
-        await addFridge('Nevera Cocina', '66a4cbc4fb311e46c4a4ef5d')
+        await addFridge('Nevera Roja', '66cb11d2a7f1c48e5602c7a1', 'red')
         console.log('Nevera creada')
     } catch (error) {
 
