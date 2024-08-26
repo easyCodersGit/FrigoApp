@@ -22,7 +22,8 @@ import {
     deleteProductHandler,
     deleteDrawerHandler,
     deleteFridgeHandler,
-    registerUserHandler
+    registerUserHandler,
+    editProductHandler
 
 } from './handlers/index.js'
 
@@ -77,6 +78,9 @@ mongoose.connect(process.env.MONGODB_URL)
 
         // Delete Product
         server.delete('/drawers/:drawerId/products/:productId', deleteProductHandler)
+
+        // Edit Product
+        server.patch('/drawers/:drawerId/products/:productId', editProductHandler)
 
 
 

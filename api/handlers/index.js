@@ -11,6 +11,8 @@ import deleteProductHandler from "./deleteProductHandler.js"
 import deleteDrawerHandler from "./deleteDrawerHandler.js"
 import deleteFridgeHandler from "./deleteFridgeHandler.js"
 import registerUserHandler from "./registerUserHandler.js"
+import editProductHandler from "./editProductHandler.js"
+
 
 
 export {
@@ -26,6 +28,8 @@ export {
     deleteProductHandler,
     deleteDrawerHandler,
     deleteFridgeHandler,
-    registerUserHandler
+    registerUserHandler,
+    editProductHandler
+
 
 }
