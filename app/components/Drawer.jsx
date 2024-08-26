@@ -109,6 +109,7 @@ function Drawer(props) {
                                     product={product}
                                     drawerId={drawer._id}
                                     onProductDeleted={fetchProducts}
+                                    onProductEdited={fetchProducts}
                                 />
                             ))
                         )}
