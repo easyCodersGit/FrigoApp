@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react'
-import { View, StyleSheet, Dimensions, Platform } from 'react-native'
+import { View, StyleSheet, Dimensions, Platform, Pressable, Text } from 'react-native'
 import { useRouter } from 'expo-router'
 
 import logic from '../logic'
@@ -12,15 +12,14 @@ import { BackgroundImage } from './background'
 import { ButtonSecondary } from './buttons'
 import { Input } from './input'
 
-
-export default function NewFridge({ userId, onAddFridge, onCancelAddFridge }) { //recibo estas props de home
+export default function NewFridge({ userId, onAddFridge, onCancelAddFridge }) {
     const [nameFridge, setNameFridge] = useState('')
+    const [colorFridge, setColorFridge] = useState('orange') 
     const router = useRouter()
 
     const handleAddFridge = async () => {
-
         try {
-            await logic.addFridge(userId, nameFridge)
+            await logic.addFridge(userId, nameFridge, colorFridge)
             console.log('Fridge added successfully')
             onAddFridge()
             alert('Success', 'Fridge added successfully!')
@@ -40,6 +39,27 @@ export default function NewFridge({ userId, onAddFridge, onCancelAddFridge }) { 
                     onChangeText={setNameFridge}
                     keyboardType="default"
                 />
+
+                <View style={styles.colorOptions}>
+                    <Pressable 
+                        style={[styles.colorOption, colorFridge === 'red' && styles.selectedColor]}
+                        onPress={() => setColorFridge('red')}
+                    >
+                        <Text style={styles.colorText}>Red</Text>
+                    </Pressable>
+                    <Pressable 
+                        style={[styles.colorOption, colorFridge === 'blue' && styles.selectedColor]}
+                        onPress={() => setColorFridge('blue')}
+                    >
+                        <Text style={styles.colorText}>Blue</Text>
+                    </Pressable>
+                    <Pressable 
+                        style={[styles.colorOption, colorFridge === 'orange' && styles.selectedColor]}
+                        onPress={() => setColorFridge('orange')}
+                    >
+                        <Text style={styles.colorText}>Orange</Text>
+                    </Pressable>
+                </View>
 
                 <ButtonSecondary
                     label="ADD FRIDGE"
@@ -66,5 +86,22 @@ const styles = StyleSheet.create({
         padding: 20,
         backgroundColor: 'rgba(255, 255, 255, 0.8)',
         borderRadius: 10,
+    },
+    colorOptions: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        marginVertical: 20,
+    },
+    colorOption: {
+        padding: 10,
+        borderRadius: 5,
+        borderWidth: 1,
+        borderColor: '#ccc',
+    },
+    selectedColor: {
+        borderColor: '#000',
+    },
+    colorText: {
+        fontSize: 16,
     },
 })

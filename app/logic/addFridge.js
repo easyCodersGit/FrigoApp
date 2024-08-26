@@ -1,11 +1,11 @@
 
-//import { API_URL } from '@env'
-
 import { API_URL } from '@env'
 
 
-async function addFridge(userId, name) {
-    if (!userId || !name) {
+
+
+async function addFridge(userId, name, colorFridge) {
+    if (!userId || !name || !colorFridge) {
         console.error('User ID and fridge name are required')
         throw new Error('User ID and fridge name are required')
     }
@@ -15,7 +15,7 @@ async function addFridge(userId, name) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name }),
+        body: JSON.stringify({ name, colorFridge }),
     }
 
     console.log('API_URL:', API_URL)

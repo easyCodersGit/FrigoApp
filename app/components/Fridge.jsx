@@ -1,4 +1,5 @@
 
+
 import React, {useState} from 'react'
 import { View, Text, ImageBackground, StyleSheet, Dimensions, Platform, Pressable } from 'react-native'
 import { useRouter } from 'expo-router'
@@ -6,43 +7,46 @@ import CustomAlert from '../library/CustomAlert'
 import { ButtonBlue } from './buttons'
 import deleteFridge from '../logic/deleteFridge'
 
-
 const { width } = Dimensions.get('window')
 
-
 function Fridge(props) {
-
     const { fridge, onFridgeDeleted, user } = props
     const [alertVisible, setAlertVisible] = useState(false)
 
     const router = useRouter()
 
-
     const handlePress = () => {
-
         router.push(`/fridge/${fridge.id}`)
     }
 
     const handleDeleteFridge = async () => {
         try {
-            console.log(fridge.id)
-            console.log(user)
             const fridgeName = await deleteFridge(fridge.id, user)
             setAlertVisible(false)
-            onFridgeDeleted() // Llamada para actualizar la lista de cajones
-            console.log(`Fridge '${fridgeName}' deleted successfully`)
+            onFridgeDeleted() 
         } catch (error) {
             console.error('Error deleting fridge:', error)
         }
     }
 
+   
+    const getImageSource = () => {
+        switch (fridge.color) {
+            case 'red':
+                return require('../img/neveraRoja.png')
+            case 'blue':
+                return require('../img/neveraAzul.png')
+            case 'orange':
+            default:
+                return require('../img/fridgeOrange.png')
+        }
+    }
 
     return (
         <>
             <Pressable onPress={handlePress} style={styles.fridgeContainer}>
                 <ImageBackground
-                    // source={require('../img/neveraRetrieve1.png')}
-                    source={require('../img/neveraOpacitat.png')}
+                    source={getImageSource()}
                     style={styles.fridgeImage}
                 >
                     <View style={styles.nameOverlay}>
@@ -68,7 +72,7 @@ function Fridge(props) {
                 onCancel={() => setAlertVisible(false)}
             />
         </>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
@@ -79,18 +83,14 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     fridgeImage: {
-        // width: Platform.OS === 'web' ? '100%' : '80%',
-        width: Platform.OS === 'web' ? 400 : '90%',
-        height: Platform.OS === 'web' ? 500 : 400,
-  
-        
-        
-        alignItems: 'center'
+        width: Platform.OS === 'web' ? 400 : '95%',
+        height: Platform.OS === 'web' ? 500 : 450,
+        alignItems: 'center',
     },
     nameOverlay: {
         position: 'absolute',
-        top: Platform.OS === 'web' ? '35%' : '15%',
-        right: 100,
+        top: Platform.OS === 'web' ? '35%' : '20%',
+        right: 110,
         borderRadius: 5,
     },
     detailsOverlay: {
@@ -98,33 +98,26 @@ const styles = StyleSheet.create({
         top: '60%',
         left: 10,
         right: 10,
-
         padding: 5,
         borderRadius: 5,
     },
     fridgeName: {
-       
         fontSize: 15,
         fontWeight: 'bold',
         color: '#fff',
         marginBottom: 5,
-        textAlign: 'center'
+        textAlign: 'center',
     },
     fridgeOwner: {
         fontSize: 14,
         color: '#fff',
-        paddingLeft: 30,
+        right: 10,
+        textAlign: 'center',
     },
-    fridgeDate: {
-        fontSize: 14,
-        color: '#fff',
-    },
-
     deleteButtonContainer: {
         position: 'relative',
-        bottom: -265,
+        bottom: -350,
         right: 10,
-       
     },
 })
 

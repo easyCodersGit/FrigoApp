@@ -40,7 +40,13 @@ const fridge = new mongoose.Schema({
     date: {
         type: Date,
         required: true,
+    },
+    color: {
+        type: String,
+         enum: ['orange', 'red', 'blue']
+      
     }
+
 
 })
 
@@ -74,7 +80,7 @@ const product = new mongoose.Schema({
     category: {
         type: String,
         required: true,
-        enum: ['vegetables', 'fruits', 'meat', 'fish', 'seafood', 'dairy', 'grains', 'nuts and seeds', 'legumes', 'sweets', 'beverages', 'spices abd herbs', 'baked goods', 'condiment and sauces', 'snacks', 'fats and oils', 'frozen foods', 'canned goods'],
+        enum: ['vegetables', 'fruits', 'meat', 'fish', 'seafood', 'dairy', 'grains', 'nuts and seeds', 'legumes', 'sweets', 'beverages', 'spices and herbs', 'baked goods', 'condiment and sauces', 'snacks', 'fats and oils', 'frozen foods', 'canned goods'],
     },
     quantity: {
         type: Number,

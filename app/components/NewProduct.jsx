@@ -61,43 +61,46 @@ export default function NewProduct({ drawerId, onAddProduct, onCancelProduct }) 
                     keyboardType="default"
                 />
 
-
-
-
                 <Picker
                     selectedValue={category}
                     style={styles.picker}
                     onValueChange={(itemValue) => setCategory(itemValue)}
                 >
-                    <Picker.Item label="Select a category..." value="" />
+                    <Picker.Item label="Select a category..." value=""  />
                     <Picker.Item label="Vegetables" value="vegetables" />
                     <Picker.Item label="Fruits" value="fruits" />
                     <Picker.Item label="Meat" value="meat" />
                     <Picker.Item label="Fish" value="fish" />
+                    <Picker.Item label="Seafood" value="seafood" />
                     <Picker.Item label="Dairy" value="dairy" />
-                    {/* TODO completar esto, faltan categorias  */}
+                    <Picker.Item label="Grains" value="grains" />
+                    <Picker.Item label="Nuts and Seeds" value="nuts and seeds" />
+                    <Picker.Item label="Legumes" value="legumes" />
+                    <Picker.Item label="Sweets" value="sweets" />
+                    <Picker.Item label="Beverages" value="beverages" />
+                    <Picker.Item label="Spices and Herbs" value="spices and herbs" />
+                    <Picker.Item label="Baked Goods" value="baked goods" />
+                    <Picker.Item label="Condiment and Sauces" value="condiment and sauces" />
+                    <Picker.Item label="Snacks" value="snacks" />
+                    <Picker.Item label="Fats and Oils" value="fats and oils" />
+                    <Picker.Item label="Frozen Foods" value="frozen foods" />
+                    <Picker.Item label="Canned Goods" value="canned goods" />
+                   
                 </Picker>
 
-
-
-
-
-                <IconMojis onSelect={setSelectedEmoji} />
-
-                {selectedEmoji && (
-                    <Text style={styles.selectedEmoji}>
-                        Selected Emoji: {selectedEmoji}
-                    </Text>
-                )}
+                <View style={styles.emojiScrollContainer}>
+                    <IconMojis onSelect={setSelectedEmoji} selectedEmoji={selectedEmoji} />
+                </View>     
 
                 <Pressable
                     style={({ pressed }) => [
                         {
                             padding: 10,
                             marginEnd: 20,
-                            backgroundColor: pressed ? '#ddd' : '#2196F3', // Cambia el color cuando está presionado
+                            backgroundColor: pressed ? '#ddd' : '#2196F3', 
                             borderRadius: 5,
-                            marginTop: 10,
+                            marginTop: 5,
+                            marginBottom: 20
                         },
                     ]}
                     onPress={() => setShowDatePicker(true)}
@@ -113,9 +116,6 @@ export default function NewProduct({ drawerId, onAddProduct, onCancelProduct }) 
                     />
                 )}
 
-
-
-
                 <ButtonSecondary
                     label="ADD PRODUCT"
                     onPress={handleAddProduct}
@@ -125,8 +125,6 @@ export default function NewProduct({ drawerId, onAddProduct, onCancelProduct }) 
                     label="CANCEL"
                     onPress={onCancelProduct}
                 />
-
-
 
             </View>
         </View>
@@ -145,24 +143,32 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         alignItems: 'center',
         width: width * 0.9,
-        height: 700,
+        height: 750,
         padding: Platform.OS === 'web' ? 20 : 5,
         borderRadius: 15,
+        backgroundColor: 'rgba(9, 34, 70, 0.2)',
 
-        shadowOpacity: 0.8,
+        shadowColor: '#000', 
+        shadowOffset: {
+            width: 0, 
+            height: 2, 
+        },
+        shadowOpacity: 0.25, 
+        shadowRadius: 3.84,   
+        elevation: 5,
 
     },
     label: {
         marginTop: Platform.OS === 'web' ? 20 : 5,
         fontSize: 10,
         fontWeight: 'bold',
-        color: '#333333',
+        color: 'red',
         textTransform: 'uppercase',
     },
     picker: {
         height: Platform.OS === 'web' ? 60 : 50,
         width: '100%',
-        color: '#333333',
+        color: 'white',
         borderRadius: 10,
         marginBottom: Platform.OS === 'web' ? 20 : 120,
     },
@@ -172,6 +178,11 @@ const styles = StyleSheet.create({
         color: '#ed1bde',
         fontStyle: 'italic',
         marginBottom: Platform.OS === 'web' ? 20 : 10,
+    },
+    emojiScrollContainer: {
+        maxHeight: 280, 
+        marginBottom: 15, 
+        overflow: 'hidden', 
     },
     selectedEmoji: {
         marginTop: 50,

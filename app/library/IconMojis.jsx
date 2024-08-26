@@ -1,19 +1,33 @@
 import React from 'react'
-import { View, Text, StyleSheet, Pressable } from 'react-native'
+import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native'
 
-const IconMojis = ({ onSelect }) => {
-    const foodEmojis = ['🍎', '🍌', '🍇', '🍊', '🥑', '🥕', '🍕', '🍔', '🍣', '🍪']
+const IconMojis = ({ onSelect, selectedEmoji }) => {
+    foodEmojis = [
+        '🍎', '🍌', '🍇', '🍊', '🥑', '🥕', '🍕', '🍔', '🍣', '🍪', 
+        '🍓', '🍉', '🍒', '🍍', '🥭', '🥝', '🍆', '🥔', '🍅', '🌽',
+        '🥒', '🥦', '🧄', '🧅', '🥥', '🍠', '🍍', '🍋', '🍈', '🍏', 
+        '🍲', '🍜', '🍝', '🍤', '🍖', '🍗', '🥩', '🍟', '🍿', '🥓', 
+        '🍰', '🍩', '🍨', '🍧', '🍫', '🍬', '🍭', '🥧', '🧁', '🍮', 
+        '🍺', '🍻', '🥂', '🍷', '🥤', '🍵', '☕', '🍼', '🥛', '🍶'  
+    ]
 
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Choose an Emoji</Text>
-            <View style={styles.emojiContainer}>
+            <ScrollView contentContainerStyle={styles.emojiContainer}>
                 {foodEmojis.map((emoji, index) => (
-                    <Pressable key={index} onPress={() => onSelect(emoji)} style={styles.emojiButton}>
+                    <Pressable 
+                        key={index} 
+                        onPress={() => onSelect(emoji)} 
+                        style={[
+                            styles.emojiButton,
+                            selectedEmoji === emoji && styles.selectedEmojiButton,
+                        ]}
+                    >
                         <Text style={styles.emoji}>{emoji}</Text>
                     </Pressable>
                 ))}
-            </View>
+            </ScrollView>
         </View>
     )
 }
@@ -38,6 +52,12 @@ const styles = StyleSheet.create({
         padding: 10,
         backgroundColor: '#f0f0f0',
         borderRadius: 10,
+        borderWidth: 3,
+        borderColor: 'transparent',
+    },
+
+    selectedEmojiButton: {
+        borderColor: '#ff6347', 
     },
     emoji: {
         fontSize: 24,

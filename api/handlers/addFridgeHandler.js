@@ -8,15 +8,15 @@ export default async (req, res) => {
 
         const { userId } = req.params
 
-        const { name } = req.body
+        const { name, colorFridge } = req.body
 
 
-        if (!name || !userId) {
-            return res.status(400).json({ error: "BadRequest", message: "Name and userId are required" })
+        if (!name  || !userId || !colorFridge) {
+            return res.status(400).json({ error: "BadRequest", message: "Name, color and userId are required" })
         }
 
 
-        await logic.addFridge(name, userId)
+        await logic.addFridge(name, userId, colorFridge)
 
 
         res.status(201).send()

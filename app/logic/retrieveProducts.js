@@ -1,8 +1,8 @@
 
 
-//import { API_URL } from '@env'
-
 import { API_URL } from '@env'
+
+//import { API_URL } from '@env'
 
 async function retrieveProducts(drawerId) {
 
