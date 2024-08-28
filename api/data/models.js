@@ -141,12 +141,13 @@ const shoppingList = new mongoose.Schema({
 
 const alarm = new mongoose.Schema({
    
-    userId: {
+    owner: {
         type: ObjectId,
-        ref: 'User'
+        required: true,
+        ref: 'User',
     },
 
-    productId: {
+    product: {
         type: ObjectId,
         ref: 'Product'
     },
@@ -166,7 +167,7 @@ const alarm = new mongoose.Schema({
     },
     isActive: {
         type: Boolean,
-        default: true, 
+        default: false, 
     },
 
     createdDate: {
