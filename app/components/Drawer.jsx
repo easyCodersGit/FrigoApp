@@ -1,7 +1,7 @@
 
 
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, Dimensions, Platform, Pressable, Modal, ActivityIndicator } from 'react-native'
+import { View, Text, StyleSheet, Dimensions, Platform, Pressable, Modal, ActivityIndicator, ScrollView } from 'react-native'
 
 import retrieveProducts from '../logic/retrieveProducts'
 import Product from './Product'
@@ -86,62 +86,66 @@ function Drawer(props) {
                     onCancel={() => setAlertVisible(false)}
                 />
             </Pressable>
+            <Modal
+    animationType="slide"
+    transparent={true}
+    visible={modalVisible}
+    onRequestClose={handleClose}
+>
+    <View style={styles.modalOverlay}>
+        <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>{drawer.name}</Text>
+            <Text style={styles.modalText}>Number of Products: {products.length}</Text>
+
+            {loading ? (
+                <ActivityIndicator size="large" color="#0000ff" />
+            ) : error ? (
+                <Text style={styles.errorText}>Error: {error}</Text>
+            ) : (
+                <View style={styles.productListContainer}>
+                    <ScrollView contentContainerStyle={styles.productScrollContainer}>
+                        {products.map(product => (
+                            <Product
+                                key={product._id}
+                                product={product}
+                                drawerId={drawer._id}
+                                onProductDeleted={fetchProducts}
+                                onProductEdited={fetchProducts}
+                            />
+                        ))}
+                    </ScrollView>
+                </View>
+            )}
+
+            <Pressable onPress={() => setShowAddProduct(true)} style={styles.button}>
+                <Text style={styles.buttonText}>Add Product</Text>
+            </Pressable>
+
+            <Pressable onPress={handleClose} style={styles.button}>
+                <Text style={styles.buttonText}>Close</Text>
+            </Pressable>
 
             <Modal
                 animationType="slide"
                 transparent={true}
-                visible={modalVisible}
-                onRequestClose={handleClose}
+                visible={showAddProduct}
+                onRequestClose={() => setShowAddProduct(false)}
             >
                 <View style={styles.modalOverlay}>
                     <View style={styles.modalContent}>
-                        <Text style={styles.modalTitle}>{drawer.name}</Text>
-                        <Text style={styles.modalText}>Number of Products: {products.length}</Text>
-
-                        {loading ? (
-                            <ActivityIndicator size="large" color="#0000ff" />
-                        ) : error ? (
-                            <Text style={styles.errorText}>Error: {error}</Text>
-                        ) : (
-                            products.map(product => (
-                                <Product
-                                    key={product._id}
-                                    product={product}
-                                    drawerId={drawer._id}
-                                    onProductDeleted={fetchProducts}
-                                    onProductEdited={fetchProducts}
-                                />
-                            ))
-                        )}
-
-                        <Pressable onPress={() => setShowAddProduct(true)} style={styles.button}>
-                            <Text style={styles.buttonText}>Add Product</Text>
-                        </Pressable>
-
-                        <Pressable onPress={handleClose} style={styles.button}>
-                            <Text style={styles.buttonText}>Close</Text>
-                        </Pressable>
-
-                        <Modal
-                            animationType="slide"
-                            transparent={true}
-                            visible={showAddProduct}
-                            onRequestClose={() => setShowAddProduct(false)}
-                        >
-                            <View style={styles.modalOverlay}>
-                                <View style={styles.modalContent}>
-                                    <NewProduct
-                                        drawerId={drawer._id}
-                                        onAddProduct={fetchProducts}
-
-                                        onCancelProduct={() => setShowAddProduct(false)}
-                                    />
-                                </View>
-                            </View>
-                        </Modal>
+                        <NewProduct
+                            drawerId={drawer._id}
+                            onAddProduct={fetchProducts}
+                            onCancelProduct={() => setShowAddProduct(false)}
+                        />
                     </View>
                 </View>
             </Modal>
+        </View>
+    </View>
+</Modal>
+
+          
         </View>
     )
 }
@@ -227,6 +231,18 @@ const styles = StyleSheet.create({
     productIcon: {
         fontSize: 24,
         marginHorizontal: 0,    
+    },
+
+    productListContainer: {
+        flex: 1,
+        width: '100%',
+        maxHeight: '60%', // Limita la altura máxima de la lista de productos
+        marginBottom: 20, // Añade un margen inferior para la lista
+    },
+    productScrollContainer: {
+        flexGrow: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 })
 
