@@ -109,6 +109,11 @@ const product = new mongoose.Schema({
     icon: {
         type: String,
         default: '',
+    },
+
+    minimumQuantity: {
+        type: Number,
+        default: 0, 
     }
 
 })
@@ -134,11 +139,49 @@ const shoppingList = new mongoose.Schema({
 
 })
 
+const alarm = new mongoose.Schema({
+   
+    userId: {
+        type: ObjectId,
+        ref: 'User'
+    },
+
+    productId: {
+        type: ObjectId,
+        ref: 'Product'
+    },
+
+    type: {
+        type: String,
+        required: true,
+        enum: ['expiration', 'quantity'], 
+    },
+    daysBeforeExpiration: {
+        type: Number,
+        default: 0, 
+    },
+    minimumQuantity: {
+        type: Number,
+        default: 0, 
+    },
+    isActive: {
+        type: Boolean,
+        default: true, 
+    },
+
+    createdDate: {
+        type: Date,
+        required: true,
+    }
+
+})
+
 //tenemos que usar una clase para construir usuarios
 const User = model('User', user)
 const Fridge = model('Fridge', fridge)
 const Drawer = model('Drawer', drawer)
 const Product = model('Product', product)
 const ShoppingList = model('ShoppingList', shoppingList)
+const Alarm = model('Alarm', alarm)
 
-export { User, Fridge, Drawer, Product, ShoppingList }
+export { User, Fridge, Drawer, Product, ShoppingList, Alarm }
