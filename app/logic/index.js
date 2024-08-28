@@ -11,6 +11,7 @@ import deleteDrawer from "./deleteDrawer"
 import deleteFridge from "./deleteFridge"
 import registerUser from "./registerUser"
 import editProduct from "./editProduct"
+import searchProduct from "./searchproduct"
 
 
 const logic = {
@@ -26,7 +27,8 @@ const logic = {
     deleteDrawer,
     deleteFridge,
     registerUser,
-    editProduct
+    editProduct,
+    searchProduct
 }
 
 export default logic

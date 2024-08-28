@@ -41,9 +41,9 @@ async function filterProduct(userId, productName) {
         }
 
         if (productsFound.length === 0) {
-            return `El producto ${productName} no se encontró en las neveras del usuario.`
+            return { message: `El producto ${productName} no se encontró en las neveras del usuario.`, data: [] }
         } else {
-            return productsFound
+            return { message: 'Product found successfully', data: productsFound }
         }
     } catch (error) {
         throw new SystemError(error.message)
