@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { useRouter, Link } from 'expo-router'
-import { View, Text, StyleSheet, Modal, Alert, Pressable } from 'react-native'
+import { View, Text, StyleSheet, Modal, Alert, Pressable, ImageBackground, Platform } from 'react-native'
 
 import { CircleInfoIcon, OptionsIcon, SearchIcon, LogoutIcon, AlarmIcon, ShopIcon } from '../components/icons'
 
@@ -12,6 +12,7 @@ import { BackgroundImage } from '../components/background'
 import Fridges from '../components/Fridges'
 import NewFridge from '../components/NewFridge'
 import CustomInput from '../library/CustomInput'
+import searchProduct from '../logic/searchproduct'
 
 export default function Home() {
     const [userName, setUserName] = useState('')
@@ -20,13 +21,17 @@ export default function Home() {
     const [showAddFridge, setShowAddFridge] = useState(false)
     const [fridgeRefreshFlag, setFridgeRefreshFlag] = useState(false)
     const [searchQuery, setSearchQuery] = useState('')
+    const [searchResult, setSearchResult] = useState(null)
+    const [showModal, setShowModal] = useState(false)
 
     const router = useRouter()
+
+   let sessionUserId
 
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const sessionUserId = await session.getSessionUserId()
+                sessionUserId = await session.getSessionUserId()
                 console.log('Retrieved userId from session:', sessionUserId)
 
                 if (sessionUserId) {
@@ -56,6 +61,25 @@ export default function Home() {
         setShowAddFridge(false)
     }
 
+    const handleSearchProduct = async () => {
+
+        try {
+            const result = await searchProduct(userId, searchQuery)
+            setSearchResult(result)
+        } catch (error) {
+            console.error('Error searching for product:', error)
+            setSearchResult({ message: error.message, data: [] })
+        } finally {
+            setShowModal(true)
+        }
+
+
+    }
+
+    const closeModal = () => {
+        setShowModal(false)
+    }
+
     return (
         <View style={styles.container}>
             <BackgroundImage />
@@ -70,11 +94,11 @@ export default function Home() {
                         placeholder="Search product..."
                         style={styles.searchInput}
                     />
-                    <Link asChild href="/about">
-                        <Pressable style={styles.iconSearchButton}>
+                   
+                        <Pressable style={styles.iconSearchButton} onPress={handleSearchProduct}>
                             <SearchIcon />
                         </Pressable>
-                    </Link>
+                   
                 </View>
 
                 <View style={styles.rightIcons}>
@@ -130,6 +154,43 @@ export default function Home() {
                     >
                         <NewFridge userId={userId} onAddFridge={handleAddFridgeSuccess} onCancelAddFridge={handleCancelAddFridge} />
                     </Modal>
+
+                    {/* Modal para mostrar los resultados de la búsqueda */}
+                    <Modal
+                visible={showModal}
+                animationType="slide"
+                onRequestClose={closeModal}
+            >
+                <View style={styles.modalContainer}>
+                <BackgroundImage />
+                    <Text style={styles.modalTitle}>Search Results</Text>
+                    {searchResult ? (
+                        <View>
+                             
+                            {searchResult.data && searchResult.data.length > 0 ? (
+                                searchResult.data.map((item, index) => (
+                                    <View key={index} style={styles.resultItem}>
+                                        <Text style={styles.modalText}>Fridge Name: {item.fridge}</Text>
+                                        <Text style={styles.modalText}>Drawer: {item.drawer}</Text>
+                                        {/* <Text style={styles.modalText}>Product: {item.product}</Text> */}
+                                        <Text style={styles.modalText}>Quantity: {item.quantity}</Text>
+                                    </View>
+                                ))
+                            ) : (
+                                <Text style={styles.modalText}>{searchResult.message || 'No results found'}</Text>
+                            )}
+                            
+                        </View>
+
+                        
+                    ) : (
+                        <Text style={styles.modalText}>No results found</Text>
+                    )}
+                    <Pressable style={styles.modalButton} onPress={closeModal}>
+                        <Text style={styles.modalButtonText}>Close</Text>
+                    </Pressable>
+                </View>
+            </Modal>
                 </>
             )}
         </View>
@@ -183,6 +244,36 @@ const styles = StyleSheet.create({
     searchInput: {
         flex: 1,
         marginRight: 5, 
-    }
+    },
+
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20,
+    },
+    modalTitle: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 10,
+    },
+    modalText: {
+        fontSize: 16,
+        marginVertical: 5,
+    },
+    resultItem: {
+        marginBottom: 10,
+    },
+    modalButton: {
+        marginTop: 20,
+        padding: 10,
+        backgroundColor: '#007BFF',
+        borderRadius: 5,
+    },
+    modalButtonText: {
+        color: '#FFF',
+        fontSize: 16,
+    },
+   
 })
 

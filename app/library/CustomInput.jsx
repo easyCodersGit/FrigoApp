@@ -17,11 +17,11 @@ const styles = StyleSheet.create({
     input: {
         height: 30,
         borderColor: '#ccc',
-        borderWidth: 2,
+        borderWidth: 1,
         borderRadius: 10,
         paddingHorizontal: 10,
         backgroundColor: '#fff',
-        borderColor: '#9fced2'
+        borderColor: 'black'
     },
 })
 
