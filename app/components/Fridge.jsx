@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'flex-end',
         width: Platform.OS === 'web' ? width * 0.2 : width * 0.7,
-        margin: 10,
+        margin: 2,
     },
     fridgeImage: {
         width: Platform.OS === 'web' ? 400 : '95%',

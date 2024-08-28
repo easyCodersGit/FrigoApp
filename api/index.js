@@ -23,7 +23,8 @@ import {
     deleteDrawerHandler,
     deleteFridgeHandler,
     registerUserHandler,
-    editProductHandler
+    editProductHandler,
+    filterProductHandler
 
 } from './handlers/index.js'
 
@@ -81,6 +82,9 @@ mongoose.connect(process.env.MONGODB_URL)
 
         // Edit Product
         server.patch('/drawers/:drawerId/products/:productId', editProductHandler)
+
+         // Filter Products
+         server.get('/users/:userId/products', filterProductHandler)
 
 
 
