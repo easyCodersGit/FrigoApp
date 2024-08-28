@@ -12,6 +12,7 @@ import deleteDrawerHandler from "./deleteDrawerHandler.js"
 import deleteFridgeHandler from "./deleteFridgeHandler.js"
 import registerUserHandler from "./registerUserHandler.js"
 import editProductHandler from "./editProductHandler.js"
+import filterProductHandler from "./filterProductHandler.js"
 
 
 
@@ -29,7 +30,8 @@ export {
     deleteDrawerHandler,
     deleteFridgeHandler,
     registerUserHandler,
-    editProductHandler
+    editProductHandler,
+    filterProductHandler
 
 
 }
