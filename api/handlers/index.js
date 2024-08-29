@@ -13,6 +13,8 @@ import deleteFridgeHandler from "./deleteFridgeHandler.js"
 import registerUserHandler from "./registerUserHandler.js"
 import editProductHandler from "./editProductHandler.js"
 import filterProductHandler from "./filterProductHandler.js"
+import addAlarmHandler from "./addAlarmHandler.js"
+import checkAlarmHandler from "./checkAlarmHandler.js"
 
 
 
@@ -31,7 +33,9 @@ export {
     deleteFridgeHandler,
     registerUserHandler,
     editProductHandler,
-    filterProductHandler
+    filterProductHandler,
+    addAlarmHandler,
+    checkAlarmHandler
 
 
 }
