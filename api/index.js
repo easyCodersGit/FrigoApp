@@ -24,7 +24,9 @@ import {
     deleteFridgeHandler,
     registerUserHandler,
     editProductHandler,
-    filterProductHandler
+    filterProductHandler,
+    addAlarmHandler,
+    checkAlarmHandler
 
 } from './handlers/index.js'
 
@@ -85,6 +87,12 @@ mongoose.connect(process.env.MONGODB_URL)
 
          // Filter Products
          server.get('/users/:userId/products', filterProductHandler)
+
+         // Add Alarm
+         server.post('/users/:userId/products/:productId', addAlarmHandler)
+
+          // Check Alarm
+          server.post('/users/:userId/products/:productId/checkAlarm', checkAlarmHandler)
 
 
 
