@@ -31,7 +31,7 @@ function FridgeMain() {
             } finally {
                 setLoading(false)
             }
-        };
+        }
 
         loadFridgeData()
     }, [id, drawerRefreshFlag])
