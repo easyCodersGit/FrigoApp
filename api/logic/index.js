@@ -14,6 +14,8 @@ import editProduct from "./editProduct.js"
 import registerUser from "./registerUser.js"
 import filterProduct from "./filterProduct.js"
 import addAlarm from "./addAlarm.js"
+import checkAlarm from "./checkAlarm.js"
+checkAlarm
 
 const logic = {
     retrieveUser,
@@ -31,7 +33,8 @@ const logic = {
     editProduct,
     registerUser,
     filterProduct,
-    addAlarm
+    addAlarm,
+    checkAlarm
 }
 
 export default logic

@@ -4,7 +4,7 @@ import { errors, validate } from "com"
 
 const { NotFoundError, SystemError } = errors
 
-async function addProduct(name, category, quantity, expirationDate, drawerId, icon = '') {
+async function addProduct(name, category, quantity, expirationDate, drawerId, icon = '', minimumQuantity) {
 
 
 
@@ -25,7 +25,8 @@ async function addProduct(name, category, quantity, expirationDate, drawerId, ic
             addedDate: new Date(),
             location: drawerId,
             purchased: false,
-            icon: icon || ''
+            icon: icon || '',
+            minimumQuantity
         })
 
         await Drawer.findByIdAndUpdate(drawerId, { $push: { products: product._id } })
