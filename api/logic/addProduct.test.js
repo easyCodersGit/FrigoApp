@@ -11,17 +11,18 @@ import addProduct from './addProduct.js'
     try {
 
 
-        const name = 'Plátano'
+        const name = 'Kiwi'
         const category = 'fruits'
-        const quantity = 6
+        const quantity = 2
         const expirationDate = '2024-09-01'
-        const drawerId = '66b23af1a20302a84806b3b5'
+        const drawerId = '66cf4ce2439e5ec3098993d4'
         const icon = '🍌'
+        const minimumQuantity = 4
 
         console.log(`Añadiendo producto: ${name}, categoría: ${category}, cantidad: ${quantity}, fecha de expiración: ${expirationDate}, id del cajón: ${drawerId}, icono: ${icon}`)
 
 
-        await addProduct(name, category, quantity, expirationDate, drawerId, icon)
+        await addProduct(name, category, quantity, expirationDate, drawerId, icon, minimumQuantity)
         console.log('Producto creado exitosamente')
     } catch (error) {
 
