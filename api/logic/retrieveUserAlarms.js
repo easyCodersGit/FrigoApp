@@ -16,7 +16,7 @@ async function retrieveUserAlarms(userId) {
      
            userAlarms = await Alarm.find({ owner: userId })
            .populate('owner', 'name')
-           .populate('product', 'name') 
+           .populate('product', 'name quantity') 
            .lean()
 
        userAlarms.forEach(userAlarm => {
@@ -33,6 +33,10 @@ async function retrieveUserAlarms(userId) {
                userAlarm.product.id = userAlarm.product._id.toString()
                delete userAlarm.product._id
            }
+
+           if (userAlarm.isActive === undefined) {
+            userAlarm.isActive = false  // o el valor que consideres por defecto
+        }
    
            delete userAlarm.__v
        })

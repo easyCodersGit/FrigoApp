@@ -31,12 +31,18 @@ function Alarm(props) {
         <>
         <Pressable style={styles.alarmContainer}>
             <View style={styles.detailsOverlay}>
-                <Text style={styles.alarmType}>Type: {alarm.type}</Text>
+                {/* <Text style={styles.alarmType}>Type: {alarm.type}</Text> */}
                 <Text style={styles.alarmProduct}>Product: {alarm.product?.name || 'Unknown'}</Text>
+                <Text style={styles.alarmDetails}>
+                        Current Quantity: {alarm.product?.quantity || 'Unknown'}
+                    </Text>
                 <Text style={styles.alarmDetails}>
                     {alarm.type === 'quantity'
                         ? `Minimum Quantity: ${alarm.minimumQuantity}`
                         : `Days Before Expiration: ${alarm.daysBeforeExpiration}`}
+                </Text>
+                <Text style={styles.alarmDetails}>
+                    Is active?: {alarm.isActive ? 'Yes' : 'No'}
                 </Text>
             </View>
             <View style={styles.deleteButtonContainer}>
@@ -82,8 +88,9 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     alarmProduct: {
-        fontSize: 14,
-        color: '#555',
+        fontSize: 16,
+        fontWeight: 'bold',
+       
     },
     alarmDetails: {
         fontSize: 14,
