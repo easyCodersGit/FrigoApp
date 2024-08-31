@@ -26,7 +26,8 @@ import {
     editProductHandler,
     filterProductHandler,
     addAlarmHandler,
-    checkAlarmHandler
+    checkAlarmHandler,
+    retrieveUserAlarmsHandler
 
 } from './handlers/index.js'
 
@@ -93,6 +94,9 @@ mongoose.connect(process.env.MONGODB_URL)
 
           // Check Alarm
           server.post('/users/:userId/products/:productId/checkAlarm', checkAlarmHandler)
+
+         // Retrieve User Alarm
+        server.get('/users/:userId/alarms', retrieveUserAlarmsHandler)
 
 
 

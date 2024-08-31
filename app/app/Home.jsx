@@ -14,6 +14,7 @@ import NewFridge from '../components/NewFridge'
 import CustomInput from '../library/CustomInput'
 import searchProduct from '../logic/searchproduct'
 
+
 export default function Home() {
     const [userName, setUserName] = useState('')
     const [userId, setUserId] = useState(null)
@@ -103,11 +104,18 @@ export default function Home() {
 
                 <View style={styles.rightIcons}>
 
-                    <Link asChild href="/about">
+                    {/* <Link asChild href="/AlarmsPage">
                         <Pressable style={styles.iconButton}>
                             <AlarmIcon />
                         </Pressable>
-                    </Link>
+                    </Link> */}
+
+                    <Pressable
+                        style={styles.iconButton}
+                        onPress={() => router.push({ pathname: '/AlarmsPage', params: { userId } })}
+                    >
+                        <AlarmIcon />
+                    </Pressable>
 
                     <Link asChild href="/about">
                         <Pressable style={styles.iconButton}>
