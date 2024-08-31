@@ -27,7 +27,7 @@ async function addDrawer(fridgeId, name) {
         if (!res.ok) {
 
             const errorData = await res.json()
-            throw new Error(errorData.message || 'Error al añadir el cajón');
+            throw new Error(errorData.message || 'Error al añadir el cajón')
         }
     } catch (error) {
         throw new Error(error.message)

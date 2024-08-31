@@ -28,6 +28,7 @@
             type,
             
             createdDate: new Date(),
+            isActive: false,
         }
 
         if (type === 'expiration') {

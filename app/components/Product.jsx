@@ -1,6 +1,6 @@
 
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, Pressable, Modal, Dimensions, Platform } from 'react-native'
 import { Input } from './input'
 import { ButtonSecondary } from './buttons'
@@ -11,12 +11,18 @@ import { Picker } from '@react-native-picker/picker'
 import { BackgroundImage } from './background'
 import IconMojis from '../library/IconMojis.jsx'
 import DateTimePicker from '@react-native-community/datetimepicker'
+import addAlarm from '../logic/addAlarm.js'
+import session from '../logic/session'
 
 const { width } = Dimensions.get('window')
 
-function Product({ product, drawerId, onProductDeleted, onProductEdited }) {
+function Product({ product, drawerId, onProductDeleted, onProductEdited, onAlarmAdded }) {
     const [alertVisible, setAlertVisible] = useState(false)
     const [showEditProduct, setShowEditProduct] = useState(false)
+    const [showAddAlarm, setShowAddAlarm] = useState(false)
+    const [alarmType, setAlarmType] = useState('expiration') 
+    const [alarmNumber, setAlarmNumber] = useState('')
+    const [userId, setUserId] = useState(null)
 
  
     const [nameProduct, setNameProduct] = useState(product.name)
@@ -26,6 +32,20 @@ function Product({ product, drawerId, onProductDeleted, onProductEdited }) {
     const [selectedEmoji, setSelectedEmoji] = useState(product.icon || '')
     
     const [showDatePicker, setShowDatePicker] = useState(false)
+
+    useEffect(() => {
+        const fetchUserId = async () => {
+            const storedUserId = await session.getSessionUserId()
+            if (storedUserId) {
+                setUserId(storedUserId)
+            } else {
+                console.error('No userId found in session')
+            }
+            setLoading(false)
+        }
+
+        fetchUserId()
+    }, [])
 
     const handleDeleteProduct = async () => {
         try {
@@ -64,6 +84,20 @@ function Product({ product, drawerId, onProductDeleted, onProductEdited }) {
         }
     }
 
+    const handleAddAlarm = async () => {
+
+        try {
+
+            await addAlarm(userId, product._id, alarmType, parseInt(alarmNumber, 10))
+            setShowAddAlarm(false)
+            onAlarmAdded()
+            console.log('Alarm added successfully')
+            
+        } catch (error) {
+            console.error('Error adding alarm:', error)
+        }
+    }
+
     return (
         <View style={styles.productContainer}>
              
@@ -79,6 +113,10 @@ function Product({ product, drawerId, onProductDeleted, onProductEdited }) {
 
             <Pressable onPress={() => setShowEditProduct(true)} style={styles.button}>
                 <Text style={styles.buttonText}>Edit</Text>
+            </Pressable>
+
+            <Pressable onPress={() => setShowAddAlarm(true)} style={styles.button}>
+                <Text style={styles.buttonText}>Add Alarm</Text>
             </Pressable>
 
             <CustomAlert
@@ -177,6 +215,42 @@ function Product({ product, drawerId, onProductDeleted, onProductEdited }) {
                     </View>
                 </View>
             </Modal>
+
+            <Modal
+                visible={showAddAlarm}
+                animationType="slide"
+                onRequestClose={() => setShowAddAlarm(false)}
+            >
+                <View style={styles.modalContainer}>
+                    <Text style={styles.modalTitle}>Add Alarm</Text>
+                    
+                    <Picker
+                        selectedValue={alarmType}
+                        onValueChange={(itemValue) => setAlarmType(itemValue)}
+                        style={styles.picker}
+                    >
+                        <Picker.Item label="Expiration Alarm" value="expiration" />
+                        <Picker.Item label="Quantity Alarm" value="quantity" />
+                    </Picker>
+
+                    <Input
+                        placeholder={alarmType === 'expiration' ? 'Days before expiration' : 'Minimum quantity'}
+                        value={alarmNumber}
+                        onChangeText={setAlarmNumber}
+                        keyboardType="numeric"
+                    />
+
+                    <ButtonSecondary
+                        label="Add Alarm"
+                        onPress={handleAddAlarm}
+                    />
+
+                    <ButtonSecondary
+                        label="Cancel"
+                        onPress={() => setShowAddAlarm(false)}
+                    />
+                </View>
+            </Modal>
         </View>
     )
 }
@@ -266,6 +340,17 @@ const styles = StyleSheet.create({
     input: {
         marginBottom: Platform.OS === 'web' ? 20 : 10,
         width: '100%',
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+    },
+    modalTitle: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 20,
     },
 })
 
