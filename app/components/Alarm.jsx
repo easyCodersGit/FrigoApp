@@ -29,9 +29,15 @@ function Alarm(props) {
     return (
 
         <>
-        <Pressable style={styles.alarmContainer}>
+      
+        <Pressable
+                style={[
+                    styles.alarmContainer,
+                    alarm.isActive && { backgroundColor: '#ff6347' } 
+                ]}
+            >
             <View style={styles.detailsOverlay}>
-                {/* <Text style={styles.alarmType}>Type: {alarm.type}</Text> */}
+              
                 <Text style={styles.alarmProduct}>Product: {alarm.product?.name || 'Unknown'}</Text>
                 <Text style={styles.alarmDetails}>
                         Current Quantity: {alarm.product?.quantity || 'Unknown'}
