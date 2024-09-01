@@ -1,9 +1,6 @@
 
 import { API_URL } from '@env'
 
-
-
-
 async function checkUser(userId) {
     //validate.id(userId, 'user id')
 

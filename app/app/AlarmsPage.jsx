@@ -1,28 +1,132 @@
+// import React, { useState, useEffect } from 'react'
+// import { useSearchParams } from 'expo-router'
+// import { useRouter } from 'expo-router'
+// import { ScrollView } from "react-native"
+// import { View, Text, TextInput, Pressable, StyleSheet, Image, FlatList } from 'react-native'
+// import { Link } from 'expo-router'
+// import { CircleInfoIcon, OptionsIcon, SearchIcon, LogoutIcon, AlarmIcon, ShopIcon, HomeIcon } from '../components/icons'
+
+// import { BackgroundImage } from '../components/background'
+// import Alarms from "../components/Alarms"
+// import session from '../logic/session'
+// import checkUser from '../logic/checkUser'
+
+// export default function AlarmsPage() {
+//     const [userId, setUserId] = useState(null)
+//     const [loading, setLoading] = useState(true)
+//     const [userName, setUserName] = useState('')
+
+//     useEffect(() => {
+//         const fetchUserId = async () => {
+//             try {
+//                 sessionUserId = await session.getSessionUserId()
+//                 console.log('Retrieved userId from session:', sessionUserId)
+
+//                 if (sessionUserId) {
+//                     setUserId(sessionUserId)
+//                     const name = await checkUser(sessionUserId)
+//                     setUserName(name)
+//                 } else {
+//                     console.error('No userId found in session')
+//                 }
+//             } catch (error) {
+//                 console.error('Error fetching user data:', error)
+//             } finally {
+//                 setLoading(false)
+//             }
+//         }
+
+//         fetchUserId()
+//     }, [])
+
+//     if (loading) {
+//         return <Text>Loading...</Text>
+//     }
+
+//     return (
+//         <ScrollView>
+//             <BackgroundImage />
+
+//             <Link asChild href="/Home">
+//                 <Pressable>
+//                     <HomeIcon />
+//                 </Pressable>
+//             </Link>
+
+//             <View style={styles.container}>
+//                 <Text style={styles.title}>{userName} Alarms</Text>
+//                 {userId ? (
+//                     <View style={styles.alarmsContainer}>
+//                         <Alarms userId={userId} refresh={false} />
+//                     </View>
+//                 ) : (
+//                     <Text>No user ID found.</Text>
+//                 )}
+//             </View>
+
+           
+//         </ScrollView>
+//     )
+// }
+
+
+// const styles = StyleSheet.create({
+//     container: {
+//         flex: 1,
+//         padding: 20,
+//         justifyContent: 'center',
+//         alignItems: 'center',
+//     },
+//     title: {
+//         fontSize: 24,
+//         fontWeight: 'bold',
+//         marginBottom: 20,
+//     },
+//     alarmsContainer: {
+//         maxHeight: 700,  
+//         borderRadius: 5,
+//         overflow: 'hidden',
+//     },
+// })
+
+
+//////////
+
+
 import React, { useState, useEffect } from 'react'
-import { useSearchParams } from 'expo-router'
 import { useRouter } from 'expo-router'
-import { ScrollView } from "react-native"
-import { View, Text, TextInput, Pressable, StyleSheet, Image } from 'react-native'
+import { ScrollView, View, Text, Pressable, StyleSheet } from 'react-native'
 import { Link } from 'expo-router'
-import { HomeIcon } from "../components/icons"
+import { CircleInfoIcon, OptionsIcon, SearchIcon, LogoutIcon, AlarmIcon, ShopIcon, HomeIcon } from '../components/icons'
 
 import { BackgroundImage } from '../components/background'
 import Alarms from "../components/Alarms"
 import session from '../logic/session'
+import checkUser from '../logic/checkUser'
 
 export default function AlarmsPage() {
     const [userId, setUserId] = useState(null)
     const [loading, setLoading] = useState(true)
+    const [userName, setUserName] = useState('')
 
     useEffect(() => {
         const fetchUserId = async () => {
-            const storedUserId = await session.getSessionUserId()
-            if (storedUserId) {
-                setUserId(storedUserId)
-            } else {
-                console.error('No userId found in session')
+            try {
+                const sessionUserId = await session.getSessionUserId()
+                console.log('Retrieved userId from session:', sessionUserId)
+
+                if (sessionUserId) {
+                    setUserId(sessionUserId)
+                    const name = await checkUser(sessionUserId)
+                    setUserName(name);
+                } else {
+                    console.error('No userId found in session')
+                }
+            } catch (error) {
+                console.error('Error fetching user data:', error)
+            } finally {
+                setLoading(false)
             }
-            setLoading(false)
         }
 
         fetchUserId()
@@ -33,32 +137,59 @@ export default function AlarmsPage() {
     }
 
     return (
-        <ScrollView>
+        <ScrollView contentContainerStyle={styles.contentContainer}>
             <BackgroundImage />
-            <Text>Aquí estarán las alarmas</Text>
 
-            <View style={styles.container}>
-                <Text style={styles.title}>User Alarms</Text>
-                {userId ? (
-                    <Alarms userId={userId} refresh={false} />
-                ) : (
-                    <Text>No user ID found.</Text>
-                )}
+            <View style={styles.buttonContainer}>
+                <View style={styles.rightIcons}>
+                    <Link asChild href="/Home">
+                        <Pressable>
+                            <HomeIcon />
+                        </Pressable>
+                    </Link>
+
+                    <Link asChild href="/about">
+                        <Pressable style={styles.iconButton}>
+                            <ShopIcon />
+                        </Pressable>
+                    </Link>
+
+                    <Link asChild href="/about">
+                        <Pressable style={styles.iconButton}>
+                            <OptionsIcon />
+                        </Pressable>
+                    </Link>
+
+                    <Link asChild href="/">
+                        <Pressable style={styles.iconButton}>
+                            <LogoutIcon />
+                        </Pressable>
+                    </Link>
+                </View>
             </View>
 
-            <Link asChild href="/Home">
-                <Pressable>
-                    <HomeIcon />
-                </Pressable>
-            </Link>
+            <Text style={styles.title}>{userName} Alarms</Text>
+
+            {userId ? (
+                <View style={styles.alarmsContainer}>
+                    <Alarms userId={userId} refresh={false} />
+                </View>
+            ) : (
+                <Text>No user ID found.</Text>
+            )}
         </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
+    contentContainer: {
+        flexGrow: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20,
+    },
     container: {
         flex: 1,
-        padding: 20,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -67,4 +198,25 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 20,
     },
+    alarmsContainer: {
+        maxHeight: 700,
+   
+        overflow: 'hidden',
+    },
+    rightIcons: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    iconButton: {
+        marginHorizontal: 10,
+    },
+    buttonContainer: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        paddingHorizontal: 20,
+        marginBottom: 15
+      
+    },
 })
+
