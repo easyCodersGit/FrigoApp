@@ -32,7 +32,7 @@ async function checkAlarm( userId, productId, alarmId) {
         console.log(alarm.minimumQuantity)
 
         if (alarm.type === 'quantity') {
-            if ( alarm.minimumQuantity < product.minimumQuantity){
+            if ( product.quantity <= alarm.minimumQuantity){
                 alarm.isActive = true
             }
         }
@@ -54,3 +54,4 @@ async function checkAlarm( userId, productId, alarmId) {
 }
 
 export default checkAlarm
+
