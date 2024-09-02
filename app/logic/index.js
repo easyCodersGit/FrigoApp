@@ -13,6 +13,7 @@ import registerUser from "./registerUser"
 import editProduct from "./editProduct"
 import searchProduct from "./searchproduct"
 import addAlarm from "./addAlarm"
+import checkStatusAlarm from "./checkStatusAlarm"
 
 
 const logic = {
@@ -30,7 +31,8 @@ const logic = {
     registerUser,
     editProduct,
     searchProduct,
-    addAlarm
+    addAlarm,
+    checkStatusAlarm
 }
 
 export default logic

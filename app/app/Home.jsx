@@ -13,12 +13,15 @@ import Fridges from '../components/Fridges'
 import NewFridge from '../components/NewFridge'
 import CustomInput from '../library/CustomInput'
 import searchProduct from '../logic/searchproduct'
+import checkStatusAlarm from '../logic/checkStatusAlarm'
+import { AlarmIconWithBadge } from '../library/AlarmIconWithBadge'
 
 
 export default function Home() {
     const [userName, setUserName] = useState('')
     const [userId, setUserId] = useState(null)
     const [loading, setLoading] = useState(true)
+    const [hasActiveAlarms, setHasActiveAlarms] = useState(false) 
     const [showAddFridge, setShowAddFridge] = useState(false)
     const [fridgeRefreshFlag, setFridgeRefreshFlag] = useState(false)
     const [searchQuery, setSearchQuery] = useState('')
@@ -39,6 +42,10 @@ export default function Home() {
                     setUserId(sessionUserId)
                     const name = await checkUser(sessionUserId)
                     setUserName(name)
+
+                    const alarmStatusChecked = await checkStatusAlarm(sessionUserId)
+                    setHasActiveAlarms(alarmStatusChecked)
+
                 } else {
                     console.error('No userId found in session')
                 }
@@ -110,11 +117,19 @@ export default function Home() {
                         </Pressable>
                     </Link> */}
 
-                    <Pressable
+                    {/* <Pressable
                         style={styles.iconButton}
                         onPress={() => router.push({ pathname: '/AlarmsPage', params: { userId } })}
                     >
                         <AlarmIcon />
+                    </Pressable> */}
+
+                    <Pressable
+                        style={styles.iconButton}
+                        onPress={() => router.push({ pathname: '/AlarmsPage', params: { userId } })}
+                    >
+                        {/* Usa el componente modificado que muestra el punto rojo */}
+                        <AlarmIconWithBadge hasActiveAlarms={hasActiveAlarms} />
                     </Pressable>
 
                     <Link asChild href="/about">

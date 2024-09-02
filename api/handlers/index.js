@@ -16,6 +16,7 @@ import filterProductHandler from "./filterProductHandler.js"
 import addAlarmHandler from "./addAlarmHandler.js"
 import checkAlarmHandler from "./checkAlarmHandler.js"
 import retrieveUserAlarmsHandler from "./retrieveUserAlarmsHandler.js"
+import checkAlarmActiveHandler from "./checkAlarmActiveHandler.js"
 
 
 
@@ -37,7 +38,7 @@ export {
     filterProductHandler,
     addAlarmHandler,
     checkAlarmHandler,
-    retrieveUserAlarmsHandler
-
+    retrieveUserAlarmsHandler,
+    checkAlarmActiveHandler
 
 }
