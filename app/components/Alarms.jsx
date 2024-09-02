@@ -35,7 +35,7 @@ function Alarms({ userId, refresh }) {
         <View style={styles.container}>
             <FlatList
                 data={alarms}
-                renderItem={({ item }) => <Alarm alarm={item} onAlarmDeleted={fetchAlarms} />}
+                renderItem={({ item }) => <Alarm alarm={item} onAlarmDeleted={fetchAlarms} userId={userId} />}
                 keyExtractor={(item) => item.id}
                 ListEmptyComponent={<Text style={styles.emptyText}>No alarms found.</Text>}
             />

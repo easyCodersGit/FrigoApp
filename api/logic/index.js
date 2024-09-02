@@ -17,6 +17,7 @@ import addAlarm from "./addAlarm.js"
 import checkAlarm from "./checkAlarm.js"
 import retrieveUserAlarms from "./retrieveUserAlarms.js"
 import checkActiveAlarms from "./checkActiveAlarm.js"
+import deleteAlarm from "./deleteAlarm.js"
 
 
 const logic = {
@@ -38,7 +39,8 @@ const logic = {
     addAlarm,
     checkAlarm,
     retrieveUserAlarms,
-    checkActiveAlarms
+    checkActiveAlarms,
+    deleteAlarm
 }
 
 export default logic
