@@ -1,5 +1,4 @@
 
-
 import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, Pressable, Modal, Dimensions, Platform } from 'react-native'
 import { Input } from './input'
@@ -13,6 +12,7 @@ import IconMojis from '../library/IconMojis.jsx'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import addAlarm from '../logic/addAlarm.js'
 import session from '../logic/session'
+import { Option2Icon } from './icons.jsx'
 
 const { width } = Dimensions.get('window')
 
@@ -23,8 +23,8 @@ function Product({ product, drawerId, onProductDeleted, onProductEdited, onAlarm
     const [alarmType, setAlarmType] = useState('expiration') 
     const [alarmNumber, setAlarmNumber] = useState('')
     const [userId, setUserId] = useState(null)
+    const [menuVisible, setMenuVisible] = useState(false)
 
- 
     const [nameProduct, setNameProduct] = useState(product.name)
     const [quantity, setQuantity] = useState(product.quantity.toString())
     const [category, setCategory] = useState(product.category)
@@ -41,7 +41,6 @@ function Product({ product, drawerId, onProductDeleted, onProductEdited, onAlarm
             } else {
                 console.error('No userId found in session')
             }
-            setLoading(false)
         }
 
         fetchUserId()
@@ -51,6 +50,7 @@ function Product({ product, drawerId, onProductDeleted, onProductEdited, onAlarm
         try {
             const productName = await deleteProduct(drawerId, product._id)
             setAlertVisible(false)
+            setMenuVisible(false)
             onProductDeleted()
             console.log(`Product '${productName}' deleted successfully`)
         } catch (error) {
@@ -70,6 +70,7 @@ function Product({ product, drawerId, onProductDeleted, onProductEdited, onAlarm
         try {
             await editProduct(product._id, drawerId, updates)
             setShowEditProduct(false)
+            setMenuVisible(false)
             onProductEdited()
             console.log('Product edited successfully')
         } catch (error) {
@@ -85,14 +86,12 @@ function Product({ product, drawerId, onProductDeleted, onProductEdited, onAlarm
     }
 
     const handleAddAlarm = async () => {
-
         try {
-
             await addAlarm(userId, product._id, alarmType, parseInt(alarmNumber, 10))
             setShowAddAlarm(false)
+            setMenuVisible(false)
             onAlarmAdded()
             console.log('Alarm added successfully')
-            
         } catch (error) {
             console.error('Error adding alarm:', error)
         }
@@ -107,17 +106,25 @@ function Product({ product, drawerId, onProductDeleted, onProductEdited, onAlarm
             <Text style={styles.productDetails}>Expiration: {new Date(product.expirationDate).toLocaleDateString()}</Text>
             <Text style={styles.productDetails}>Icon: {product.icon}</Text>
 
-            <Pressable onPress={() => setAlertVisible(true)} style={styles.button}>
-                <Text style={styles.buttonText}>Delete</Text>
+            <Pressable onPress={() => setMenuVisible(!menuVisible)} style={styles.optionButton}>
+                <Option2Icon />
             </Pressable>
 
-            <Pressable onPress={() => setShowEditProduct(true)} style={styles.button}>
-                <Text style={styles.buttonText}>Edit</Text>
-            </Pressable>
+            {menuVisible && (
+                <View style={styles.menuContainer}>
+                    <Pressable onPress={() => setAlertVisible(true)} style={styles.menuItem}>
+                        <Text style={styles.menuText}>Delete</Text>
+                    </Pressable>
 
-            <Pressable onPress={() => setShowAddAlarm(true)} style={styles.button}>
-                <Text style={styles.buttonText}>Add Alarm</Text>
-            </Pressable>
+                    <Pressable onPress={() => setShowEditProduct(true)} style={styles.menuItem}>
+                        <Text style={styles.menuText}>Edit</Text>
+                    </Pressable>
+
+                    <Pressable onPress={() => setShowAddAlarm(true)} style={styles.menuItem}>
+                        <Text style={styles.menuText}>Add Alarm</Text>
+                    </Pressable>
+                </View>
+            )}
 
             <CustomAlert
                 visible={alertVisible}
@@ -352,6 +359,27 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 20,
     },
+    optionButton: {
+        padding: 10,
+        alignSelf: 'flex-end',
+    },
+    menuContainer: {
+        position: 'absolute',
+        right: 50,
+        top: 40,
+        backgroundColor: 'white',
+        borderRadius: 5,
+        elevation: 5,
+        zIndex: 1,
+    },
+    menuItem: {
+        padding: 10,
+    },
+    menuText: {
+        fontSize: 16,
+        color: 'black',
+    },
 })
 
 export default Product
+

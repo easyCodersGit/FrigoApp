@@ -3,6 +3,7 @@ import FontAwesome from '@expo/vector-icons/FontAwesome'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import Entypo from '@expo/vector-icons/Entypo'
+import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
 
 export const CircleInfoIcon = (props) => (
     <AntDesign name="infocirlce" size={24} color="black" />
@@ -35,4 +36,8 @@ export const AlarmIcon = (props) => (
 
 export const ShopIcon = (props) => (
     <Entypo name="shopping-cart" size={24} color="black" />
+)
+
+export const Option2Icon = (props) => (
+    <SimpleLineIcons name="options" size={24} color="black" />
 )
