@@ -10,6 +10,8 @@ import Alarms from "../components/Alarms"
 import session from '../logic/session'
 import checkUser from '../logic/checkUser'
 
+
+
 export default function AlarmsPage() {
     const [userId, setUserId] = useState(null)
     const [loading, setLoading] = useState(true)
@@ -41,6 +43,8 @@ export default function AlarmsPage() {
     if (loading) {
         return <Text>Loading...</Text>
     }
+
+
 
     return (
         <ScrollView contentContainerStyle={styles.contentContainer}>

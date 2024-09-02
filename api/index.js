@@ -28,7 +28,8 @@ import {
     addAlarmHandler,
     checkAlarmHandler,
     retrieveUserAlarmsHandler,
-    checkAlarmActiveHandler
+    checkAlarmActiveHandler,
+    deleteAlarmHandler
 
 } from './handlers/index.js'
 
@@ -102,6 +103,9 @@ mongoose.connect(process.env.MONGODB_URL)
 
           // Check Active Alarm
           server.post('/users/:userId/checkActiveAlarm', checkAlarmActiveHandler)
+
+        // Delete Alarm
+        server.delete('/users/:userId/alarms/:alarmId', deleteAlarmHandler)
 
 
 

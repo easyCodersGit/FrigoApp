@@ -5,25 +5,27 @@ import { useRouter } from 'expo-router'
 import CustomAlert from '../library/CustomAlert'
 import { ButtonBlue } from './buttons'
 import deleteFridge from '../logic/deleteFridge'
+import deleteAlarm from '../logic/deleteAlarm'
 
 const { width } = Dimensions.get('window')
 
 function Alarm(props) {
-    const { alarm, onAlarmDeleted } = props
+    const { alarm, onAlarmDeleted, userId } = props
     const [alertVisible, setAlertVisible] = useState(false)
 
     const router = useRouter()
 
     const handleDeleteAlarm = async () => {
 
-        console.log('Handle Delete pulsado')
-        // try {
-        //     //const alarmName = await deleteAlarm(alarm.id, user)
-        //     setAlertVisible(false)
-        //     onAlarmDeleted() 
-        // } catch (error) {
-        //     console.error('Error deleting alarm:', error)
-        // }
+      try {
+        const alarmDeleted = await deleteAlarm(userId, alarm.id)
+        setAlertVisible(false)
+        onAlarmDeleted()
+        console.log(`Alarm '${alarmDeleted}' deleted successfully`)
+
+      } catch (error) {
+        console.error('Error deleting alarm', error)
+      }
     }
 
     return (
