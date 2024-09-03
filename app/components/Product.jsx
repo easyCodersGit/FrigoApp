@@ -12,11 +12,13 @@ import IconMojis from '../library/IconMojis.jsx'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import addAlarm from '../logic/addAlarm.js'
 import session from '../logic/session'
-import { Option2Icon } from './icons.jsx'
+import { Option2Icon, IncrementIcon, DecrementIcon } from './icons.jsx'
+import incrementProduct from '../logic/incrementproduct.js'
+import decrementProduct from '../logic/decrementProduct.js'
 
 const { width } = Dimensions.get('window')
 
-function Product({ product, drawerId, onProductDeleted, onProductEdited, onAlarmAdded }) {
+function Product({ product, drawerId, onProductDeleted, onProductEdited, onAlarmAdded, onProductIncrement, onProductDecrement }) {
     const [alertVisible, setAlertVisible] = useState(false)
     const [showEditProduct, setShowEditProduct] = useState(false)
     const [showAddAlarm, setShowAddAlarm] = useState(false)
@@ -97,6 +99,26 @@ function Product({ product, drawerId, onProductDeleted, onProductEdited, onAlarm
         }
     }
 
+    const handleIncrementProduct = async () => {
+        try {
+            const productQuantity = await incrementProduct(drawerId, product._id)
+            onProductIncrement()
+            console.log(`Product new quantity is '${productQuantity}'`)
+        } catch (error) {
+            console.error('Error deleting product:', error)
+        }
+    }
+
+    const handleDecrementProduct = async () => {
+        try {
+            const productQuantity = await decrementProduct(drawerId, product._id)
+            onProductDecrement()
+            console.log(`Product new quantity is '${productQuantity}'`)
+        } catch (error) {
+            console.error('Error deleting product:', error)
+        }
+    }
+
     return (
         <View style={styles.productContainer}>
              
@@ -106,9 +128,19 @@ function Product({ product, drawerId, onProductDeleted, onProductEdited, onAlarm
             <Text style={styles.productDetails}>Expiration: {new Date(product.expirationDate).toLocaleDateString()}</Text>
             <Text style={styles.productDetails}>Icon: {product.icon}</Text>
 
-            <Pressable onPress={() => setMenuVisible(!menuVisible)} style={styles.optionButton}>
-                <Option2Icon />
-            </Pressable>
+            <View style={styles.buttonContainer}>
+                <Pressable style={styles.optionButton} onPress={handleIncrementProduct}>
+                    <IncrementIcon />
+                </Pressable>
+
+                 <Pressable style={styles.optionButton} onPress={handleDecrementProduct}>
+                     <DecrementIcon />
+                </Pressable>
+
+                <Pressable onPress={() => setMenuVisible(!menuVisible)} style={styles.optionButton}>
+                    <Option2Icon />
+                </Pressable>
+        </View>
 
             {menuVisible && (
                 <View style={styles.menuContainer}>
@@ -378,6 +410,12 @@ const styles = StyleSheet.create({
     menuText: {
         fontSize: 16,
         color: 'black',
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between', // Puedes cambiar a 'flex-start', 'flex-end', etc., según tus necesidades
+        alignItems: 'center',
+        marginTop: 5, // Ajusta según sea necesario
     },
 })
 
