@@ -6,6 +6,7 @@ import CustomAlert from '../library/CustomAlert'
 import { ButtonBlue } from './buttons'
 import deleteFridge from '../logic/deleteFridge'
 import deleteAlarm from '../logic/deleteAlarm'
+import { DeleteIcon } from './icons'
 
 const { width } = Dimensions.get('window')
 
@@ -54,10 +55,13 @@ function Alarm(props) {
                 </Text>
             </View>
             <View style={styles.deleteButtonContainer}>
-                <ButtonBlue
+                {/* <ButtonBlue
                     label="Delete"
                     onPress={() => setAlertVisible(true)}
-                />
+                /> */}
+                <Pressable onPress={() => setAlertVisible(true)}>
+                            <DeleteIcon />
+                        </Pressable>
             </View>
         </Pressable>
 
@@ -105,7 +109,7 @@ const styles = StyleSheet.create({
         color: '#333',
     },
     deleteButtonContainer: {
-        alignItems: 'flex-end',
+        alignItems: 'center',
     },
 })
 

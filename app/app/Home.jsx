@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { useRouter, Link } from 'expo-router'
-import { View, Text, StyleSheet, Modal, Alert, Pressable, ImageBackground, Platform } from 'react-native'
+import { View, Text, StyleSheet, Modal, Alert, Pressable, ImageBackground, Platform, SafeAreaView } from 'react-native'
 
 import { CircleInfoIcon, OptionsIcon, SearchIcon, LogoutIcon, AlarmIcon, ShopIcon } from '../components/icons'
 
@@ -90,6 +90,7 @@ export default function Home() {
 
     return (
         <View style={styles.container}>
+             {/* <SafeAreaView style={{ flex: 1 }}> */}
             <BackgroundImage />
             <View style={styles.buttonContainer}>
 
@@ -110,19 +111,6 @@ export default function Home() {
                 </View>
 
                 <View style={styles.rightIcons}>
-
-                    {/* <Link asChild href="/AlarmsPage">
-                        <Pressable style={styles.iconButton}>
-                            <AlarmIcon />
-                        </Pressable>
-                    </Link> */}
-
-                    {/* <Pressable
-                        style={styles.iconButton}
-                        onPress={() => router.push({ pathname: '/AlarmsPage', params: { userId } })}
-                    >
-                        <AlarmIcon />
-                    </Pressable> */}
 
                     <Pressable
                         style={styles.iconButton}
@@ -216,6 +204,7 @@ export default function Home() {
             </Modal>
                 </>
             )}
+            {/* </SafeAreaView> */}
         </View>
     )
 }

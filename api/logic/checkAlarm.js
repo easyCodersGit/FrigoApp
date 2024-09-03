@@ -38,7 +38,11 @@ async function checkAlarm( userId, productId, alarmId) {
         }
 
         if (alarm.type === 'expiration') {
-            if ( alarm.daysBeforeExpiration > 0 ){
+            const currentDate = new Date()
+            const expirationDate = new Date(product.expirationDate)
+            const daysDifference = Math.ceil((expirationDate - currentDate) / (1000 * 60 * 60 * 24))
+
+            if (daysDifference <= alarm.daysBeforeExpiration) {
                 alarm.isActive = true
             }
         }

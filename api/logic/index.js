@@ -18,6 +18,9 @@ import checkAlarm from "./checkAlarm.js"
 import retrieveUserAlarms from "./retrieveUserAlarms.js"
 import checkActiveAlarms from "./checkActiveAlarm.js"
 import deleteAlarm from "./deleteAlarm.js"
+import incrementProduct from "./incrementProduct.js"
+import decrementProduct from "./decrementProduct.js"
+
 
 
 const logic = {
@@ -40,7 +43,9 @@ const logic = {
     checkAlarm,
     retrieveUserAlarms,
     checkActiveAlarms,
-    deleteAlarm
+    deleteAlarm,
+    incrementProduct,
+    decrementProduct
 }
 
 export default logic

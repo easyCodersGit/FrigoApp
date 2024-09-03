@@ -29,7 +29,9 @@ import {
     checkAlarmHandler,
     retrieveUserAlarmsHandler,
     checkAlarmActiveHandler,
-    deleteAlarmHandler
+    deleteAlarmHandler,
+    incrementProductHandler,
+    decrementproductHandler,
 
 } from './handlers/index.js'
 
@@ -87,6 +89,12 @@ mongoose.connect(process.env.MONGODB_URL)
 
         // Edit Product
         server.patch('/drawers/:drawerId/products/:productId', editProductHandler)
+
+        // Increment Product
+        server.patch('/drawers/:drawerId/products/:productId/increment', incrementProductHandler)
+
+        // Decrement Product
+        server.patch('/drawers/:drawerId/products/:productId/decrement', decrementproductHandler)
 
          // Filter Products
          server.get('/users/:userId/products', filterProductHandler)
