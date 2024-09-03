@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'expo-router'
 import { ScrollView, View, Text, Pressable, StyleSheet } from 'react-native'
 import { Link } from 'expo-router'
-import { CircleInfoIcon, OptionsIcon, SearchIcon, LogoutIcon, AlarmIcon, ShopIcon, HomeIcon } from '../components/icons'
+import { CircleInfoIcon, OptionsIcon, SearchIcon, LogoutIcon, AlarmIcon, ShopIcon, HomeIcon, FridgeIcon } from '../components/icons'
 
 import { BackgroundImage } from '../components/background'
 import Alarms from "../components/Alarms"
@@ -16,6 +16,8 @@ export default function AlarmsPage() {
     const [userId, setUserId] = useState(null)
     const [loading, setLoading] = useState(true)
     const [userName, setUserName] = useState('')
+
+
 
     useEffect(() => {
         const fetchUserId = async () => {
@@ -53,10 +55,12 @@ export default function AlarmsPage() {
             <View style={styles.buttonContainer}>
                 <View style={styles.rightIcons}>
                     <Link asChild href="/Home">
-                        <Pressable>
+                        <Pressable style={styles.iconButton}>
                             <HomeIcon />
                         </Pressable>
                     </Link>
+
+                    
 
                     <Link asChild href="/about">
                         <Pressable style={styles.iconButton}>

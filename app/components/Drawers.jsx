@@ -5,7 +5,7 @@ import { View, FlatList, Text, StyleSheet, Platform } from 'react-native'
 import Drawer from './Drawer'
 import retrieveDrawers from '../logic/retrieveDrawers'
 
-function Drawers({ fridgeId, refreshFlag }) {
+function Drawers({ fridgeId, refreshFlag, updateAlarmStatus }) {
     const [drawers, setDrawers] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
@@ -48,6 +48,7 @@ function Drawers({ fridgeId, refreshFlag }) {
                         drawer={item}
                         fridge={fridgeId}
                         onDrawerDeleted={fetchDrawers}
+                        updateAlarmStatus={updateAlarmStatus}
                     />
                 )}
                 keyExtractor={(item) => item._id.toString()}

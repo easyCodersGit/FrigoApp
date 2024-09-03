@@ -116,7 +116,7 @@ export default function Home() {
                         style={styles.iconButton}
                         onPress={() => router.push({ pathname: '/AlarmsPage', params: { userId } })}
                     >
-                        {/* Usa el componente modificado que muestra el punto rojo */}
+                       
                         <AlarmIconWithBadge hasActiveAlarms={hasActiveAlarms} />
                     </Pressable>
 
@@ -151,7 +151,7 @@ export default function Home() {
                     )}
 
                     {/* Renderiza las neveras si userId está disponible */}
-                    {userId && <Fridges userId={userId} refresh={fridgeRefreshFlag} />}
+                    {userId && <Fridges userId={userId} refresh={fridgeRefreshFlag} hasActiveAlarms={hasActiveAlarms} />}
 
                     <ButtonSecondary
                         label="Add Fridge"

@@ -10,13 +10,17 @@ import deleteFridge from '../logic/deleteFridge'
 const { width } = Dimensions.get('window')
 
 function Fridge(props) {
-    const { fridge, onFridgeDeleted, user } = props
+    const { fridge, onFridgeDeleted, user, hasActiveAlarms, userId } = props
     const [alertVisible, setAlertVisible] = useState(false)
 
     const router = useRouter()
 
     const handlePress = () => {
-        router.push(`/fridge/${fridge.id}`)
+       
+        router.push({
+            pathname: `/fridge/${fridge.id}`,
+            params: { id: fridge.id, hasActiveAlarms, userId } 
+        })
     }
 
     const handleDeleteFridge = async () => {
