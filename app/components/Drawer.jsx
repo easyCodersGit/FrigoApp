@@ -112,6 +112,8 @@ function Drawer(props) {
                                 onProductDeleted={fetchProducts}
                                 onProductEdited={fetchProducts}
                                 onAlarmAdded={fetchProducts}
+                                onProductIncrement={fetchProducts}
+                                onProductDecrement={fetchProducts}
                             />
                         ))}
                     </ScrollView>

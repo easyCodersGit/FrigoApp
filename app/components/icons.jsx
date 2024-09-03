@@ -41,3 +41,11 @@ export const ShopIcon = (props) => (
 export const Option2Icon = (props) => (
     <SimpleLineIcons name="options" size={24} color="black" />
 )
+
+export const IncrementIcon = (props) => (
+    <Ionicons name="add-circle" size={24} color="black" />
+)
+
+export const DecrementIcon = (props) => (
+    <Ionicons name="remove-circle" size={24} color="black" />
+)
