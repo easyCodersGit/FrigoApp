@@ -18,6 +18,8 @@ import checkAlarmHandler from "./checkAlarmHandler.js"
 import retrieveUserAlarmsHandler from "./retrieveUserAlarmsHandler.js"
 import checkAlarmActiveHandler from "./checkAlarmActiveHandler.js"
 import deleteAlarmHandler from "./deleteAlarmHandler.js"
+import incrementProductHandler from "./incrementProductHandler.js"
+import decrementproductHandler from "./decrementproductHandler.js"
 
 
 
@@ -41,6 +43,8 @@ export {
     checkAlarmHandler,
     retrieveUserAlarmsHandler,
     checkAlarmActiveHandler,
-    deleteAlarmHandler
+    deleteAlarmHandler,
+    incrementProductHandler,
+    decrementproductHandler
 
 }
