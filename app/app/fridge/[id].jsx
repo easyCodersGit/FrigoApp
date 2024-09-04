@@ -109,7 +109,8 @@ function FridgeMain() {
 
             <Pressable
                         style={styles.iconButton}
-                        onPress={() => router.push({ pathname: '/AlarmsPage', params: { userId } })}
+                        // onPress={() => router.push({ pathname: '/AlarmsPage', params: { userId } })}
+                        onPress={() =>router.push('/AlarmsPage')}
                     >
                       
                         <AlarmIconWithBadge hasActiveAlarms={hasActiveAlarms} />

@@ -120,7 +120,7 @@ export default function Home() {
                         <AlarmIconWithBadge hasActiveAlarms={hasActiveAlarms} />
                     </Pressable>
 
-                    <Link asChild href="/about">
+                    <Link asChild href="/ShoppingList">
                         <Pressable style={styles.iconButton}>
                             <ShopIcon />
                         </Pressable>
