@@ -18,7 +18,7 @@ import decrementProduct from '../logic/decrementProduct.js'
 
 const { width } = Dimensions.get('window')
 
-function Product({ product, drawerId, onProductDeleted, onProductEdited, onAlarmAdded, onProductIncrement, onProductDecrement }) {
+function Product({ product, drawerId, onProductDeleted, onProductEdited, onAlarmAdded, onProductIncrement, onProductDecrement, updateAlarmStatus }) {
     const [alertVisible, setAlertVisible] = useState(false)
     const [showEditProduct, setShowEditProduct] = useState(false)
     const [showAddAlarm, setShowAddAlarm] = useState(false)
@@ -54,6 +54,7 @@ function Product({ product, drawerId, onProductDeleted, onProductEdited, onAlarm
             setAlertVisible(false)
             setMenuVisible(false)
             onProductDeleted()
+            updateAlarmStatus()
             console.log(`Product '${productName}' deleted successfully`)
         } catch (error) {
             console.error('Error deleting product:', error)
@@ -74,6 +75,7 @@ function Product({ product, drawerId, onProductDeleted, onProductEdited, onAlarm
             setShowEditProduct(false)
             setMenuVisible(false)
             onProductEdited()
+            updateAlarmStatus()
             console.log('Product edited successfully')
         } catch (error) {
             console.error('Error editing product:', error)
@@ -93,6 +95,7 @@ function Product({ product, drawerId, onProductDeleted, onProductEdited, onAlarm
             setShowAddAlarm(false)
             setMenuVisible(false)
             onAlarmAdded()
+            updateAlarmStatus()
             console.log('Alarm added successfully')
         } catch (error) {
             console.error('Error adding alarm:', error)
@@ -103,6 +106,7 @@ function Product({ product, drawerId, onProductDeleted, onProductEdited, onAlarm
         try {
             const productQuantity = await incrementProduct(drawerId, product._id)
             onProductIncrement()
+            updateAlarmStatus()
             console.log(`Product new quantity is '${productQuantity}'`)
         } catch (error) {
             console.error('Error deleting product:', error)
@@ -113,6 +117,7 @@ function Product({ product, drawerId, onProductDeleted, onProductEdited, onAlarm
         try {
             const productQuantity = await decrementProduct(drawerId, product._id)
             onProductDecrement()
+            updateAlarmStatus()
             console.log(`Product new quantity is '${productQuantity}'`)
         } catch (error) {
             console.error('Error deleting product:', error)

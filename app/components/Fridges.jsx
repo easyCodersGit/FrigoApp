@@ -4,7 +4,7 @@ import { View, FlatList, Text, StyleSheet } from 'react-native'
 import Fridge from './Fridge'
 import retrieveUserFridges from '../logic/retrieveUserFridges'
 
-function Fridges({ userId, refresh }) {
+function Fridges({ userId, refresh, hasActiveAlarms }) {
     const [fridges, setFridges] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
@@ -36,7 +36,7 @@ function Fridges({ userId, refresh }) {
         <View style={styles.container}>
             <FlatList
                 data={fridges}
-                renderItem={({ item }) => <Fridge fridge={item} user={userId} onFridgeDeleted={fetchFridges} />}
+                renderItem={({ item }) => <Fridge fridge={item} user={userId} onFridgeDeleted={fetchFridges} hasActiveAlarms={hasActiveAlarms} userId={userId} />}
                 keyExtractor={(item) => item.id}
                 ListEmptyComponent={<Text style={styles.emptyText}>No fridges found.</Text>}
               

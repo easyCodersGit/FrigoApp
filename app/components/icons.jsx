@@ -3,7 +3,8 @@ import FontAwesome from '@expo/vector-icons/FontAwesome'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import Entypo from '@expo/vector-icons/Entypo'
-import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
+import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons'
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 
 export const CircleInfoIcon = (props) => (
     <AntDesign name="infocirlce" size={24} color="black" />
@@ -48,4 +49,8 @@ export const IncrementIcon = (props) => (
 
 export const DecrementIcon = (props) => (
     <Ionicons name="remove-circle" size={24} color="black" />
+)
+
+export const FridgeIcon = (props) => (
+    <MaterialCommunityIcons name="fridge" size={24} color="black" />
 )

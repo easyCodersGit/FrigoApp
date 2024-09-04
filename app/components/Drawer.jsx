@@ -13,7 +13,7 @@ import deleteDrawer from '../logic/deleteDrawer'
 const { width } = Dimensions.get('window')
 
 function Drawer(props) {
-    const { drawer, fridge, onDrawerDeleted } = props
+    const { drawer, fridge, onDrawerDeleted, updateAlarmStatus } = props
     console.log('Drawer Data:', drawer)
 
     const [modalVisible, setModalVisible] = useState(false)
@@ -46,6 +46,7 @@ function Drawer(props) {
     }
 
     const handleClose = () => {
+        updateAlarmStatus()
         setModalVisible(false)
     }
 
