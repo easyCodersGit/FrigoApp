@@ -28,6 +28,7 @@ function FridgeMain() {
         const loadFridgeData = async () => {
             try {
                 const data = await retrieveFridge(id)
+                console.log("Fridge Data: ", data)
                 setFridgeData(data)
             } catch (err) {
                 setError(err.message)
@@ -76,6 +77,7 @@ function FridgeMain() {
 
     if (loading) {
         return <ActivityIndicator size="large" color="#0000ff" />
+       
     }
 
     if (error) {
@@ -164,6 +166,81 @@ function FridgeMain() {
             </ImageBackground>
         </ScrollView>
     )
+
+    // return (
+    //     <View style={styles.scrollContainer}>  {/* Cambiado de ScrollView a View */}
+    //         <BackgroundImage />
+    
+    //         <ImageBackground
+    //             source={require('../../img/bordeNevera3.png')}
+    //             style={styles.fridgeImage}
+    //         >
+    //             <View style={styles.rightIcons}>
+    //                 <Link asChild href="/Home">
+    //                     <Pressable style={styles.iconButton}>
+    //                         <HomeIcon />
+    //                     </Pressable>
+    //                 </Link>
+    
+    //                 <Pressable
+    //                     style={styles.iconButton}
+    //                     onPress={() => router.push('/AlarmsPage')}
+    //                 >
+    //                     <AlarmIconWithBadge hasActiveAlarms={hasActiveAlarms} />
+    //                 </Pressable>
+    
+    //                 <Pressable style={styles.iconButton} onPress={handlerGoFridges}>
+    //                     <ShopIcon />
+    //                 </Pressable>
+    
+    //                 <Link asChild href="/about">
+    //                     <Pressable style={styles.iconButton}>
+    //                         <OptionsIcon />
+    //                     </Pressable>
+    //                 </Link>
+    
+    //                 <Link asChild href="/">
+    //                     <Pressable style={styles.iconButton}>
+    //                         <LogoutIcon />
+    //                     </Pressable>
+    //                 </Link>
+    //             </View>
+    
+    //             <View style={styles.innerContainer}>
+    //                 <Text style={styles.title}>{fridgeData.name}</Text>  
+                    
+    //                 <Drawers 
+    //                     style={styles.drawers} 
+    //                     fridgeId={id} 
+    //                     refreshFlag={drawerRefreshFlag} 
+    //                     onProductAdded={handleAddProductSuccess} 
+    //                     updateAlarmStatus={updateAlarmStatus} 
+    //                 />
+    
+    //                 <View style={styles.buttonsContainer}>
+    //                     <ButtonSecondary
+    //                         label="Add Drawer"
+    //                         onPress={() => setShowAddDrawer(true)}
+    //                     />
+    //                 </View>
+    
+    //                 <Modal
+    //                     visible={showAddDrawer}
+    //                     animationType="slide"
+    //                     onRequestClose={() => setShowAddDrawer(false)}
+    //                 >
+    //                     <NewDrawer 
+    //                         fridgeId={id} 
+    //                         onAddDrawer={handleAddDrawerSuccess} 
+    //                         onCancelDrawer={handleCancelDrawer} 
+    //                     />
+    //                 </Modal>
+    //             </View>
+    //         </ImageBackground>
+    //     </View>
+    // )
+    
+    
 }
 
 const styles = StyleSheet.create({

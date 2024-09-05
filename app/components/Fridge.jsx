@@ -16,7 +16,7 @@ function Fridge(props) {
     const router = useRouter()
 
     const handlePress = () => {
-       
+        console.log("Navigating to fridge:", fridge.id, "with alarms:", hasActiveAlarms, "and userId:", userId);
         router.push({
             pathname: `/fridge/${fridge.id}`,
             params: { hasActiveAlarms, userId } 

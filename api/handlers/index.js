@@ -20,6 +20,7 @@ import checkAlarmActiveHandler from "./checkAlarmActiveHandler.js"
 import deleteAlarmHandler from "./deleteAlarmHandler.js"
 import incrementProductHandler from "./incrementProductHandler.js"
 import decrementproductHandler from "./decrementproductHandler.js"
+import retrieveActiveProductHandler from "./retrieveActiveProductHandler.js"
 
 
 
@@ -45,6 +46,7 @@ export {
     checkAlarmActiveHandler,
     deleteAlarmHandler,
     incrementProductHandler,
-    decrementproductHandler
+    decrementproductHandler,
+    retrieveActiveProductHandler
 
 }
