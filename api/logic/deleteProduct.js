@@ -1,4 +1,4 @@
-import { Product, Drawer } from "../data/models.js"
+import { Product, Drawer, Alarm } from "../data/models.js"
 import { errors, validate } from "com"
 
 const { NotFoundError, SystemError } = errors
@@ -32,6 +32,8 @@ async function deleteProduct(drawerId, productId) {
 
 
         await Product.findByIdAndDelete(productId)
+
+        await Alarm.deleteMany({ product: productId })
 
         return productName
 

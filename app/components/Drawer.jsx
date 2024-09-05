@@ -46,7 +46,9 @@ function Drawer(props) {
     }
 
     const handleClose = () => {
-        updateAlarmStatus()
+        if (updateAlarmStatus) {
+            updateAlarmStatus()  
+        }
         setModalVisible(false)
     }
 

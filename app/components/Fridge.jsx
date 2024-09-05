@@ -19,7 +19,7 @@ function Fridge(props) {
        
         router.push({
             pathname: `/fridge/${fridge.id}`,
-            params: { id: fridge.id, hasActiveAlarms, userId } 
+            params: { hasActiveAlarms, userId } 
         })
     }
 
