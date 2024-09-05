@@ -19,6 +19,7 @@ async function retrieveActiveProducts(userId) {
             if(alarm.isActive === true) {
 
                 activeProducts.push({
+                    id: alarm.id,
                     name: alarm.product.name,
                     minimumQuantity: alarm.minimumQuantity
                 })

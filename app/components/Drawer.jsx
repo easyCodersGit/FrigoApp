@@ -14,7 +14,7 @@ const { width } = Dimensions.get('window')
 
 function Drawer(props) {
     const { drawer, fridge, onDrawerDeleted, updateAlarmStatus } = props
-    console.log('Drawer Data:', drawer)
+   
 
     const [modalVisible, setModalVisible] = useState(false)
     const [products, setProducts] = useState(drawer.products || [])
@@ -54,7 +54,9 @@ function Drawer(props) {
 
     const handleDeleteDrawer = async () => {
         try {
-            const drawerName = await deleteDrawer(fridge._id, drawer._id)
+            console.log(fridge)
+            console.log(drawer._id)
+            const drawerName = await deleteDrawer(fridge, drawer._id)
             setAlertVisible(false)
             onDrawerDeleted() // Llamada para actualizar la lista de cajones
             console.log(`Drawer '${drawerName}' deleted successfully`)
