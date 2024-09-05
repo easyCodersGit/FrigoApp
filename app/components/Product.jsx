@@ -95,7 +95,7 @@ function Product({ product, drawerId, onProductDeleted, onProductEdited, onAlarm
             setShowAddAlarm(false)
             setMenuVisible(false)
             onAlarmAdded()
-            updateAlarmStatus()
+           // updateAlarmStatus()
             console.log('Alarm added successfully')
         } catch (error) {
             console.error('Error adding alarm:', error)
@@ -106,7 +106,7 @@ function Product({ product, drawerId, onProductDeleted, onProductEdited, onAlarm
         try {
             const productQuantity = await incrementProduct(drawerId, product._id)
             onProductIncrement()
-            updateAlarmStatus()
+            //updateAlarmStatus()
             console.log(`Product new quantity is '${productQuantity}'`)
         } catch (error) {
             console.error('Error deleting product:', error)
@@ -117,7 +117,7 @@ function Product({ product, drawerId, onProductDeleted, onProductEdited, onAlarm
         try {
             const productQuantity = await decrementProduct(drawerId, product._id)
             onProductDecrement()
-            updateAlarmStatus()
+            //updateAlarmStatus()
             console.log(`Product new quantity is '${productQuantity}'`)
         } catch (error) {
             console.error('Error deleting product:', error)
