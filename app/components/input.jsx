@@ -2,14 +2,14 @@
 import React from 'react'
 import { TextInput, StyleSheet } from 'react-native'
 
-export function Input({ value, onChangeText, placeholder, secureTextEntry = false, keyboardType = 'default', style }) {
+export function Input({ value, onChangeText, placeholder, secureTextEntry = false, keyboardType = 'default', style, width, placeholderTextColor = '#9fced2' }) {
     return (
         <TextInput
-            style={[styles.input, style]} // Permite la sobrescritura de estilos
+        style={[styles.input, style, width ? { width } : null]} 
             value={value}
             onChangeText={onChangeText}
             placeholder={placeholder}
-            placeholderTextColor="#9fced2"
+            placeholderTextColor={placeholderTextColor} 
             secureTextEntry={secureTextEntry}
             keyboardType={keyboardType}
             autoCapitalize="none"
@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         paddingVertical: 10,
         width: 110,
+        textAlign: 'center',
 
 
 

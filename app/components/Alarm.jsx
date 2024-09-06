@@ -41,7 +41,7 @@ function Alarm(props) {
             >
             <View style={styles.detailsOverlay}>
               
-                <Text style={styles.alarmProduct}>Product: {alarm.product?.name || 'Unknown'}</Text>
+                <Text style={styles.alarmProduct}> {alarm.product?.name || 'Unknown'}</Text>
                 <Text style={styles.alarmDetails}>
                         Current Quantity: {alarm.product?.quantity || 'Unknown'}
                     </Text>
@@ -91,9 +91,17 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.8,
         shadowRadius: 2,
         elevation: 5,
+        width: '50%', 
+        alignItems: 'center',
+        justifyContent: 'center',  // Centra verticalmente el contenido dentro del contenedor
+        alignSelf: 'center' 
+   
     },
     detailsOverlay: {
         marginBottom: 10,
+         alignContent: 'center',
+         justifyContent: 'center',  // Centra verticalmente el contenido dentro del contenedor
+        alignSelf: 'center' 
     },
     alarmType: {
         fontSize: 16,
@@ -102,6 +110,9 @@ const styles = StyleSheet.create({
     alarmProduct: {
         fontSize: 16,
         fontWeight: 'bold',
+        alignContent: 'center',
+        justifyContent: 'center',  // Centra verticalmente el contenido dentro del contenedor
+        alignSelf: 'center' 
        
     },
     alarmDetails: {

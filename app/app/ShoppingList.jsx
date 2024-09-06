@@ -1,9 +1,10 @@
 
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'expo-router'
-import { ScrollView, View, Text, Pressable, StyleSheet } from 'react-native'
+import { ScrollView, View, Text, Pressable, StyleSheet, FlatList } from 'react-native'
 import { Link } from 'expo-router'
-import { CircleInfoIcon, OptionsIcon, SearchIcon, LogoutIcon, AlarmIcon, ShopIcon, HomeIcon, FridgeIcon } from '../components/icons'
+import { ButtonBlue, ButtonSecondary } from '../components/buttons'
+import { CircleInfoIcon, OptionsIcon, SearchIcon, LogoutIcon, AlarmIcon, ShopIcon, HomeIcon, FridgeIcon, DeleteIcon } from '../components/icons'
 
 import { BackgroundImage } from '../components/background'
 import { AlarmIconWithBadge } from '../library/AlarmIconWithBadge'
@@ -61,79 +62,95 @@ export default function ShoppingList() {
         return <Text>Loading...</Text>
     }
 
-    return (
-        <ScrollView contentContainerStyle={styles.contentContainer}>
-            <BackgroundImage />
 
-            <View style={styles.buttonContainer}>
-                <View style={styles.rightIcons}>
-                    <Link asChild href="/Home">
-                        <Pressable style={styles.iconButton}>
-                            <HomeIcon />
-                        </Pressable>
-                    </Link>
+return (
+    <View style={{ flex: 1 }}>
+         <BackgroundImage />
+        <FlatList
 
-                    <Pressable
-                        style={styles.iconButton}
-                        onPress={() => router.push({ pathname: '/AlarmsPage', params: { userId } })}
-                    >
-                       
-                        <AlarmIconWithBadge hasActiveAlarms={hasActiveAlarms} />
-                    </Pressable>
+            ListHeaderComponent={(
+                <>
+                   
+                    <View style={styles.buttonContainer}>
+                        <View style={styles.rightIcons}>
+                            <Link asChild href="/Home">
+                                <Pressable style={styles.iconButton}>
+                                    <HomeIcon />
+                                </Pressable>
+                            </Link>
 
-                    <Link asChild href="/about">
-                        <Pressable style={styles.iconButton}>
-                            <ShopIcon />
-                        </Pressable>
-                    </Link>
+                            <Pressable
+                                style={styles.iconButton}
+                                onPress={() => router.push({ pathname: '/AlarmsPage', params: { userId } })}
+                            >
+                                <AlarmIconWithBadge hasActiveAlarms={hasActiveAlarms} />
+                            </Pressable>
 
-                    <Link asChild href="/about">
-                        <Pressable style={styles.iconButton}>
-                            <OptionsIcon />
-                        </Pressable>
-                    </Link>
+                            <Link asChild href="/about">
+                                <Pressable style={styles.iconButton}>
+                                    <ShopIcon />
+                                </Pressable>
+                            </Link>
 
-                    <Link asChild href="/">
-                        <Pressable style={styles.iconButton}>
-                            <LogoutIcon />
-                        </Pressable>
-                    </Link>
-                </View>
-            </View>
+                            <Link asChild href="/about">
+                                <Pressable style={styles.iconButton}>
+                                    <OptionsIcon />
+                                </Pressable>
+                            </Link>
 
-            {/* Renderizar la lista de productos con alarmas activas */}
-            <Text style={styles.welcomeText}>{userName}, You need to buy this!</Text>
-            <Items products={products} />
-        </ScrollView>
-    )
+                            <Link asChild href="/">
+                                <Pressable style={styles.iconButton}>
+                                    <LogoutIcon />
+                                </Pressable>
+                            </Link>
+                        </View>
+                    </View>
+
+                    <Text style={styles.welcomeText}>{userName}, You need to buy this!</Text>
+                </>
+            )}
+            data={products}
+            renderItem={({ item }) => <Items products={products} />}
+            keyExtractor={(item) => item.id.toString()}
+        />
+
+        <View style={styles.deleteButtonContainer}>
+            <ButtonSecondary
+                label="Clean List"
+                onPress={() => setAlertVisible(true)}
+            />
+        </View>
+    </View>
+)
 }
 
 const styles = StyleSheet.create({
-    contentContainer: {
-        flexGrow: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 20,
-    },
-    welcomeText: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#333',
-        paddingTop: 20,
-        paddingBottom: 10
-    },
-    rightIcons: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    iconButton: {
-        marginHorizontal: 10,
-    },
-    buttonContainer: {
-        width: '100%',
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        paddingHorizontal: 20,
-        marginBottom: 15,
-    },
+buttonContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    paddingHorizontal: 20,
+    marginBottom: 15,
+},
+rightIcons: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingTop: 10
+},
+iconButton: {
+    marginHorizontal: 10,
+},
+welcomeText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+    paddingTop: 20,
+    paddingBottom: 10,
+    textAlign: 'center',
+    width: '100%',
+},
+deleteButtonContainer: {
+   
+    alignItems: 'center',
+},
 })

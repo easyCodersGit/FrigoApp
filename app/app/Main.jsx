@@ -62,6 +62,7 @@ export function Main() {
                                 value={email}
                                 onChangeText={setEmail}
                                 keyboardType="email-address"
+                                width={170} 
                             />
 
                             <Input
@@ -70,6 +71,7 @@ export function Main() {
                                 onChangeText={setPassword}
                                 keyboardType="default"
                                 secureTextEntry={true}
+                                width={170} 
                             />
 
                           

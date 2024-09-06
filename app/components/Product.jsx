@@ -266,6 +266,7 @@ function Product({ product, drawerId, onProductDeleted, onProductEdited, onAlarm
                 onRequestClose={() => setShowAddAlarm(false)}
             >
                 <View style={styles.modalContainer}>
+                <BackgroundImage />
                     <Text style={styles.modalTitle}>Add Alarm</Text>
                     
                     <Picker
@@ -282,6 +283,8 @@ function Product({ product, drawerId, onProductDeleted, onProductEdited, onAlarm
                         value={alarmNumber}
                         onChangeText={setAlarmNumber}
                         keyboardType="numeric"
+                        placeholderTextColor="black"
+                        width={300}
                     />
 
                     <ButtonSecondary
