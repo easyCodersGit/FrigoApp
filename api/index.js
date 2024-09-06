@@ -32,6 +32,7 @@ import {
     deleteAlarmHandler,
     incrementProductHandler,
     decrementproductHandler,
+    retrieveActiveProductHandler
 
 } from './handlers/index.js'
 
@@ -98,6 +99,9 @@ mongoose.connect(process.env.MONGODB_URL)
 
          // Filter Products
          server.get('/users/:userId/products', filterProductHandler)
+
+         // Retrieve Active Products
+         server.get('/users/:userId/shoppingList', retrieveActiveProductHandler)
 
          // Add Alarm
          server.post('/users/:userId/products/:productId', addAlarmHandler)
