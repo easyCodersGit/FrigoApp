@@ -1,34 +1,47 @@
-// Item.js
+
 import React, { useState } from 'react'
-import { View, Text, StyleSheet} from 'react-native'
+import { View, Text, StyleSheet, Pressable, Dimensions } from 'react-native'
 import CheckBox from "expo-checkbox"
+import { DeleteIcon } from './icons'
+
+const { width } = Dimensions.get('window')
 
 export default function Item({ product }) {
     const [isChecked, setIsChecked] = useState(false)
 
     return (
-         <View style={styles.itemContainer}>
+        <View style={styles.itemContainer}>
             <CheckBox
                 value={isChecked}
-                onValueChange={(newValue) => setIsChecked(newValue)} 
+                onValueChange={(newValue) => setIsChecked(newValue)}
                 style={styles.checkbox}
             />
-            <View>
+            <View style={styles.textContainer}>
                 <Text style={styles.itemName}>{product.name}</Text>
                 <Text style={styles.itemQuantity}>Quantity: {product.minimumQuantity}</Text>
             </View>
+            <Pressable onPress={() => setAlertVisible(true)} style={styles.deleteButton}>
+                <DeleteIcon />
+            </Pressable>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     itemContainer: {
-        flexDirection: 'row', 
-        alignItems: 'center', 
+        flexDirection: 'row',  
+        alignItems: 'center',   
+        justifyContent: 'space-between',  
         padding: 10,
         marginVertical: 5,
         backgroundColor: '#f8f8f8',
         borderRadius: 8,
+        // width: '40%', 
+        width: 300,
+        alignSelf: 'center',
+    },
+    textContainer: {
+        flex: 1,  
     },
     itemName: {
         fontSize: 16,
@@ -41,7 +54,11 @@ const styles = StyleSheet.create({
     checkbox: {
         marginRight: 10,
     },
+    deleteButton: {
+        marginLeft: 10,
+    },
 })
+
 
 
 

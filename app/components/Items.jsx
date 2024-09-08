@@ -12,7 +12,7 @@ export default function Items({ products }) {
                 keyExtractor={(item) => item.id.toString()} 
             />
         </View>
-    );
+    )
 }
 
 const styles = StyleSheet.create({

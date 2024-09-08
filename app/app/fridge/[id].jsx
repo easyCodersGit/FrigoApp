@@ -90,7 +90,7 @@ function FridgeMain() {
     }
 
     return (
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View contentContainerStyle={styles.scrollContainer}>
             <BackgroundImage />
 
 
@@ -148,10 +148,7 @@ function FridgeMain() {
                             label="Add Drawer"
                             onPress={() => setShowAddDrawer(true)}
                         />
-                        {/* <ButtonSecondary
-                            label="Go to Fridges"
-                            onPress={handlerGoFridges}
-                        /> */}
+                      
                         
                     </View>
 
@@ -164,81 +161,10 @@ function FridgeMain() {
                     </Modal>
                 </View>
             </ImageBackground>
-        </ScrollView>
+        </View>
     )
 
-    // return (
-    //     <View style={styles.scrollContainer}>  {/* Cambiado de ScrollView a View */}
-    //         <BackgroundImage />
-    
-    //         <ImageBackground
-    //             source={require('../../img/bordeNevera3.png')}
-    //             style={styles.fridgeImage}
-    //         >
-    //             <View style={styles.rightIcons}>
-    //                 <Link asChild href="/Home">
-    //                     <Pressable style={styles.iconButton}>
-    //                         <HomeIcon />
-    //                     </Pressable>
-    //                 </Link>
-    
-    //                 <Pressable
-    //                     style={styles.iconButton}
-    //                     onPress={() => router.push('/AlarmsPage')}
-    //                 >
-    //                     <AlarmIconWithBadge hasActiveAlarms={hasActiveAlarms} />
-    //                 </Pressable>
-    
-    //                 <Pressable style={styles.iconButton} onPress={handlerGoFridges}>
-    //                     <ShopIcon />
-    //                 </Pressable>
-    
-    //                 <Link asChild href="/about">
-    //                     <Pressable style={styles.iconButton}>
-    //                         <OptionsIcon />
-    //                     </Pressable>
-    //                 </Link>
-    
-    //                 <Link asChild href="/">
-    //                     <Pressable style={styles.iconButton}>
-    //                         <LogoutIcon />
-    //                     </Pressable>
-    //                 </Link>
-    //             </View>
-    
-    //             <View style={styles.innerContainer}>
-    //                 <Text style={styles.title}>{fridgeData.name}</Text>  
-                    
-    //                 <Drawers 
-    //                     style={styles.drawers} 
-    //                     fridgeId={id} 
-    //                     refreshFlag={drawerRefreshFlag} 
-    //                     onProductAdded={handleAddProductSuccess} 
-    //                     updateAlarmStatus={updateAlarmStatus} 
-    //                 />
-    
-    //                 <View style={styles.buttonsContainer}>
-    //                     <ButtonSecondary
-    //                         label="Add Drawer"
-    //                         onPress={() => setShowAddDrawer(true)}
-    //                     />
-    //                 </View>
-    
-    //                 <Modal
-    //                     visible={showAddDrawer}
-    //                     animationType="slide"
-    //                     onRequestClose={() => setShowAddDrawer(false)}
-    //                 >
-    //                     <NewDrawer 
-    //                         fridgeId={id} 
-    //                         onAddDrawer={handleAddDrawerSuccess} 
-    //                         onCancelDrawer={handleCancelDrawer} 
-    //                     />
-    //                 </Modal>
-    //             </View>
-    //         </ImageBackground>
-    //     </View>
-    // )
+
     
     
 }

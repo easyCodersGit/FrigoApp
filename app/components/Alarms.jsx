@@ -33,12 +33,16 @@ function Alarms({ userId, refresh }) {
 
     return (
         <View style={styles.container}>
-            <FlatList
-                data={alarms}
-                renderItem={({ item }) => <Alarm alarm={item} onAlarmDeleted={fetchAlarms} userId={userId} />}
-                keyExtractor={(item) => item.id}
-                ListEmptyComponent={<Text style={styles.emptyText}>No alarms found.</Text>}
-            />
+         
+
+<FlatList
+    data={alarms}
+    renderItem={({ item }) => <Alarm alarm={item} onAlarmDeleted={fetchAlarms} userId={userId} />}
+    keyExtractor={(item) => item.id}
+    ListEmptyComponent={<Text style={styles.emptyText}>No alarms found.</Text>}
+    scrollEnabled={false} // Desactiva el desplazamiento del FlatList
+/>
+
         </View>
     )
 }
