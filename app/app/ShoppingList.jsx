@@ -10,6 +10,7 @@ import { BackgroundImage } from '../components/background'
 import { AlarmIconWithBadge } from '../library/AlarmIconWithBadge'
 
 import Items from '../components/Items'
+import Item from '../components/Item'
 
 import retrieveActiveProducts from '../logic/retrieveActiveproducts'
 import checkStatusAlarm from '../logic/checkStatusAlarm'
@@ -32,16 +33,21 @@ export default function ShoppingList() {
         const fetchProductsWithAlarms = async () => {
             try {
                 const sessionUserId = await session.getSessionUserId()
-                console.log('Retrieved userId from session:', sessionUserId)
-
                 if (sessionUserId) {
                     setUserId(sessionUserId)
                     const name = await checkUser(sessionUserId)
                     setUserName(name)
-                    const products = await retrieveActiveProducts(sessionUserId)
-                    console.log('Active Products:', products)
-                    setProducts(products)
-
+    
+                    // Recuperar productos con alarmas
+                    const fetchedProducts = await retrieveActiveProducts(sessionUserId)
+                    
+                    // Eliminar duplicados (basado en el id del producto)
+                    const uniqueProducts = fetchedProducts.filter((product, index, self) => 
+                        index === self.findIndex((p) => p.id === product.id)
+                    )
+    
+                    setProducts(uniqueProducts)
+    
                     const alarmStatusChecked = await checkStatusAlarm(sessionUserId)
                     setHasActiveAlarms(alarmStatusChecked)
 
@@ -58,6 +64,10 @@ export default function ShoppingList() {
         fetchProductsWithAlarms()
     }, [])
 
+    const handleDeleteProduct = (productId) => {
+        setProducts(prevProducts => prevProducts.filter(product => product.id !== productId))
+    }
+
     if (loading) {
         return <Text>Loading...</Text>
     }
@@ -66,58 +76,56 @@ export default function ShoppingList() {
 return (
     <View style={{ flex: 1 }}>
          <BackgroundImage />
-        <FlatList
+       
 
-            ListHeaderComponent={(
-                <>
-                   
-                    <View style={styles.buttonContainer}>
-                        <View style={styles.rightIcons}>
-                            <Link asChild href="/Home">
-                                <Pressable style={styles.iconButton}>
-                                    <HomeIcon />
-                                </Pressable>
-                            </Link>
+<FlatList
+    ListHeaderComponent={(
+        <>
+            <View style={styles.buttonContainer}>
+                <View style={styles.rightIcons}>
+                    <Link asChild href="/Home">
+                        <Pressable style={styles.iconButton}>
+                            <HomeIcon />
+                        </Pressable>
+                    </Link>
+                    <Pressable
+                        style={styles.iconButton}
+                        onPress={() => router.push({ pathname: '/AlarmsPage', params: { userId } })}
+                    >
+                        <AlarmIconWithBadge hasActiveAlarms={hasActiveAlarms} />
+                    </Pressable>
+                    <Link asChild href="/about">
+                        <Pressable style={styles.iconButton}>
+                            <ShopIcon />
+                        </Pressable>
+                    </Link>
+                    <Link asChild href="/about">
+                        <Pressable style={styles.iconButton}>
+                            <OptionsIcon />
+                        </Pressable>
+                    </Link>
+                    <Link asChild href="/">
+                        <Pressable style={styles.iconButton}>
+                            <LogoutIcon />
+                        </Pressable>
+                    </Link>
+                </View>
+            </View>
+            <Text style={styles.welcomeText}>{userName}, You need to buy this!</Text>
+        </>
+    )}
+    data={products}
+    renderItem={({ item }) => (
+        <Item product={item} onDelete={handleDeleteProduct} />
+    )}
+    keyExtractor={(item) => item.id.toString()}
+/>
 
-                            <Pressable
-                                style={styles.iconButton}
-                                onPress={() => router.push({ pathname: '/AlarmsPage', params: { userId } })}
-                            >
-                                <AlarmIconWithBadge hasActiveAlarms={hasActiveAlarms} />
-                            </Pressable>
-
-                            <Link asChild href="/about">
-                                <Pressable style={styles.iconButton}>
-                                    <ShopIcon />
-                                </Pressable>
-                            </Link>
-
-                            <Link asChild href="/about">
-                                <Pressable style={styles.iconButton}>
-                                    <OptionsIcon />
-                                </Pressable>
-                            </Link>
-
-                            <Link asChild href="/">
-                                <Pressable style={styles.iconButton}>
-                                    <LogoutIcon />
-                                </Pressable>
-                            </Link>
-                        </View>
-                    </View>
-
-                    <Text style={styles.welcomeText}>{userName}, You need to buy this!</Text>
-                </>
-            )}
-            data={products}
-            renderItem={({ item }) => <Items products={products} />}
-            keyExtractor={(item) => item.id.toString()}
-        />
 
         <View style={styles.deleteButtonContainer}>
             <ButtonSecondary
                 label="Clean List"
-                onPress={() => setAlertVisible(true)}
+                onPress={() => setProducts([])}
             />
         </View>
     </View>
