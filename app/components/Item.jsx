@@ -6,7 +6,7 @@ import { DeleteIcon } from './icons'
 
 const { width } = Dimensions.get('window')
 
-export default function Item({ product }) {
+export default function Item({ product, onDelete }) {
     const [isChecked, setIsChecked] = useState(false)
 
     return (
@@ -19,8 +19,9 @@ export default function Item({ product }) {
             <View style={styles.textContainer}>
                 <Text style={styles.itemName}>{product.name}</Text>
                 <Text style={styles.itemQuantity}>Quantity: {product.minimumQuantity}</Text>
+                
             </View>
-            <Pressable onPress={() => setAlertVisible(true)} style={styles.deleteButton}>
+            <Pressable onPress={() => onDelete(product.id)} style={styles.deleteButton}>
                 <DeleteIcon />
             </Pressable>
         </View>
