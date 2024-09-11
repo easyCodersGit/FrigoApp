@@ -32,20 +32,60 @@ export default function Home() {
 
    let sessionUserId
 
+    // useEffect(() => {
+    //     const fetchUserData = async () => {
+    //         try {
+    //             sessionUserId = await session.getSessionUserId()
+    //             console.log('Retrieved userId from session:', sessionUserId)
+
+    //             if (sessionUserId) {
+    //                 setUserId(sessionUserId)
+    //                 const name = await checkUser(sessionUserId)
+    //                 setUserName(name)
+
+    //                 const alarmStatusChecked = await checkStatusAlarm(sessionUserId)
+    //                 setHasActiveAlarms(alarmStatusChecked)
+
+    //             } else {
+    //                 console.error('No userId found in session')
+    //             }
+    //         } catch (error) {
+    //             console.error('Error fetching user data:', error)
+    //         } finally {
+    //             setLoading(false)
+    //         }
+    //     }
+
+    //     fetchUserData()
+    // }, [])
+
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                sessionUserId = await session.getSessionUserId()
-                console.log('Retrieved userId from session:', sessionUserId)
-
+                console.log('Fetching session userId and token')
+                const sessionUserId = await session.getSessionUserId()
+                const token = await session.getSessionToken() 
+    
+                if (!token) {
+                    console.error('No token found in session')
+                    return
+                }
+    
                 if (sessionUserId) {
                     setUserId(sessionUserId)
-                    const name = await checkUser(sessionUserId)
+                    console.log('Retrieved userId from session:', sessionUserId)
+    
+                    // Pasa el token a checkUser y otras funciones protegidas
+                    console.log('Calling checkUser with userId and token:', sessionUserId, token)
+                    const name = await checkUser(sessionUserId, token)
+                    console.log('User name retrieved:', name)
                     setUserName(name)
-
-                    const alarmStatusChecked = await checkStatusAlarm(sessionUserId)
+    
+                    console.log('Calling checkStatusAlarm with userId and token:', sessionUserId, token)
+                    const alarmStatusChecked = await checkStatusAlarm(sessionUserId, token)
                     setHasActiveAlarms(alarmStatusChecked)
-
+                    console.log('Alarm status checked:', alarmStatusChecked)
+    
                 } else {
                     console.error('No userId found in session')
                 }
@@ -55,9 +95,10 @@ export default function Home() {
                 setLoading(false)
             }
         }
-
+    
         fetchUserData()
     }, [])
+    
 
     const handleAddFridgeSuccess = () => {
         console.log('handleAddFridgeSuccess called')

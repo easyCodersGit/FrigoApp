@@ -1,8 +1,16 @@
 import { API_URL } from '@env'
 
+import session from './session'
+
 //import { API_URL } from '@env'
 
 async function deleteFridge(fridgeId, userId){
+    const token = await session.getSessionToken() 
+
+    if (!token) {
+        throw new Error('No token found')
+    }
+
     if (!userId || !fridgeId) {
         console.error('user ID and fridgeId are required')
         throw new Error('user ID and fridge ID are required')
@@ -12,6 +20,7 @@ async function deleteFridge(fridgeId, userId){
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` 
         }
     }
 
