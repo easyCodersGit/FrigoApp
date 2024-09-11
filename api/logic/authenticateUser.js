@@ -29,6 +29,7 @@ function authenticateUser(email, password) {
         try {
             // match = password === user.password
             match = bcrypt.compare(password, user.password)
+            
         } catch (error) {
             throw new Error(error.message)
         }
