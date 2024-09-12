@@ -24,7 +24,7 @@ export default function NewDrawer({ fridgeId, onAddDrawer, onCancelDrawer }) {
             await logic.addDrawer(fridgeId, nameDrawer)
             console.log('Drawer added successfully')
             onAddDrawer()
-            alert('Success', 'Drawer added successfully!')
+           // alert('Success', 'Drawer added successfully!')
         } catch (error) {
             console.error('Error adding drawer:', error)
             alert('Error', 'There was an error adding the drawer')

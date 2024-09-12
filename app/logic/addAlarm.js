@@ -1,6 +1,10 @@
 import { API_URL } from '@env'
+import session from './session'
 
 async function addAlarm(userId, productId, type, number) {
+
+    const token = await session.getSessionToken() 
+
     if (!userId || !productId) {
         console.error('User ID and product ID are required')
         throw new Error('User ID and product ID are required')
@@ -11,6 +15,7 @@ async function addAlarm(userId, productId, type, number) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` 
         },
         body: JSON.stringify({type, number }),
 

@@ -46,6 +46,7 @@ export default async (req, res) => {
         const { userId, alarmId } = req.params
 
         const token = req.headers.authorization.substring(7)
+        jwt.verify(token, process.env.JWT_SECRET)
 
         if (!userId || !alarmId) {
             return res.status(400).json({ error: "BadRequest", message: "alarmId and userId are required" })

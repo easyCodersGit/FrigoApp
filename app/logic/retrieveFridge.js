@@ -10,8 +10,8 @@ async function retrieveFridge(fridgeId) {
         headers: {
             'Content-Type': 'application/json'
         },
-        //body: JSON.stringify({ userId })
-    };
+       
+    }
 
     console.log('API_URL:', API_URL)
     console.log('Request:', req)

@@ -1,6 +1,9 @@
 import { API_URL } from '@env'
+import session from './session'
 
 async function searchProduct(userId, productName) {
+    const token = await session.getSessionToken() 
+    
     if (!userId || !productName) {
         console.error('User ID and product name are required')
         throw new Error('User ID and product name are required')
@@ -13,6 +16,7 @@ async function searchProduct(userId, productName) {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` 
         },
     }
 

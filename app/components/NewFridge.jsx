@@ -38,6 +38,7 @@ export default function NewFridge({ userId, onAddFridge, onCancelAddFridge }) {
                     value={nameFridge}
                     onChangeText={setNameFridge}
                     keyboardType="default"
+                    style={[styles.input, { width: 250 }]}
                 />
 
                 <View style={styles.colorOptions}>
@@ -103,5 +104,9 @@ const styles = StyleSheet.create({
     },
     colorText: {
         fontSize: 16,
+    },
+    input: {
+        textAlign: 'center',
+        fontSize: 18, 
     },
 })

@@ -30,7 +30,7 @@ export default function NewProduct({ drawerId, onAddProduct, onCancelProduct }) 
             console.log('Product added successfully')
             onAddProduct()
             onCancelProduct() // un poco cutre pero asi cierra el modal
-            alert('Success', 'Product added successfully!')
+            //alert('Success', 'Product added successfully!')
         } catch (error) {
             console.error('Error adding product:', error)
             alert('Error', 'There was an error adding the product')
