@@ -1,9 +1,8 @@
-// app/pages/Main.jsx
 import React, { useState } from 'react'
 import { useRouter, Link } from 'expo-router'
-import { View, Text, TextInput, Pressable, StyleSheet, ImageBackground } from 'react-native'
+import { View, TextInput, Pressable, StyleSheet, ImageBackground } from 'react-native'
 import loginUser from '../logic/loginUser'
-import { CircleInfoIcon } from '../components/icons'
+import { CircleInfoIcon, OptionsIcon, SearchIcon } from '../components/icons'
 import { ButtonBlue, ButtonSecondary } from '../components/buttons'
 import { Input } from '../components/input'
 import { BackgroundImage } from '../components/background'
@@ -12,19 +11,32 @@ export function Main() {
     const [userId, setUserId] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [message, setMessage] = useState('');
+    const [message, setMessage] = useState('')
     const [isPressed, setIsPressed] = useState(false)
 
+    const router = useRouter()
+
     const handleRegister = () => {
-        alert("Este link te llevará al Register")
+        
         router.push('/Register')
     }
 
-    const handleGuest = () => {
-        alert("Este link te llevará a la página de Invitado")
-    }
+    const handleGuest = async () => {
+        try {
+          
+            const guestEmail = 'guest@example.com'
+            const guestPassword = 'guestpassword123'
 
-    const router = useRouter()
+            console.log('Attempting guest login')
+
+            await loginUser(guestEmail, guestPassword)
+            //console.log('Guest login successful, token received:', token)
+            setMessage('Guest login successful!')
+            router.push('/Home')
+        } catch (error) {
+            console.error('Error logging in as guest:', error)
+        }
+    }
 
     const handleLogin = async () => {
         try {
@@ -38,12 +50,11 @@ export function Main() {
 
     return (
         <View style={styles.container}>
-
-            <BackgroundImage></BackgroundImage>
+            <BackgroundImage />
 
             <View style={styles.imageContainer}>
                 <ImageBackground
-                    source={require('../img/fondoConNombre.png')}
+                    source={require('../img/fondoConNombre1.png')}
                     style={styles.fridgeImage}
                     resizeMode="contain"
                 >
@@ -54,19 +65,28 @@ export function Main() {
                                 value={email}
                                 onChangeText={setEmail}
                                 keyboardType="email-address"
+                                width={170} 
                             />
 
                             <Input
                                 placeholder="Enter Password"
                                 value={password}
                                 onChangeText={setPassword}
-                                keyboardType="email-password"
+                                keyboardType="default"
                                 secureTextEntry={true}
+                                width={170} 
                             />
 
+                          
+                        </View>
 
-                            <ButtonSecondary label="LOGIN" onPress={handleLogin} onPressIn={() => setIsPressed(true)}
-                                onPressOut={() => setIsPressed(false)} />
+                        <View style={styles.buttonLogin}>
+                        <ButtonSecondary
+                                label="LOGIN"
+                                onPress={handleLogin}
+                                onPressIn={() => setIsPressed(true)}
+                                onPressOut={() => setIsPressed(false)}
+                            />
                         </View>
 
                         <View style={styles.buttonRow}>
@@ -76,6 +96,7 @@ export function Main() {
                     </View>
                 </ImageBackground>
             </View>
+
             <Link asChild href="/about">
                 <Pressable>
                     <CircleInfoIcon />
@@ -121,6 +142,6 @@ const styles = StyleSheet.create({
     buttonRow: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        marginTop: 120,
+        marginTop: 90,
     },
 })

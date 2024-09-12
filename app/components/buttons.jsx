@@ -15,7 +15,7 @@ export function ButtonBlue({ label, onPress }) {
                 <Text style={styles.buttonLabel}>{label}</Text>
             </Pressable>
         </View>
-    );
+    )
 }
 
 export function ButtonSecondary({ label, onPress }) {
@@ -31,7 +31,7 @@ export function ButtonSecondary({ label, onPress }) {
                 <Text style={styles.buttonSecondaryLabel}>{label}</Text>
             </Pressable>
         </View>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
+        textAlign: 'center',
 
         cursor: 'pointer',
     },
@@ -73,9 +74,9 @@ const styles = StyleSheet.create({
     },
 
     buttonSecondaryContainer: {
-        paddingTop: 40,
-        width: 130,
-        height: 70,
+
+        width: 120,
+        height: 40,
         marginHorizontal: 10,
         alignItems: 'center',
         justifyContent: 'center',

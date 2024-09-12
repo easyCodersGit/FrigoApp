@@ -11,11 +11,12 @@ export function BackgroundImage({ children }) {
         >
             {children}
         </ImageBackground>
-    );
-};
+    )
+}
 
 const styles = StyleSheet.create({
     backgroundImage: {
+      
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height,
         position: 'absolute'

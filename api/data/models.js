@@ -40,7 +40,13 @@ const fridge = new mongoose.Schema({
     date: {
         type: Date,
         required: true,
+    },
+    color: {
+        type: String,
+         enum: ['orange', 'red', 'blue']
+      
     }
+
 
 })
 
@@ -74,7 +80,7 @@ const product = new mongoose.Schema({
     category: {
         type: String,
         required: true,
-        enum: ['vegetables', 'fruits', 'meat', 'fish', 'seafood', 'dairy', 'grains', 'nuts and seeds', 'legumes', 'sweets', 'beverages', 'spices abd herbs', 'baked goods', 'condiment and sauces', 'snacks', 'fats and oils', 'frozen foods', 'canned goods'],
+        enum: ['vegetables', 'fruits', 'meat', 'fish', 'seafood', 'dairy', 'grains', 'nuts and seeds', 'legumes', 'sweets', 'beverages', 'spices and herbs', 'baked goods', 'condiment and sauces', 'snacks', 'fats and oils', 'frozen foods', 'canned goods'],
     },
     quantity: {
         type: Number,
@@ -98,6 +104,16 @@ const product = new mongoose.Schema({
 
     purchased: {
         type: Boolean
+    },
+
+    icon: {
+        type: String,
+        default: '',
+    },
+
+    minimumQuantity: {
+        type: Number,
+        default: 0, 
     }
 
 })
@@ -123,11 +139,50 @@ const shoppingList = new mongoose.Schema({
 
 })
 
+const alarm = new mongoose.Schema({
+   
+    owner: {
+        type: ObjectId,
+        required: true,
+        ref: 'User',
+    },
+
+    product: {
+        type: ObjectId,
+        ref: 'Product'
+    },
+
+    type: {
+        type: String,
+        required: true,
+        enum: ['expiration', 'quantity'], 
+    },
+    daysBeforeExpiration: {
+        type: Number,
+        default: 0, 
+    },
+    minimumQuantity: {
+        type: Number,
+        default: 0, 
+    },
+    isActive: {
+        type: Boolean,
+        default: false, 
+    },
+
+    createdDate: {
+        type: Date,
+        required: true,
+    }
+
+})
+
 //tenemos que usar una clase para construir usuarios
 const User = model('User', user)
 const Fridge = model('Fridge', fridge)
 const Drawer = model('Drawer', drawer)
 const Product = model('Product', product)
 const ShoppingList = model('ShoppingList', shoppingList)
+const Alarm = model('Alarm', alarm)
 
-export { User, Fridge, Drawer, Product, ShoppingList }
+export { User, Fridge, Drawer, Product, ShoppingList, Alarm }

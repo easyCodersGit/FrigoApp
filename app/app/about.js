@@ -15,7 +15,7 @@ export default function About() {
             <Text>Aliqua Lorem nostrud eu aliqua officia sint ullamco sint adipisicing mollit consequat dolor. Tempor culpa minim qui laborum aute cupidatat adipisicing id proident excepteur nostrud voluptate. Eiusmod ad sint quis commodo aliquip in minim irure excepteur aliquip cupidatat nostrud. Tempor amet ex occaecat elit exercitation dolore reprehenderit culpa. Id consequat esse eiusmod dolor fugiat ut dolore eu anim. Est quis eiusmod nostrud non elit proident proident aute quis eiusmod elit.</Text>
 
             {/* Para poder pasarle algun componente: botones, iconos... tenemos que pasarle una prop asChild  */}
-            <Link asChild href="/">
+            <Link asChild href="/Home">
                 <Pressable>
                     <HomeIcon></HomeIcon>
                 </Pressable>

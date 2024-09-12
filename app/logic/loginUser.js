@@ -1,5 +1,6 @@
-import { API_URL } from '@env';
-import session from './session';
+
+import { API_URL } from '@env'
+import session from './session'
 
 async function loginUser(email, password) {
     const req = {
@@ -8,35 +9,44 @@ async function loginUser(email, password) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ email, password })
-    };
-
-    console.log('API_URL:', API_URL);
-    console.log('Request:', req);
+    }
 
     try {
-        const res = await fetch(`${API_URL}/users/auth`, req);
+        console.log('entrando en loginUser')
+        const res = await fetch(`${API_URL}/users/auth`, req)
 
         if (!res.ok) {
-            const body = await res.json();
-            throw new Error(body.message);
+            const body = await res.json()
+            throw new Error(body.message)
         }
 
-        const { userId } = await res.json();  // Ahora debe coincidir con la respuesta del servidor
-        console.log('User ID received:', userId);
+    
+        const responseBody = await res.json()
+        console.log('Response JSON:', responseBody)
 
-        if (userId) {
-            await session.setSessionUserId(userId);
-        } else {
-            console.error('No userId in response');
+        
+        const { token } = responseBody
+        if (!token) {
+            throw new Error('Token is undefined or missing from response') 
         }
-        return userId;
+
+        console.log('Token received:', token)
+
+        
+        const payloadB64 = token.slice(token.indexOf('.') + 1, token.lastIndexOf('.'))
+        const payloadJson = atob(payloadB64)
+        const payload = JSON.parse(payloadJson)
+
+        const userId = payload.sub 
+
+        await session.setSessionUserId(userId)
+        await session.setSessionToken(token)
+
+   
     } catch (error) {
-        console.error('Fetch error:', error);
-        throw new Error(`Network request failed: ${error.message}`);
+        console.error('Error during login:', error)
+        throw new Error(`Login failed: ${error.message}`)
     }
 }
 
-export default loginUser;
-
-
-
+export default loginUser
