@@ -17,6 +17,7 @@ export default function AlarmsPage() {
         const fetchUserId = async () => {
             try {
                 const sessionUserId = await session.getSessionUserId()
+                const token = await session.getSessionToken() 
                 if (sessionUserId) {
                     setUserId(sessionUserId)
                     const name = await checkUser(sessionUserId)

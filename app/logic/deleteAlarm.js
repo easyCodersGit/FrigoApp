@@ -1,6 +1,12 @@
 import { API_URL } from '@env'
+import session from './session'
 
 async function deleteAlarm(userId, alarmId) {
+    const token = await session.getSessionToken() 
+
+    if (!token) {
+        throw new Error('No token found')
+    }
 
     if (!userId || !alarmId) {
         console.error('user ID and alarmId are required')
@@ -11,6 +17,7 @@ async function deleteAlarm(userId, alarmId) {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` 
         }
     }
 

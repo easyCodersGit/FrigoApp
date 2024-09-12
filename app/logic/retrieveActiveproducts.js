@@ -3,10 +3,17 @@ import { API_URL } from '@env'
 import session from './session'
 
 async function retrieveActiveProducts(userId) {
+    const token = await session.getSessionToken() 
+
+    if (!token) {
+        throw new Error('No token found')
+    }
+
     const req = {
         method: 'GET',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` 
         },
    
     }

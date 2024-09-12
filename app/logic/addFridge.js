@@ -1,10 +1,16 @@
 
 import { API_URL } from '@env'
 
-
+import session from './session'
 
 
 async function addFridge(userId, name, colorFridge) {
+    const token = await session.getSessionToken() 
+
+    if (!token) {
+        throw new Error('No token found')
+    }
+
     if (!userId || !name || !colorFridge) {
         console.error('User ID and fridge name are required')
         throw new Error('User ID and fridge name are required')
@@ -14,6 +20,7 @@ async function addFridge(userId, name, colorFridge) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` 
         },
         body: JSON.stringify({ name, colorFridge }),
     }

@@ -27,7 +27,10 @@ export function Main() {
             const guestEmail = 'guest@example.com'
             const guestPassword = 'guestpassword123'
 
+            console.log('Attempting guest login')
+
             await loginUser(guestEmail, guestPassword)
+            //console.log('Guest login successful, token received:', token)
             setMessage('Guest login successful!')
             router.push('/Home')
         } catch (error) {

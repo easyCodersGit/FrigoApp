@@ -5,10 +5,12 @@ import { API_URL } from '@env'
 import session from './session'
 
 async function retrieveUserAlarms(userId) {
+    const token = await session.getSessionToken() 
     const req = {
         method: 'GET',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` 
         },
    
     }
