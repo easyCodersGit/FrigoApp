@@ -32,32 +32,7 @@ export default function Home() {
 
    let sessionUserId
 
-    // useEffect(() => {
-    //     const fetchUserData = async () => {
-    //         try {
-    //             sessionUserId = await session.getSessionUserId()
-    //             console.log('Retrieved userId from session:', sessionUserId)
-
-    //             if (sessionUserId) {
-    //                 setUserId(sessionUserId)
-    //                 const name = await checkUser(sessionUserId)
-    //                 setUserName(name)
-
-    //                 const alarmStatusChecked = await checkStatusAlarm(sessionUserId)
-    //                 setHasActiveAlarms(alarmStatusChecked)
-
-    //             } else {
-    //                 console.error('No userId found in session')
-    //             }
-    //         } catch (error) {
-    //             console.error('Error fetching user data:', error)
-    //         } finally {
-    //             setLoading(false)
-    //         }
-    //     }
-
-    //     fetchUserData()
-    // }, [])
+  
 
     useEffect(() => {
         const fetchUserData = async () => {

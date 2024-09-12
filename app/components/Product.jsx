@@ -75,7 +75,7 @@ function Product({ product, drawerId, onProductDeleted, onProductEdited, onAlarm
             setShowEditProduct(false)
             setMenuVisible(false)
             onProductEdited()
-            updateAlarmStatus()
+            //updateAlarmStatus()
             console.log('Product edited successfully')
         } catch (error) {
             console.error('Error editing product:', error)

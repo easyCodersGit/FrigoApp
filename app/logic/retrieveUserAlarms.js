@@ -6,6 +6,11 @@ import session from './session'
 
 async function retrieveUserAlarms(userId) {
     const token = await session.getSessionToken() 
+
+    if (!token) {
+        throw new Error('No token found')
+    }
+    
     const req = {
         method: 'GET',
         headers: {
