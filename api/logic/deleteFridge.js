@@ -1,6 +1,7 @@
-import { Fridge, User, Drawer, Product } from '../data/models.js'
+import { Fridge, User, Drawer, Product, Alarm } from '../data/models.js'
 
 import { errors, validate } from "com"
+import deleteDrawer from './deleteDrawer.js'
 
 const { NotFoundError, SystemError } = errors
 
@@ -23,13 +24,11 @@ async function deleteFridge(fridgeId, userId) {
             throw new CredentialsError('Fridge not found in user fridges')
         }
 
-        for (const drawerId of fridge.drawers){
-            const drawer = await Drawer.findById(drawerId).lean()
-            if (drawer && drawer.length > 0){
-                await Product.deleteMany({ _id: { $in: drawer.products } })
-            }
-
-            await Drawer.findByIdAndDelete(drawerId)
+        const { drawers } = fridge
+        for (const drawerId of drawers) {
+           
+            
+            await deleteDrawer(fridgeId, drawerId.toString())  
         }
 
         const fridgeName = fridge.name

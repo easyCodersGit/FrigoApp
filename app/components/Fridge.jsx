@@ -90,12 +90,15 @@ const styles = StyleSheet.create({
         width: Platform.OS === 'web' ? 400 : '95%',
         height: Platform.OS === 'web' ? 500 : 450,
         alignItems: 'center',
+        justifyContent: 'center'
     },
     nameOverlay: {
         position: 'absolute',
         top: Platform.OS === 'web' ? '35%' : '20%',
         right: 110,
         borderRadius: 5,
+        alignItems: 'center', // Alinea horizontalmente
+        justifyContent: 'center'
     },
     detailsOverlay: {
         position: 'absolute',
@@ -111,6 +114,7 @@ const styles = StyleSheet.create({
         color: '#fff',
         marginBottom: 5,
         textAlign: 'center',
+  
     },
     fridgeOwner: {
         fontSize: 14,

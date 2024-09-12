@@ -54,7 +54,7 @@ function Product({ product, drawerId, onProductDeleted, onProductEdited, onAlarm
             setAlertVisible(false)
             setMenuVisible(false)
             onProductDeleted()
-            updateAlarmStatus()
+            //updateAlarmStatus()
             console.log(`Product '${productName}' deleted successfully`)
         } catch (error) {
             console.error('Error deleting product:', error)
@@ -96,6 +96,7 @@ function Product({ product, drawerId, onProductDeleted, onProductEdited, onAlarm
             setMenuVisible(false)
             onAlarmAdded()
            // updateAlarmStatus()
+           alert('Success', 'Alarm added successfully!')
             console.log('Alarm added successfully')
         } catch (error) {
             console.error('Error adding alarm:', error)
