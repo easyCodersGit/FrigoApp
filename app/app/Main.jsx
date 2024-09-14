@@ -25,7 +25,7 @@ export function Main() {
         try {
           
             const guestEmail = 'guest@example.com'
-            const guestPassword = 'guestpassword123'
+            const guestPassword = 'password123'
 
             console.log('Attempting guest login')
 
