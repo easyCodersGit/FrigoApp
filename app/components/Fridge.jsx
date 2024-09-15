@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     },
     deleteButtonContainer: {
         position: 'relative',
-        bottom: -350,
+        bottom: -150,
         right: 10,
     },
 })

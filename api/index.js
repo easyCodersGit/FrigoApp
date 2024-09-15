@@ -32,7 +32,8 @@ import {
     deleteAlarmHandler,
     incrementProductHandler,
     decrementproductHandler,
-    retrieveActiveProductHandler
+    retrieveActiveProductHandler,
+    changeEmailHandler
 
 } from './handlers/index.js'
 
@@ -53,6 +54,9 @@ mongoose.connect(process.env.MONGODB_URL)
 
         // Retrieve User
         server.get('/users/:userId', retrieveUserHandler)
+
+        // Change User email
+        server.patch('/users/:userId/change-email', changeEmailHandler)
 
         // Authenticate User
         server.post('/users/auth', jsonBodyParser, authenticateUserHandler)

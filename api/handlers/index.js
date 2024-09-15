@@ -21,6 +21,7 @@ import deleteAlarmHandler from "./deleteAlarmHandler.js"
 import incrementProductHandler from "./incrementProductHandler.js"
 import decrementproductHandler from "./decrementproductHandler.js"
 import retrieveActiveProductHandler from "./retrieveActiveProductHandler.js"
+import changeEmailHandler from "./changeEmailHandler.js"
 
 
 
@@ -47,6 +48,7 @@ export {
     deleteAlarmHandler,
     incrementProductHandler,
     decrementproductHandler,
-    retrieveActiveProductHandler
+    retrieveActiveProductHandler,
+    changeEmailHandler
 
 }
