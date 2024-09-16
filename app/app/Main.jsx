@@ -24,7 +24,7 @@ export function Main() {
     const handleGuest = async () => {
         try {
           
-            const guestEmail = 'guest@example.com'
+            const guestEmail = 'guest@email.com'
             const guestPassword = 'password123'
 
             console.log('Attempting guest login')

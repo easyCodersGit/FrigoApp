@@ -33,7 +33,8 @@ import {
     incrementProductHandler,
     decrementproductHandler,
     retrieveActiveProductHandler,
-    changeEmailHandler
+    changeEmailHandler,
+    changePasswordHandler
 
 } from './handlers/index.js'
 
@@ -57,6 +58,9 @@ mongoose.connect(process.env.MONGODB_URL)
 
         // Change User email
         server.patch('/users/:userId/change-email', changeEmailHandler)
+
+         // Change User password
+         server.patch('/users/:userId/change-password', changePasswordHandler)
 
         // Authenticate User
         server.post('/users/auth', jsonBodyParser, authenticateUserHandler)
