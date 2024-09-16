@@ -24,13 +24,13 @@ export function Main() {
     const handleGuest = async () => {
         try {
           
-            const guestEmail = 'guest@email.com'
-            const guestPassword = 'password123'
+            const guestEmail = 'guestUser@email.com'
+            const guestPassword = 'pass123word'
 
             console.log('Attempting guest login')
 
             await loginUser(guestEmail, guestPassword)
-            //console.log('Guest login successful, token received:', token)
+            
             setMessage('Guest login successful!')
             router.push('/Home')
         } catch (error) {
