@@ -126,7 +126,7 @@ function FridgeMain() {
                 </Pressable>
            
 
-            <Link asChild href="/about">
+            <Link asChild href="/Profile">
                 <Pressable style={styles.iconButton}>
                     <OptionsIcon />
                 </Pressable>

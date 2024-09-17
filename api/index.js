@@ -32,7 +32,10 @@ import {
     deleteAlarmHandler,
     incrementProductHandler,
     decrementproductHandler,
-    retrieveActiveProductHandler
+    retrieveActiveProductHandler,
+    changeEmailHandler,
+    changePasswordHandler,
+    deleteGuestFridgeHandler
 
 } from './handlers/index.js'
 
@@ -54,6 +57,12 @@ mongoose.connect(process.env.MONGODB_URL)
         // Retrieve User
         server.get('/users/:userId', retrieveUserHandler)
 
+        // Change User email
+        server.patch('/users/:userId/change-email', changeEmailHandler)
+
+         // Change User password
+         server.patch('/users/:userId/change-password', changePasswordHandler)
+
         // Authenticate User
         server.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 
@@ -62,6 +71,9 @@ mongoose.connect(process.env.MONGODB_URL)
 
         // Delete Fridge
         server.delete('/users/:userId/fridges/:fridgeId', deleteFridgeHandler)
+
+        // Delete Guest Fridges
+        server.delete('/users/:userId/fridges', deleteGuestFridgeHandler)
 
         // Retrieve User Fridges
         server.get('/users/:userId/fridges', retrieveUserFridgesHandler)

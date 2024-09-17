@@ -1,4 +1,4 @@
-import { Drawer, Fridge, Product } from "../data/models.js"
+import { Drawer, Fridge, Product, Alarm } from "../data/models.js"
 
 import { errors, validate } from "com"
 
@@ -26,6 +26,7 @@ async function deleteDrawer(fridgeId, drawerId) {
         }
 
         if (drawer.products.length > 0) {
+            await Alarm.deleteMany({ product: { $in: drawer.products } })
             await Product.deleteMany({ _id: { $in: drawer.products } })
         }
 

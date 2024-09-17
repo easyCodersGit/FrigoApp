@@ -13,6 +13,8 @@ async function loginUser(email, password) {
 
     try {
         console.log('entrando en loginUser')
+        console.log('Connecting to:', `${API_URL}/users/auth`)
+
         const res = await fetch(`${API_URL}/users/auth`, req)
 
         if (!res.ok) {

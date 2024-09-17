@@ -1,9 +1,8 @@
 
 import React, { useState, useEffect } from 'react'
-import { useRouter, Link } from 'expo-router'
-import { View, Text, StyleSheet, Modal, Alert, Pressable, ImageBackground, Platform, SafeAreaView } from 'react-native'
-
-import { CircleInfoIcon, OptionsIcon, SearchIcon, LogoutIcon, AlarmIcon, ShopIcon } from '../components/icons'
+import { useRouter, useLocalSearchParams, Link } from 'expo-router'
+import { View, Text, StyleSheet, Modal, Pressable } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import session from '../logic/session'
 import checkUser from '../logic/checkUser'
@@ -14,55 +13,54 @@ import NewFridge from '../components/NewFridge'
 import CustomInput from '../library/CustomInput'
 import searchProduct from '../logic/searchproduct'
 import checkStatusAlarm from '../logic/checkStatusAlarm'
+import deleteGuestFridge from '../logic/deleteGuestFridge'
+import logoutUser from '../logic/logoutUser'
 import { AlarmIconWithBadge } from '../library/AlarmIconWithBadge'
-
+import { CircleInfoIcon, OptionsIcon, SearchIcon, LogoutIcon, AlarmIcon, ShopIcon} from '../components/icons'
 
 export default function Home() {
+    const { guestModalVisible: guestModalVisibleParam } = useLocalSearchParams()
     const [userName, setUserName] = useState('')
     const [userId, setUserId] = useState(null)
     const [loading, setLoading] = useState(true)
-    const [hasActiveAlarms, setHasActiveAlarms] = useState(false) 
+    const [hasActiveAlarms, setHasActiveAlarms] = useState(false)
     const [showAddFridge, setShowAddFridge] = useState(false)
     const [fridgeRefreshFlag, setFridgeRefreshFlag] = useState(false)
     const [searchQuery, setSearchQuery] = useState('')
     const [searchResult, setSearchResult] = useState(null)
+    const [guestModalVisible, setGuestModalVisible] = useState(guestModalVisibleParam === 'true')
     const [showModal, setShowModal] = useState(false)
-
+    
     const router = useRouter()
-
-   let sessionUserId
-
-  
 
     useEffect(() => {
         const fetchUserData = async () => {
             try {
                 console.log('Fetching session userId and token')
                 const sessionUserId = await session.getSessionUserId()
-                const token = await session.getSessionToken() 
-    
+                const token = await session.getSessionToken()
+
                 if (!token) {
                     console.error('No token found in session')
                     return
                 }
-    
+
                 if (sessionUserId) {
                     setUserId(sessionUserId)
-                    console.log('Retrieved userId from session:', sessionUserId)
-    
-                    // Pasa el token a checkUser y otras funciones protegidas
-                    console.log('Calling checkUser with userId and token:', sessionUserId, token)
+
                     const name = await checkUser(sessionUserId, token)
-                    console.log('User name retrieved:', name)
                     setUserName(name)
-    
-                    console.log('Calling checkStatusAlarm with userId and token:', sessionUserId, token)
+
+                    
+                    if (sessionUserId === '66cb11d2a7f1c48e5602c7a1' && !await AsyncStorage.getItem('guestModalShown')) {
+                        console.log('Guest session started, showing modal')
+                        await session.setSessionStartTime(Date.now().toString())
+                        setGuestModalVisible(true)
+                        await AsyncStorage.setItem('guestModalShown', 'true')
+                    }
+
                     const alarmStatusChecked = await checkStatusAlarm(sessionUserId, token)
                     setHasActiveAlarms(alarmStatusChecked)
-                    console.log('Alarm status checked:', alarmStatusChecked)
-    
-                } else {
-                    console.error('No userId found in session')
                 }
             } catch (error) {
                 console.error('Error fetching user data:', error)
@@ -70,23 +68,34 @@ export default function Home() {
                 setLoading(false)
             }
         }
-    
+
         fetchUserData()
     }, [])
-    
 
-    const handleAddFridgeSuccess = () => {
-        console.log('handleAddFridgeSuccess called')
-        setFridgeRefreshFlag(!fridgeRefreshFlag) // Toggle para actualizar el componente Fridges
-        setShowAddFridge(false) // Cierra el modal
+    const resetToInitialState = async () => {
+        console.log('Entrando a reset state')
+
+        alert('Your time is up! We hope you enjoyed trying out the app. Please register to enjoy all features without restrictions.')
+
+        try {
+            await deleteGuestFridge('66cb11d2a7f1c48e5602c7a1')
+            await session.removeSessionStartTime()
+            await logoutUser()
+            await AsyncStorage.removeItem('guestModalShown')
+            setTimeout(() => {
+                router.push('/')
+            }, 3000)
+        } catch (error) {
+            console.error('Error resetting to initial state:', error)
+        }
     }
 
-    const handleCancelAddFridge = () => {
+    const handleAddFridgeSuccess = () => {
+        setFridgeRefreshFlag(!fridgeRefreshFlag)
         setShowAddFridge(false)
     }
 
     const handleSearchProduct = async () => {
-
         try {
             const result = await searchProduct(userId, searchQuery)
             setSearchResult(result)
@@ -96,43 +105,37 @@ export default function Home() {
         } finally {
             setShowModal(true)
         }
-
-
     }
 
     const closeModal = () => {
         setShowModal(false)
     }
 
+    const closeGuestModal = () => {
+        setGuestModalVisible(false)
+    }
+
     return (
         <View style={styles.container}>
-             {/* <SafeAreaView style={{ flex: 1 }}> */}
             <BackgroundImage />
             <View style={styles.buttonContainer}>
-
-               
-
-            <View style={styles.searchContainer}>
+                <View style={styles.searchContainer}>
                     <CustomInput
                         value={searchQuery}
                         onChangeText={setSearchQuery}
                         placeholder="Search product..."
                         style={styles.searchInput}
                     />
-                   
-                        <Pressable style={styles.iconSearchButton} onPress={handleSearchProduct}>
-                            <SearchIcon />
-                        </Pressable>
-                   
+                    <Pressable style={styles.iconSearchButton} onPress={handleSearchProduct}>
+                        <SearchIcon />
+                    </Pressable>
                 </View>
 
                 <View style={styles.rightIcons}>
-
                     <Pressable
                         style={styles.iconButton}
                         onPress={() => router.push({ pathname: '/AlarmsPage', params: { userId } })}
                     >
-                       
                         <AlarmIconWithBadge hasActiveAlarms={hasActiveAlarms} />
                     </Pressable>
 
@@ -142,14 +145,20 @@ export default function Home() {
                         </Pressable>
                     </Link>
 
-                    <Link asChild href="/about">
+                    <Link asChild href="/Profile">
                         <Pressable style={styles.iconButton}>
                             <OptionsIcon />
                         </Pressable>
                     </Link>
 
                     <Link asChild href="/">
-                        <Pressable style={styles.iconButton}>
+                        <Pressable
+                            style={styles.iconButton}
+                            onPress={async () => {
+                                await logoutUser();
+                                router.push('/');
+                            }}
+                        >
                             <LogoutIcon />
                         </Pressable>
                     </Link>
@@ -166,7 +175,6 @@ export default function Home() {
                         <Text style={styles.errorText}>Error loading user data</Text>
                     )}
 
-                    {/* Renderiza las neveras si userId está disponible */}
                     {userId && <Fridges userId={userId} refresh={fridgeRefreshFlag} hasActiveAlarms={hasActiveAlarms} />}
 
                     <ButtonSecondary
@@ -179,50 +187,65 @@ export default function Home() {
                         animationType="slide"
                         onRequestClose={() => setShowAddFridge(false)}
                     >
-                        <NewFridge userId={userId} onAddFridge={handleAddFridgeSuccess} onCancelAddFridge={handleCancelAddFridge} />
+                        <NewFridge userId={userId} onAddFridge={handleAddFridgeSuccess} onCancelAddFridge={() => setShowAddFridge(false)} />
                     </Modal>
 
-                    {/* Modal para mostrar los resultados de la búsqueda */}
                     <Modal
-                visible={showModal}
-                animationType="slide"
-                onRequestClose={closeModal}
-            >
-                <View style={styles.modalContainer}>
-                <BackgroundImage />
-                    <Text style={styles.modalTitle}>Search Results</Text>
-                    {searchResult ? (
-                        <View>
-                             
-                            {searchResult.data && searchResult.data.length > 0 ? (
-                                searchResult.data.map((item, index) => (
-                                    <View key={index} style={styles.resultItem}>
-                                        <Text style={styles.modalText}>Fridge Name: {item.fridge}</Text>
-                                        <Text style={styles.modalText}>Drawer: {item.drawer}</Text>
-                                        {/* <Text style={styles.modalText}>Product: {item.product}</Text> */}
-                                        <Text style={styles.modalText}>Quantity: {item.quantity}</Text>
-                                    </View>
-                                ))
-                            ) : (
-                                <Text style={styles.modalText}>{searchResult.message || 'No results found'}</Text>
-                            )}
-                            
+                        visible={guestModalVisible}
+                        animationType="slide"
+                        onRequestClose={closeGuestModal}
+                        transparent={true}
+                    >
+                        <View style={styles.guestModalOverlay}>
+                            <View style={styles.guestModalContent}>
+                                <Text style={styles.modalTitle}>Welcome, Guest User!</Text>
+                                <Text style={styles.modalText}>
+                                    You have 15 minutes to explore and try out the app. During this time, you can create fridges, drawers, add food items, and set alarms. However, when the time runs out, all the changes you’ve made will be lost.
+                                </Text>
+                                <Text style={styles.modalText}>
+                                    You will not be able to delete the pre-existing "Guest Fridge" fridge, nor the drawers and food items it contains. But feel free to delete anything new that you create.
+                                </Text>
+                                <Pressable style={styles.modalButton} onPress={closeGuestModal}>
+                                    <Text style={styles.modalButtonText}>Got it!</Text>
+                                </Pressable>
+                            </View>
                         </View>
+                    </Modal>
 
-                        
-                    ) : (
-                        <Text style={styles.modalText}>No results found</Text>
-                    )}
-                    <Pressable style={styles.modalButton} onPress={closeModal}>
-                        <Text style={styles.modalButtonText}>Close</Text>
-                    </Pressable>
-                </View>
-            </Modal>
+                    <Modal
+                        visible={showModal}
+                        animationType="slide"
+                        onRequestClose={closeModal}
+                    >
+                        <View style={styles.modalContainer}>
+                            <BackgroundImage />
+                            <Text style={styles.modalTitle}>Search Results</Text>
+                            {searchResult ? (
+                                <View>
+                                    {searchResult.data && searchResult.data.length > 0 ? (
+                                        searchResult.data.map((item, index) => (
+                                            <View key={index} style={styles.resultItem}>
+                                                <Text style={styles.modalText}>Fridge Name: {item.fridge}</Text>
+                                                <Text style={styles.modalText}>Drawer: {item.drawer}</Text>
+                                                <Text style={styles.modalText}>Quantity: {item.quantity}</Text>
+                                            </View>
+                                        ))
+                                    ) : (
+                                        <Text style={styles.modalText}>{searchResult.message || 'No results found'}</Text>
+                                    )}
+                                </View>
+                            ) : (
+                                <Text style={styles.modalText}>No results found</Text>
+                            )}
+                            <Pressable style={styles.modalButton} onPress={closeModal}>
+                                <Text style={styles.modalButtonText}>Close</Text>
+                            </Pressable>
+                        </View>
+                    </Modal>
                 </>
             )}
-            {/* </SafeAreaView> */}
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -236,44 +259,40 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#333',
         paddingTop: 20,
-        paddingBottom: 10
+        paddingBottom: 10,
     },
     errorText: {
         fontSize: 18,
         color: 'red',
         marginTop: 10,
     },
-
     buttonContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        width: '100%', 
-        paddingHorizontal: 20, 
-    
+        width: '100%',
+        paddingHorizontal: 20,
     },
-
     searchContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         flex: 1,
-        paddingRight: 60
+        paddingRight: 60,
     },
     rightIcons: {
-        flexDirection: 'row', 
-        alignItems: 'center', 
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     iconButton: {
-        marginHorizontal: 10, 
+        marginHorizontal: 10,
     },
     iconSearchButton: {
         marginLeft: 5,
     },
     searchInput: {
         flex: 1,
-        marginRight: 5, 
+        marginRight: 5,
     },
-
     modalContainer: {
         flex: 1,
         justifyContent: 'center',
@@ -302,6 +321,17 @@ const styles = StyleSheet.create({
         color: '#FFF',
         fontSize: 16,
     },
-   
+    guestModalOverlay: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    guestModalContent: {
+        width: '80%',
+        backgroundColor: '#fff',
+        padding: 20,
+        borderRadius: 10,
+        alignItems: 'center',
+    },
 })
-

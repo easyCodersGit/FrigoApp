@@ -3,18 +3,18 @@ dotenv.config()
 
 import mongoose from 'mongoose'
 
-import retrieveUserFridges from './retrieveUserFridges.js'
+import changePassword from './changePassword.js'
 
 (async () => {
     await mongoose.connect(process.env.MONGODB_URL)
 
     try {
-        const userFridges = await retrieveUserFridges('66cb11d2a7f1c48e5602c7a1')
-        console.log('Las neveras son estas', userFridges)
+         await changePassword('66cb11d2a7f1c48e5602c7a1', 'password123', 'password123', 'guestpassword123' )
+         console.log('password changed')
+       
     } catch (error) {
 
         console.log(error)
 
     }
 })()
-
