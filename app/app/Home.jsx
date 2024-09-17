@@ -77,8 +77,8 @@ export default function Home() {
 
     const handleAddFridgeSuccess = () => {
         console.log('handleAddFridgeSuccess called')
-        setFridgeRefreshFlag(!fridgeRefreshFlag) // Toggle para actualizar el componente Fridges
-        setShowAddFridge(false) // Cierra el modal
+        setFridgeRefreshFlag(!fridgeRefreshFlag) 
+        setShowAddFridge(false) 
     }
 
     const handleCancelAddFridge = () => {
@@ -142,7 +142,7 @@ export default function Home() {
                         </Pressable>
                     </Link>
 
-                    <Link asChild href="/about">
+                    <Link asChild href="/Profile">
                         <Pressable style={styles.iconButton}>
                             <OptionsIcon />
                         </Pressable>
