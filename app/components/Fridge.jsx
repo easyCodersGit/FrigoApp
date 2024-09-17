@@ -57,13 +57,15 @@ function Fridge(props) {
                         <Text style={styles.fridgeName}>{fridge.name}</Text>
                     </View>
                     <View style={styles.detailsOverlay}>
-                        <Text style={styles.fridgeOwner}>Drawers: {fridge.drawers.length}</Text>
+              
                     </View>
                     <View style={styles.deleteButtonContainer}>
-                        <ButtonBlue
-                            label="Delete"
-                            onPress={() => setAlertVisible(true)}
-                        />
+                        {fridge.id !== "66e5326f68d67ea67715df38" && (
+                            <ButtonBlue
+                                label="Delete"
+                                onPress={() => setAlertVisible(true)}
+                            />
+                        )}
                     </View>
                 </ImageBackground>
             </Pressable>

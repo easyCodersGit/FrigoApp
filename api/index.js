@@ -34,7 +34,8 @@ import {
     decrementproductHandler,
     retrieveActiveProductHandler,
     changeEmailHandler,
-    changePasswordHandler
+    changePasswordHandler,
+    deleteGuestFridgeHandler
 
 } from './handlers/index.js'
 
@@ -70,6 +71,9 @@ mongoose.connect(process.env.MONGODB_URL)
 
         // Delete Fridge
         server.delete('/users/:userId/fridges/:fridgeId', deleteFridgeHandler)
+
+        // Delete Guest Fridges
+        server.delete('/users/:userId/fridges', deleteGuestFridgeHandler)
 
         // Retrieve User Fridges
         server.get('/users/:userId/fridges', retrieveUserFridgesHandler)

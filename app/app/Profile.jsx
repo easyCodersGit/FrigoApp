@@ -160,11 +160,14 @@ export default function Profile(){
 
             <Text style={styles.welcomeText}>Options, {userName} </Text>
 
-
-            <View style={styles.buttonContainer}>
-                <ButtonSecondary label="CHANGE EMAIL" onPress={() => setEmailModalVisible(true)} />
-                <ButtonSecondary label="CHANGE PASSWORD" onPress={() => setPasswordModalVisible(true)} />
-            </View>
+            {userId === "66cb11d2a7f1c48e5602c7a1" ? (
+                <Text style={styles.warningText}>Guest user does not have access to the control panel</Text>
+            ) : (
+                <View style={styles.buttonContainer}>
+                    <ButtonSecondary label="CHANGE EMAIL" onPress={() => setEmailModalVisible(true)} />
+                    <ButtonSecondary label="CHANGE PASSWORD" onPress={() => setPasswordModalVisible(true)} />
+                </View>
+            )}
 
             {/* Modal para cambiar el email */}
             <Modal

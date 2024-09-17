@@ -23,6 +23,8 @@ import decrementProduct from "./decrementProduct.js"
 import retrieveActiveProducts from "./retrieveActiveProducts.js"
 import changeEmail from "./changeEmail.js"
 import changePassword from "./changePassword.js"
+import deleteGuestFridge from "./deleteGuestFridges.js"
+import deleteGuestDrawers from "./deleteGuestDrawers.js"
 
 
 
@@ -52,7 +54,9 @@ const logic = {
     decrementProduct,
     retrieveActiveProducts,
     changeEmail,
-    changePassword
+    changePassword,
+    deleteGuestFridge,
+    deleteGuestDrawers
 }
 
 export default logic
