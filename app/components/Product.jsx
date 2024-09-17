@@ -148,7 +148,7 @@ function Product({ product, drawerId, onProductDeleted, onProductEdited, onAlarm
                 </Pressable>
         </View>
 
-            {menuVisible && (
+            {/* {menuVisible && (
                 <View style={styles.menuContainer}>
                     <Pressable onPress={() => setAlertVisible(true)} style={styles.menuItem}>
                         <Text style={styles.menuText}>Delete</Text>
@@ -160,6 +160,25 @@ function Product({ product, drawerId, onProductDeleted, onProductEdited, onAlarm
 
                     <Pressable onPress={() => setShowAddAlarm(true)} style={styles.menuItem}>
                         <Text style={styles.menuText}>Add Alarm</Text>
+                    </Pressable>
+                </View>
+            )} */}
+
+            {menuVisible && (
+                <View style={styles.menuContainer}>
+      
+                    {product._id !== "66e8739162c67143ccfd4033" && product._id !== "66e873d562c67143ccfd4056" && product._id !== "66e873b362c67143ccfd4046" && product._id !== "66e873c562c67143ccfd404c" && (
+                    <Pressable onPress={() => setAlertVisible(true)} style={styles.menuItem}>
+                         <Text style={styles.menuText}>Delete</Text>
+                    </Pressable>
+                    )}
+
+                     <Pressable onPress={() => setShowEditProduct(true)} style={styles.menuItem}>
+                         <Text style={styles.menuText}>Edit</Text>
+                    </Pressable>
+
+                     <Pressable onPress={() => setShowAddAlarm(true)} style={styles.menuItem}>
+                         <Text style={styles.menuText}>Add Alarm</Text>
                     </Pressable>
                 </View>
             )}

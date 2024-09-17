@@ -23,6 +23,7 @@ import decrementproductHandler from "./decrementproductHandler.js"
 import retrieveActiveProductHandler from "./retrieveActiveProductHandler.js"
 import changeEmailHandler from "./changeEmailHandler.js"
 import changePasswordHandler from "./changePasswordHandler.js"
+import deleteGuestFridgeHandler from "./deleteGuestFridgeHandler.js"
 
 
 
@@ -51,6 +52,7 @@ export {
     decrementproductHandler,
     retrieveActiveProductHandler,
     changeEmailHandler,
-    changePasswordHandler
+    changePasswordHandler,
+    deleteGuestFridgeHandler
 
 }

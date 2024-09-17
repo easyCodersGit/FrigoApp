@@ -13,6 +13,7 @@ export function Main() {
     const [password, setPassword] = useState('')
     const [message, setMessage] = useState('')
     const [isPressed, setIsPressed] = useState(false)
+    const [guestModalVisible, setGuestModalVisible] = useState(false)
 
     const router = useRouter()
 
@@ -24,15 +25,17 @@ export function Main() {
     const handleGuest = async () => {
         try {
           
-            const guestEmail = 'guestUser@email.com'
-            const guestPassword = 'pass123word'
+            const guestEmail = 'guest@email.com'
+            const guestPassword = 'password123'
 
             console.log('Attempting guest login')
 
             await loginUser(guestEmail, guestPassword)
-            
+
             setMessage('Guest login successful!')
-            router.push('/Home')
+            setGuestModalVisible(true);  // Aquí activas el modal
+            router.push({ pathname: '/Home', params: { guestModalVisible: true } })
+
         } catch (error) {
             console.error('Error logging in as guest:', error)
         }
@@ -97,11 +100,11 @@ export function Main() {
                 </ImageBackground>
             </View>
 
-            <Link asChild href="/about">
+            {/* <Link asChild href="/about">
                 <Pressable>
                     <CircleInfoIcon />
                 </Pressable>
-            </Link>
+            </Link> */}
         </View>
     )
 }

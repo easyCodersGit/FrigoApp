@@ -86,7 +86,101 @@ const session = {
             console.error('Error getting token:', error)
             return null
         }
-    }
+    },
+
+    async setSessionState(state) {
+        try {
+            if (isWeb) {
+                console.log('Saving state to sessionStorage')
+                sessionStorage.setItem('initialState', state)
+            } else {
+                console.log('Saving state to AsyncStorage')
+                await AsyncStorage.setItem('initialState', state)
+            }
+        } catch (error) {
+            console.error('Error setting session state:', error)
+        }
+    },
+
+    async getSessionState() {
+        try {
+            if (isWeb) {
+                const state = sessionStorage.getItem('initialState')
+                console.log('Retrieved state from sessionStorage:', state)
+                return state ? state : null
+            } else {
+                const state = await AsyncStorage.getItem('initialState')
+                console.log('Retrieved state from AsyncStorage:', state)
+                return state ? state : null
+            }
+        } catch (error) {
+            console.error('Error getting session state:', error)
+            return null
+        }
+    },
+
+    async setSessionStartTime(startTime) {
+        try {
+            if (isWeb) {
+                console.log('Saving session start time to sessionStorage')
+                sessionStorage.setItem('sessionStartTime', startTime)
+            } else {
+                console.log('Saving session start time to AsyncStorage')
+                await AsyncStorage.setItem('sessionStartTime', startTime)
+            }
+        } catch (error) {
+            console.error('Error setting session start time:', error)
+        }
+    },
+
+    async getSessionStartTime() {
+        try {
+            if (isWeb) {
+                const startTime = sessionStorage.getItem('sessionStartTime')
+                console.log('Retrieved session start time from sessionStorage:', startTime)
+                return startTime ? startTime : null
+            } else {
+                const startTime = await AsyncStorage.getItem('sessionStartTime')
+                console.log('Retrieved session start time from AsyncStorage:', startTime)
+                return startTime ? startTime : null
+            }
+        } catch (error) {
+            console.error('Error getting session start time:', error)
+            return null
+        }
+    },
+
+    async removeSessionStartTime() {
+        try {
+            if (isWeb) {
+                console.log('Removing session start time from sessionStorage')
+                sessionStorage.removeItem('sessionStartTime')
+            } else {
+                console.log('Removing session start time from AsyncStorage')
+                await AsyncStorage.removeItem('sessionStartTime')
+            }
+        } catch (error) {
+            console.error('Error removing session start time:', error)
+        }
+    },
+
+    async removeSessionState() {
+        try {
+            if (isWeb) {
+                console.log('Removing state from sessionStorage')
+                sessionStorage.removeItem('initialState')
+            } else {
+                console.log('Removing state from AsyncStorage')
+                await AsyncStorage.removeItem('initialState')
+            }
+        } catch (error) {
+            console.error('Error removing session state:', error)
+        }
+    },
+
+
+
+
 }
 
 export default session

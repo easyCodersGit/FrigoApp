@@ -57,7 +57,7 @@ export default function AlarmsPage() {
                                     <ShopIcon />
                                 </Pressable>
                             </Link>
-                            <Link asChild href="/about">
+                            <Link asChild href="/Profile">
                                 <Pressable style={styles.iconButton}>
                                     <OptionsIcon />
                                 </Pressable>

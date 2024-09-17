@@ -79,9 +79,11 @@ function Drawer(props) {
                     ))}
                 </View>
                 
-                <Pressable onPress={() => setAlertVisible(true)} style={styles.button}>
-                    <Text style={styles.buttonText}>Delete Drawer</Text>
-                </Pressable>
+                {drawer._id !== "66e8737d62c67143ccfd4013" && drawer._id !== "66e873a262c67143ccfd403b" && (
+                    <Pressable onPress={() => setAlertVisible(true)} style={styles.button}>
+                         <Text style={styles.buttonText}>Delete Drawer</Text>
+                    </Pressable>
+                )}
 
                 <CustomAlert
                     visible={alertVisible}

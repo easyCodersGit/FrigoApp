@@ -17,6 +17,8 @@ import checkStatusAlarm from "./checkStatusAlarm"
 import deleteAlarm from "./deleteAlarm"
 import incrementProduct from "./incrementproduct"
 import decrementProduct from "./decrementProduct"
+import deleteGuestFridge from "./deleteGuestFridge"
+
 
 
 
@@ -39,7 +41,8 @@ const logic = {
     checkStatusAlarm,
     deleteAlarm,
     incrementProduct,
-    decrementProduct
+    decrementProduct,
+    deleteGuestFridge
 }
 
 export default logic
